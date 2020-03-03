@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1056349093466",
+    "firebase_url": "https://tripleonboarding.firebaseio.com",
+    "project_id": "tripleonboarding",
+    "storage_bucket": "tripleonboarding.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056349093466:android:0262dcc4eb5cd31557e263",
+        "android_client_info": {
+          "package_name": "com.wearetriple.tripleonboarding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056349093466-utnuvojrfjbcarj7poflfaukr16om4lo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQvK6hlI6lfZEW2hgYrkN3-0oFxdj_skU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1056349093466-utnuvojrfjbcarj7poflfaukr16om4lo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1056349093466-14gctdvm0isd33qeps1fd4btb4snfb42.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wearetriple.tripleonboarding"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
