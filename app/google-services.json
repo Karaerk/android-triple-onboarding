@@ -8,9 +8,53 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1056349093466:android:0262dcc4eb5cd31557e263",
+        "mobilesdk_app_id": "1:1056349093466:android:e5da6e2c804fd52557e263",
         "android_client_info": {
           "package_name": "com.wearetriple.tripleonboarding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056349093466-9g78idobh1d7elljghu88lneg8tncil1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wearetriple.tripleonboarding",
+            "certificate_hash": "36a57f8f6065dae7f5d48acd3d61e16b7ceb9edb"
+          }
+        },
+        {
+          "client_id": "1056349093466-utnuvojrfjbcarj7poflfaukr16om4lo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQvK6hlI6lfZEW2hgYrkN3-0oFxdj_skU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1056349093466-utnuvojrfjbcarj7poflfaukr16om4lo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1056349093466-84gmgq7s9fsije0n6gp7880c9r6uajiq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wearetriple.TripleOnboarding"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056349093466:android:58817a9ee77d050357e263",
+        "android_client_info": {
+          "package_name": "com.wearetriple.tripleonboardingapp"
         }
       },
       "oauth_client": [
@@ -32,10 +76,10 @@
               "client_type": 3
             },
             {
-              "client_id": "1056349093466-14gctdvm0isd33qeps1fd4btb4snfb42.apps.googleusercontent.com",
+              "client_id": "1056349093466-84gmgq7s9fsije0n6gp7880c9r6uajiq.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.wearetriple.tripleonboarding"
+                "bundle_id": "com.wearetriple.TripleOnboarding"
               }
             }
           ]
