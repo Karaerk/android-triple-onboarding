@@ -13,8 +13,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initViews()
+    }
+
+    private fun initViews() {
         btnInfo.setOnClickListener {
             val intent = Intent(this, InfoActivity::class.java)
+            startActivity(intent)
+        }
+        btnMap.setOnClickListener {
+            val intent = Intent(this, MapActivity::class.java)
             startActivity(intent)
         }
     }
