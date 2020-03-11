@@ -1,16 +1,17 @@
 package com.wearetriple.tripleonboarding.adapter
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wearetriple.tripleonboarding.R
-import com.wearetriple.tripleonboarding.data.InfoTopic
+import com.wearetriple.tripleonboarding.model.InfoTopic
 import kotlinx.android.synthetic.main.item_info_topic.view.*
 
-
+/**
+ * Used to prepare recyclerview's items.
+ */
 class InfoTopicAdapter(private val infoTopics: List<InfoTopic>) :
     RecyclerView.Adapter<InfoTopicAdapter.ViewHolder>() {
 
@@ -21,7 +22,7 @@ class InfoTopicAdapter(private val infoTopics: List<InfoTopic>) :
 
         fun bind(infoTopic: InfoTopic) {
             itemView.btnInfoTopic.text = infoTopic.title
-            itemView.btnInfoTopic.tag = infoTopic.id
+            itemView.btnInfoTopic.tag = infoTopic.key
             itemView.btnInfoTopic.setOnClickListener {
                 val tag: Int = it.tag as Int
 
@@ -29,10 +30,6 @@ class InfoTopicAdapter(private val infoTopics: List<InfoTopic>) :
 
                 dialogBuilder.setMessage(infoTopics[tag].content)
                     .setCancelable(false)
-                    // positive button text and action
-//                    .setPositiveButton("Proceed") { dialog, id ->
-////                        finish()
-//                    }
                     .setNegativeButton("Afsluiten") { dialog, id ->
                         dialog.cancel()
                     }
@@ -69,6 +66,5 @@ class InfoTopicAdapter(private val infoTopics: List<InfoTopic>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(infoTopics[position])
     }
-
 
 }

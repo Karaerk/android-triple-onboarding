@@ -18,6 +18,9 @@ class MapActivity : AppCompatActivity() {
         initViews()
     }
 
+    /**
+     * Prepares the views inside this activity.
+     */
     private fun initViews() {
         ivMap.setImage(ImageSource.resource(R.drawable.level_1))
         ivMap.setMinimumScaleType(SCALE_TYPE_CENTER_CROP)

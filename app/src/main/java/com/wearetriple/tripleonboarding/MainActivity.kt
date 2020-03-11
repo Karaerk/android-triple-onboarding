@@ -16,6 +16,9 @@ class MainActivity : AppCompatActivity() {
         initViews()
     }
 
+    /**
+     * Prepares the views inside this activity.
+     */
     private fun initViews() {
         btnInfo.setOnClickListener {
             val intent = Intent(this, InfoActivity::class.java)
