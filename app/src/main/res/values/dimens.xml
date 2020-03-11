@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="default_grid_btn_padding">24dp</dimen>
+    <dimen name="default_layout_padding">16dp</dimen>
     <dimen name="map_grid_btn_padding">18dp</dimen>
+    <dimen name="btn_map_level_size">70dp</dimen>
 </resources>

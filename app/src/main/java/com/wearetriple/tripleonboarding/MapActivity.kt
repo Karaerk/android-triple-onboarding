@@ -33,7 +33,7 @@ class MapActivity : AppCompatActivity() {
      * Prepares the views inside this activity.
      */
     private fun initViews() {
-        rvMapLevels.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        rvMapLevels.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, true)
         rvMapLevels.adapter = mapLevelAdapter
 
         repository.getAll(object : DataCallback<MapLevel> {
