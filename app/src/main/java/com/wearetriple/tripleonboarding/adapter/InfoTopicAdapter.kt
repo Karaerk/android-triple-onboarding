@@ -1,6 +1,5 @@
 package com.wearetriple.tripleonboarding.adapter
 
-import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,10 @@ import kotlinx.android.synthetic.main.item_info_topic.view.*
 /**
  * Used to prepare recyclerview's items.
  */
-class InfoTopicAdapter(private val infoTopics: List<InfoTopic>) :
-    RecyclerView.Adapter<InfoTopicAdapter.ViewHolder>() {
+class InfoTopicAdapter(
+    private val infoTopics: List<InfoTopic>,
+    private val clickListener: (InfoTopic) -> Unit
+) : RecyclerView.Adapter<InfoTopicAdapter.ViewHolder>() {
 
     /**
      * Prepares the view before passing it to the RecyclerView.
@@ -22,25 +23,7 @@ class InfoTopicAdapter(private val infoTopics: List<InfoTopic>) :
 
         fun bind(infoTopic: InfoTopic) {
             itemView.btnInfoTopic.text = infoTopic.title
-            itemView.btnInfoTopic.tag = infoTopic.key
-            itemView.btnInfoTopic.setOnClickListener {
-                val tag: Int = it.tag as Int
-
-                val dialogBuilder = AlertDialog.Builder(itemView.context)
-
-                dialogBuilder.setMessage(infoTopics[tag].content)
-                    .setCancelable(false)
-                    .setNegativeButton("Afsluiten") { dialog, id ->
-                        dialog.cancel()
-                    }
-
-                // create dialog box
-                val alert = dialogBuilder.create()
-                alert.setCanceledOnTouchOutside(true)
-                alert.setTitle(infoTopics[tag].title)
-
-                alert.show()
-            }
+            itemView.btnInfoTopic.setOnClickListener { clickListener(infoTopic) }
         }
     }
 
