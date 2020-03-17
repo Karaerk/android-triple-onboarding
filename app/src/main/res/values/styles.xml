@@ -8,4 +8,41 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Defines the base style of views -->
+    <style name="Layout">
+        <item name="android:padding">@dimen/default_layout_padding</item>
+    </style>
+
+    <style name="Base.CardView.View" parent="Base.CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="Base.CardView.Title" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/cardTitle</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="Base.CardView.Body" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/cardBody</item>
+    </style>
+
+    <style name="Base.CardView.Image">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:elevation">@dimen/card_image_elevation</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:tint">@android:color/background_light</item>
+    </style>
+    
+    <style name="Base.Widget.AppCompat.Button.Big" parent="Widget.AppCompat.Button">
+        <item name="android:padding">@dimen/default_grid_btn_padding</item>
+    </style>
+
 </resources>

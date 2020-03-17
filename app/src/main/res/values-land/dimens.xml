@@ -7,5 +7,5 @@
     <dimen name="card_title_text_size">24sp</dimen>
     <dimen name="card_button_margin">8dp</dimen>
     <dimen name="card_image_elevation">1sp</dimen>
-    <dimen name="question_height">200dp</dimen>
+    <dimen name="question_height">100dp</dimen>
 </resources>

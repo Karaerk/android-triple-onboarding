@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#090F21</color>
     <color name="colorAccent">#EC6676</color>
     <color name="btnTextColor">#142043</color>
+    <color name="cardTitle">#de000000</color>
+    <color name="cardBody">#99000000</color>
 </resources>

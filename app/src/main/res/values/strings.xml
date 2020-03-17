@@ -1,3 +1,28 @@
 <resources>
-    <string name="app_name">TripleOnboarding</string>
+    <string name="app_name">Triple Onboarding</string>
+    <string name="title_quiz_screen">Triple Quiz</string>
+    <string name="title_map_screen">Plattegrond</string>
+    <string name="title_dialog_quiz">YOU did IT!</string>
+    <string name="title_info_screen">Informatie</string>
+    <string name="title_games_screen">Games</string>
+    <string name="description_quiz_done">Het is je gelukt om alle vragen te beantwoorden. Topper!!</string>
+    <string name="description_quiz_icon">Play the Triple Quiz</string>
+    <string name="btn_start_quiz">Speel het spel</string>
+    <string name="btn_stop_quiz">Stoppen</string>
+    <string name="btn_replay_quiz">Opnieuw spelen</string>
+    <string name="btn_close_popup">Afsluiten</string>
+    <string name="label_quiz_status">Vraag %1$d/%2$d</string>
+    <string name="games_quiz">Quiz</string>
+    <string name="games_memory">Memory</string>
+    <string-array name="correct_answer">
+        <item>Goed bezig!!</item>
+        <item>Jij weet het!</item>
+        <item>Dat is correct!</item>
+        <item>Hoppa, je kan het!</item>
+    </string-array>
+    <string-array name="incorrect_answer">
+        <item>Oei, je bent er bijna!</item>
+        <item>Dat is niet helemaal correct</item>
+        <item>Verkeerde antwoord</item>
+    </string-array>
 </resources>
