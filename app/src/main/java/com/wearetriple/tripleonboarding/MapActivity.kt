@@ -25,6 +25,7 @@ class MapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
+        supportActionBar?.title = getString(R.string.title_map_screen)
 
         initViews()
     }

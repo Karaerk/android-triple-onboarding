@@ -3,7 +3,6 @@ package com.wearetriple.tripleonboarding
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -26,6 +25,10 @@ class MainActivity : AppCompatActivity() {
         }
         btnMap.setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
+            startActivity(intent)
+        }
+        btnGames.setOnClickListener {
+            val intent = Intent(this, GamesActivity::class.java)
             startActivity(intent)
         }
     }

@@ -22,6 +22,7 @@ class InfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
+        supportActionBar?.title = getString(R.string.title_info_screen)
 
         initViews()
     }
@@ -53,7 +54,7 @@ class InfoActivity : AppCompatActivity() {
 
         dialogBuilder.setMessage(infoTopic.content)
             .setCancelable(false)
-            .setNegativeButton("Afsluiten") { dialog, id ->
+            .setNegativeButton(getString(R.string.btn_close_popup)) { dialog, _ ->
                 dialog.cancel()
             }
 

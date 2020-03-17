@@ -8,7 +8,6 @@
         android:id="@+id/btnMapLevel"
         android:layout_width="@dimen/btn_map_level_size"
         android:layout_height="@dimen/btn_map_level_size"
-        android:text="0"
         android:textColor="@color/btnTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
