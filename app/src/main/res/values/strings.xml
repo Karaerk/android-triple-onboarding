@@ -6,6 +6,7 @@
     <string name="title_info_screen">Informatie</string>
     <string name="title_games_screen">Games</string>
     <string name="title_facts_screen">Feiten &amp; Weetjes</string>
+    <string name="title_faq_screen">FAQ</string>
     <string name="description_quiz_done">Het is je gelukt om alle vragen te beantwoorden. Topper!!</string>
     <string name="description_quiz_icon">Play the Triple Quiz</string>
     <string name="btn_start_quiz">Speel het spel</string>

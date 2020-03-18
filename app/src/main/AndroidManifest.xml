@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FactsActivity"></activity>
+        <activity android:name=".FaqActivity" />
+        <activity android:name=".FactsActivity" />
         <activity
             android:name=".QuizActivity"
-            android:parentActivityName=".GamesActivity"></activity>
+            android:parentActivityName=".GamesActivity" />
         <activity android:name=".GamesActivity" />
         <activity android:name=".MapActivity" />
         <activity android:name=".InfoActivity" />

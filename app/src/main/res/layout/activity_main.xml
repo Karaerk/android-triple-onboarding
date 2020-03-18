@@ -51,9 +51,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_facts_screen"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnFaq"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnGames" />
+
+    <Button
+        android:id="@+id/btnFaq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_faq_screen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnFacts" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
