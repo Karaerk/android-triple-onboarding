@@ -31,5 +31,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, GamesActivity::class.java)
             startActivity(intent)
         }
+        btnFacts.setOnClickListener {
+            val intent = Intent(this, FactsActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
