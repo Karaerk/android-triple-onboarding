@@ -5,7 +5,7 @@ const val CORRECT_ANSWER = 1L
 /**
  * Answers used for QuizQuestion.
  */
-class QuizAnswer(
+data class QuizAnswer(
     val content: String = "",
     val correct: Long = 0L
 )

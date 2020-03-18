@@ -5,7 +5,7 @@ package com.wearetriple.tripleonboarding.model
  * Each quiz must have at least two answers.
  * Multiple correct answers can be assigned.
  */
-class QuizQuestion(
+data class QuizQuestion(
     val question: String = "",
     val answer: ArrayList<QuizAnswer> = arrayListOf()
 ) : Identifiable() {
