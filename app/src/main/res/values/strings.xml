@@ -16,6 +16,8 @@
     <string name="label_quiz_status">Vraag %1$d/%2$d</string>
     <string name="games_quiz">Quiz</string>
     <string name="games_memory">Memory</string>
+    <string name="title_department_screen">Afdelingen</string>
+    <string name="btn_department_more_info">Meer informatie</string>
     <string-array name="correct_answer">
         <item>Goed bezig!!</item>
         <item>Jij weet het!</item>

@@ -3,14 +3,20 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
     </style>
 
     <!-- Defines the base style of views -->
     <style name="Layout">
         <item name="android:padding">@dimen/default_layout_padding</item>
+    </style>
+
+    <style name="Base.CardView.Layout">
+        <item name="android:paddingTop">@dimen/default_layout_padding</item>
+        <item name="android:paddingStart">@dimen/default_layout_padding</item>
+        <item name="android:paddingEnd">@dimen/default_layout_padding</item>
     </style>
 
     <style name="Base.CardView.View" parent="Base.CardView">
@@ -30,25 +36,40 @@
 
     <style name="Base.CardView.Title" parent="TextAppearance.AppCompat.Large">
         <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/cardTitle</item>
+        <item name="android:textColor">@color/card_title</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
     <style name="Base.CardView.Body" parent="TextAppearance.AppCompat.Body1">
-        <item name="android:textColor">@color/cardBody</item>
+        <item name="android:textColor">@color/card_body</item>
+    </style>
+
+    <style name="Base.CardView.Body.Inner">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_margin">@dimen/card_inner_body_margin</item>
+    </style>
+
+    <style name="Base.CardView.Image.Title">
+        <item name="android:elevation">@dimen/card_image_elevation</item>
+        <item name="android:textColor">@color/cardTitleReversed</item>
+        <item name="android:textSize">@dimen/card_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">@color/card_shadow</item>
+        <item name="android:shadowDx">@dimen/card_shadow_dx</item>
+        <item name="android:shadowDy">@dimen/card_shadow_dy</item>
+        <item name="android:shadowRadius">@dimen/card_shadow_radius</item>
     </style>
 
     <style name="Base.CardView.Image">
-        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:elevation">@dimen/card_image_elevation</item>
-        <item name="android:scaleType">centerInside</item>
-        <item name="android:tint">@android:color/background_light</item>
+        <item name="android:scaleType">centerCrop</item>
     </style>
 
     <style name="Base.Widget.AppCompat.Button.Big" parent="Widget.AppCompat.Button">
         <item name="android:padding">@dimen/default_grid_btn_padding</item>
     </style>
 
+    <dimen name="card_inner_body_margin">10dp</dimen>
+    <color name="cardTitleReversed">#FFFFFF</color>
 </resources>

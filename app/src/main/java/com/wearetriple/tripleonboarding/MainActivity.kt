@@ -39,5 +39,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, FaqActivity::class.java)
             startActivity(intent)
         }
+        btnDepartment.setOnClickListener {
+            val intent = Intent(this, DepartmentActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

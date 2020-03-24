@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#142043</color>
-    <color name="colorPrimaryDark">#090F21</color>
-    <color name="colorAccent">#EC6676</color>
-    <color name="btnTextColor">#142043</color>
-    <color name="cardTitle">#de000000</color>
-    <color name="cardBody">#99000000</color>
+    <color name="color_primary">#142043</color>
+    <color name="color_primary_dark">#090F21</color>
+    <color name="color_accent">#EC6676</color>
+    <color name="btn_text_color">#142043</color>
+    <color name="card_title">#de000000</color>
+    <color name="card_body">#99000000</color>
+    <color name="card_shadow">#55000000</color>
 </resources>
