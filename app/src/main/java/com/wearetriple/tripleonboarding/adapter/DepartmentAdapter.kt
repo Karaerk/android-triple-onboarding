@@ -23,7 +23,6 @@ class DepartmentAdapter(
 
         fun bind(department: Department) {
             itemView.tvDepartmentTitle.text = department.title
-            itemView.btnDepartmentMoreInfo.setOnClickListener { clickListener(department) }
             itemView.cvDepartment.setOnClickListener { clickListener(department) }
         }
     }

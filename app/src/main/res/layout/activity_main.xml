@@ -6,28 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@+id/btnInfo"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/btnInfo"
+        style="@style/AppTheme.Button.Round.Pink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_info_screen"
         app:layout_constraintBottom_toTopOf="@+id/btnMap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnMap"
+        style="@style/AppTheme.Button.Round.Pink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_map_screen"
@@ -38,6 +30,7 @@
 
     <Button
         android:id="@+id/btnGames"
+        style="@style/AppTheme.Button.Round.Pink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_games_screen"
@@ -48,6 +41,7 @@
 
     <Button
         android:id="@+id/btnFacts"
+        style="@style/AppTheme.Button.Round.Pink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_facts_screen"
@@ -58,6 +52,7 @@
 
     <Button
         android:id="@+id/btnFaq"
+        style="@style/AppTheme.Button.Round.Pink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_faq_screen"
@@ -68,6 +63,7 @@
 
     <Button
         android:id="@+id/btnDepartment"
+        style="@style/AppTheme.Button.Round.Pink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_department_screen"

@@ -3,6 +3,7 @@ package com.wearetriple.tripleonboarding
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wearetriple.tripleonboarding.adapter.InfoTopicAdapter

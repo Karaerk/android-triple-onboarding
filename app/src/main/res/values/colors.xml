@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_primary">#142043</color>
-    <color name="color_primary_dark">#090F21</color>
-    <color name="color_accent">#EC6676</color>
-    <color name="btn_text_color">#142043</color>
+    <color name="primary_darkblue">#142043</color>
+    <color name="primary_lightblue">#6AC8D9</color>
+    <color name="primary_pink">#EC6676</color>
+    <color name="primary_green">#5EB778</color>
+    <color name="primary_purple">#A268A9</color>
+    <color name="primary_orange">#E6A732</color>
+    <color name="primary_yellow">#E2E41C</color>
+    <color name="primary_gray">#888EA0</color>
+    <color name="light_gray">#142043</color>
+    <color name="light_main">#FFFFFF</color>
+
+    <color name="primary_overlayblue">#090F21</color>
+
     <color name="card_title">#de000000</color>
+    <color name="card_title_reversed">#FFFFFF</color>
     <color name="card_body">#99000000</color>
     <color name="card_shadow">#55000000</color>
 </resources>

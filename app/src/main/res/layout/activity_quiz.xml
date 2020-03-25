@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/tvStatus"
-        style="@style/TextAppearance.AppCompat.Button"
+        style="@style/AppTheme.Text.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/tvQuestion"
-        style="@style/TextAppearance.AppCompat.Display1"
+        style="@style/AppTheme.Text.Large"
         android:layout_width="0dp"
         android:layout_height="@dimen/question_height"
         app:layout_constraintEnd_toEndOf="parent"
