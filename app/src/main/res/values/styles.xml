@@ -10,12 +10,18 @@
     </style>
 
     <!-- Defines the base style of views -->
-    <style name="Layout">
+    <style name="AppTheme.Layout">
         <item name="android:padding">@dimen/default_layout_padding</item>
     </style>
 
     <style name="AppTheme.Text">
         <item name="fontFamily">@font/raleway_medium</item>
+        <item name="android:textColor">@color/primary_darkblue</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="AppTheme.Text.Html">
+        <item name="fontFamily">@font/raleway_light</item>
         <item name="android:textColor">@color/primary_darkblue</item>
     </style>
 
@@ -34,6 +40,7 @@
     <style name="AppTheme.Text.Small">
         <item name="fontFamily">@font/chivo_regular</item>
         <item name="textAllCaps">true</item>
+        <item name="android:textSize">12dp</item>
     </style>
 
     <style name="AppTheme.Button.Round" parent="Widget.AppCompat.Button.Colored">
@@ -117,5 +124,13 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="AppTheme.Widget"/>
+
+    <style name="AppTheme.Widget.it" parent="AppTheme.Text.Html">
+        <item name="android:paddingTop">@dimen/default_layout_padding</item>
+        <item name="android:paddingStart">@dimen/default_layout_padding</item>
+        <item name="android:paddingEnd">@dimen/default_layout_padding</item>
     </style>
 </resources>

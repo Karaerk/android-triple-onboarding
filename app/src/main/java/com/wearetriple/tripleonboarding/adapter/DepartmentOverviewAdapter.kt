@@ -4,17 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.wearetriple.tripleonboarding.R
 import com.wearetriple.tripleonboarding.model.Department
-import kotlinx.android.synthetic.main.item_department.view.*
+import kotlinx.android.synthetic.main.item_department_overview.view.*
 
 /**
  * Used to prepare recyclerview's items.
  */
-class DepartmentAdapter(
+class DepartmentOverviewAdapter(
     private val departments: List<Department>,
     private val clickListener: (Department) -> Unit
-) : RecyclerView.Adapter<DepartmentAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<DepartmentOverviewAdapter.ViewHolder>() {
 
     /**
      * Prepares the view before passing it to the RecyclerView.
@@ -24,6 +25,7 @@ class DepartmentAdapter(
         fun bind(department: Department) {
             itemView.tvDepartmentTitle.text = department.title
             itemView.cvDepartment.setOnClickListener { clickListener(department) }
+            Picasso.get().load(department.thumbnail).into(itemView.ivDepartmentThumbnail)
         }
     }
 
@@ -32,7 +34,7 @@ class DepartmentAdapter(
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_department, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_department_overview, parent, false)
         )
     }
 

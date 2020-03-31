@@ -2,39 +2,35 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/AppTheme.Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuizActivity">
+    tools:context=".DepartmentDetailActivity">
 
-    <TextView
-        android:id="@+id/tvStatus"
-        style="@style/AppTheme.Text.Small"
+    <ImageView
+        android:id="@+id/ivDepartment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/cover_image_size"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvQuestion"
-        style="@style/AppTheme.Text.Large"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/question_height"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvStatus" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAnswers"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:overScrollMode="never"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvStatus"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvQuestion" />
+        app:layout_constraintTop_toBottomOf="@+id/ivDepartment">
 
+        <TextView
+            android:id="@+id/tvContent"
+            style="@style/AppTheme.Widget.HtmlOutput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart" />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

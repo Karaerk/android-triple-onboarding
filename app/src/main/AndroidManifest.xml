@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DepartmentActivity"></activity>
+        <activity
+            android:name=".DepartmentDetailActivity"
+            android:parentActivityName=".DepartmentOverviewActivity"/>
+        <activity android:name=".DepartmentOverviewActivity" />
         <activity android:name=".FaqActivity" />
         <activity android:name=".FactsActivity" />
         <activity

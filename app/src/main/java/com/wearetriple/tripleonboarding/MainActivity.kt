@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         btnDepartment.setOnClickListener {
-            val intent = Intent(this, DepartmentActivity::class.java)
+            val intent = Intent(this, DepartmentOverviewActivity::class.java)
             startActivity(intent)
         }
     }

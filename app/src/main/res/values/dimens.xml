@@ -16,4 +16,5 @@
     <dimen name="card_shadow_dy">6</dimen>
     <dimen name="card_shadow_radius">6</dimen>
     <dimen name="card_inner_body_margin">10dp</dimen>
+    <dimen name="cover_image_size">200dp</dimen>
 </resources>
