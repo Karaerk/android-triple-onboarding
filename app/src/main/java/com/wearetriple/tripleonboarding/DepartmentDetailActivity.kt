@@ -1,10 +1,9 @@
 package com.wearetriple.tripleonboarding
 
 import android.os.Bundle
-import android.text.Html
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.wearetriple.tripleonboarding.model.Department
 import kotlinx.android.synthetic.main.activity_department_detail.*
 
@@ -28,7 +27,8 @@ class DepartmentDetailActivity : AppCompatActivity() {
      * Prepares the views inside this activity.
      */
     private fun initViews() {
-        Picasso.get().load(department.image).into(ivDepartment)
+        Glide.with(this).load(department.image).into(ivDepartment)
+
         tvContent.text = HtmlCompat.fromHtml(department.content, HtmlCompat.FROM_HTML_MODE_LEGACY)
     }
 }

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.wearetriple.tripleonboarding.R
 import com.wearetriple.tripleonboarding.model.Department
 import kotlinx.android.synthetic.main.item_department_overview.view.*
@@ -25,7 +25,8 @@ class DepartmentOverviewAdapter(
         fun bind(department: Department) {
             itemView.tvDepartmentTitle.text = department.title
             itemView.cvDepartment.setOnClickListener { clickListener(department) }
-            Picasso.get().load(department.thumbnail).into(itemView.ivDepartmentThumbnail)
+
+            Glide.with(itemView.context).load(department.image).into(itemView.ivDepartmentThumbnail)
         }
     }
 
@@ -34,7 +35,11 @@ class DepartmentOverviewAdapter(
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_department_overview, parent, false)
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_department_overview,
+                parent,
+                false
+            )
         )
     }
 
