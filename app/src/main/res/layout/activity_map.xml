@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MapActivity">
 
-    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+    <com.ortiz.touchview.TouchImageView
         android:id="@+id/ivMap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/rvMapLevels"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

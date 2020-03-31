@@ -1,19 +1,19 @@
 package com.wearetriple.tripleonboarding
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.davemorrissey.labs.subscaleview.ImageSource
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView.SCALE_TYPE_CENTER_CROP
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.wearetriple.tripleonboarding.adapter.MapLevelAdapter
 import com.wearetriple.tripleonboarding.model.DataCallback
 import com.wearetriple.tripleonboarding.model.MapLevel
 import com.wearetriple.tripleonboarding.repository.BaseEntityRepository
 import kotlinx.android.synthetic.main.activity_map.*
-
-const val DENSITY_MAP = 60F
-const val DOUBLE_TAP_DESITY = 100
 
 class MapActivity : AppCompatActivity() {
 
@@ -55,16 +55,12 @@ class MapActivity : AppCompatActivity() {
      * Loads up the image connected to the level.
      */
     private fun mapLevelClicked(mapLevel: MapLevel) {
-        val drawableResource: Int = when (mapLevel.level) {
-            "1" -> R.drawable.level_1
-            "2" -> R.drawable.level_2
-            "3" -> R.drawable.level_3
-            else -> R.drawable.level_0
-        }
+        Glide.with(this).asBitmap().load(mapLevel.image).into(object : CustomTarget<Bitmap?>() {
+            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
+                ivMap.setImageBitmap(resource)
+            }
 
-        ivMap.setImage(ImageSource.resource(drawableResource))
-        ivMap.setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
-        ivMap.maxScale = DENSITY_MAP
-        ivMap.setDoubleTapZoomDpi(DOUBLE_TAP_DESITY)
+            override fun onLoadCleared(placeholder: Drawable?) {}
+        })
     }
 }
