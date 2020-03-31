@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/primary_darkblue</item>
         <item name="colorPrimaryDark">@color/primary_overlayblue</item>
         <item name="colorAccent">@color/primary_pink</item>
-        <item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>
+        <item name="alertDialogTheme">@style/AppTheme.Widget.AlertDialog</item>
     </style>
 
     <!-- Defines the base style of views -->
@@ -14,10 +14,11 @@
         <item name="android:padding">@dimen/default_layout_padding</item>
     </style>
 
+    <!-- Styles defined for text -->
     <style name="AppTheme.Text">
         <item name="fontFamily">@font/raleway_medium</item>
         <item name="android:textColor">@color/primary_darkblue</item>
-        <item name="android:textSize">14dp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="AppTheme.Text.Html">
@@ -40,10 +41,15 @@
     <style name="AppTheme.Text.Small">
         <item name="fontFamily">@font/chivo_regular</item>
         <item name="textAllCaps">true</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="AppTheme.Button.Round" parent="Widget.AppCompat.Button.Colored">
+    <!-- Styles defined for different kinds of views -->
+    <style name="AppTheme.Widget"/>
+
+    <style name="AppTheme.Widget.Button"/>
+
+    <style name="AppTheme.Widget.Button.Round" parent="Widget.AppCompat.Button.Colored">
         <item name="android:textSize">18sp</item>
         <item name="android:textAllCaps">false</item>
         <item name="fontFamily">@font/raleway_medium</item>
@@ -54,9 +60,9 @@
         <item name="android:background">@drawable/fully_rounded_button</item>
     </style>
 
-    <style name="AppTheme.Button.Square" parent="Widget.AppCompat.Button.Colored" />
+    <style name="AppTheme.Widget.Button.Square" parent="Widget.AppCompat.Button.Colored" />
 
-    <style name="AppTheme.Button.Square.Small" parent="AppTheme.Button.Square">
+    <style name="AppTheme.Widget.Button.Square.Small" parent="AppTheme.Widget.Button.Square">
         <item name="backgroundTint">@color/light_main</item>
         <item name="android:textColor">@color/primary_darkblue</item>
         <item name="android:textSize">28sp</item>
@@ -64,18 +70,18 @@
         <item name="android:background">@drawable/less_rounded_button</item>
     </style>
 
-    <style name="AppTheme.Button.Round.Pink" parent="AppTheme.Button.Round">
+    <style name="AppTheme.Widget.Button.Round.Pink" parent="AppTheme.Widget.Button.Round">
         <item name="android:backgroundTint">@color/primary_pink</item>
         <item name="colorButtonNormal">@color/primary_pink</item>
         <item name="android:textColor">@color/light_main</item>
     </style>
 
-    <style name="AppTheme.Button.Round.Pink.Big" parent="AppTheme.Button.Round.Pink">
+    <style name="AppTheme.Widget.Button.Round.Pink.Big" parent="AppTheme.Widget.Button.Round.Pink">
         <item name="android:paddingTop">@dimen/default_grid_btn_padding</item>
         <item name="android:paddingBottom">@dimen/default_grid_btn_padding</item>
     </style>
 
-    <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="AppTheme.Widget.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/primary_pink</item>
         <item name="android:textAppearanceSmall">@style/AppTheme.Text.Light</item>
         <item name="android:textAppearanceMedium">@style/AppTheme.Text.Light</item>
@@ -83,12 +89,14 @@
         <item name="android:windowTitleStyle">@style/AppTheme.Text.Large</item>
     </style>
 
-    <style name="Base.CardView.Layout">
+    <style name="AppTheme.Widget.CardView"/>
+
+    <style name="AppTheme.Widget.CardView.Layout">
         <item name="android:paddingStart">@dimen/default_layout_padding</item>
         <item name="android:paddingEnd">@dimen/default_layout_padding</item>
     </style>
 
-    <style name="Base.CardView.View" parent="Base.CardView">
+    <style name="AppTheme.Widget.CardView.View" parent="Base.CardView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="cardCornerRadius">4dp</item>
@@ -97,38 +105,36 @@
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
-    <style name="Base.CardView.itemView" parent="Base.CardView.View">
+    <style name="AppTheme.Widget.CardView.ItemView" parent="AppTheme.Widget.CardView.View">
         <item name="android:layout_marginTop">@dimen/card_button_margin</item>
         <item name="android:layout_marginBottom">@dimen/card_button_margin</item>
         <item name="cardUseCompatPadding">true</item>
     </style>
 
-    <style name="Base.CardView.Title" parent="AppTheme.Text.Large">
+    <style name="AppTheme.Widget.CardView.Title" parent="AppTheme.Text.Large">
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
-    <style name="Base.CardView.Body" parent="AppTheme.Text.Light"/>
+    <style name="AppTheme.Widget.CardView.Body" parent="AppTheme.Text.Light"/>
 
-    <style name="Base.CardView.Body.Inner">
+    <style name="AppTheme.Widget.CardView.Body.Inner">
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_margin">@dimen/card_inner_body_margin</item>
     </style>
 
-    <style name="Base.CardView.Image.Title">
-        <item name="fontFamily">@font/dosis_medium</item>
-        <item name="textAllCaps">true</item>
-        <item name="android:textSize">@dimen/card_title_text_size</item>
-    </style>
-
-    <style name="Base.CardView.Image">
+    <style name="AppTheme.Widget.CardView.Image">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
 
-    <style name="AppTheme.Widget"/>
+    <style name="AppTheme.Widget.CardView.Image.Title">
+        <item name="fontFamily">@font/dosis_medium</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">@dimen/card_title_text_size</item>
+    </style>
 
-    <style name="AppTheme.Widget.it" parent="AppTheme.Text.Html">
+    <style name="AppTheme.Widget.HtmlOutput" parent="AppTheme.Text.Html">
         <item name="android:paddingTop">@dimen/default_layout_padding</item>
         <item name="android:paddingStart">@dimen/default_layout_padding</item>
         <item name="android:paddingEnd">@dimen/default_layout_padding</item>

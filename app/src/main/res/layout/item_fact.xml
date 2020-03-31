@@ -6,7 +6,7 @@
 
     <Button
         android:id="@+id/btnFact"
-        style="@style/AppTheme.Button.Round.Pink.Big"
+        style="@style/AppTheme.Widget.Button.Round.Pink.Big"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_view_margin"

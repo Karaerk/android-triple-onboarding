@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/Base.CardView.Layout"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppTheme.Widget.CardView.Layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvDepartment"
-        style="@style/Base.CardView.itemView"
+        style="@style/AppTheme.Widget.CardView.ItemView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,18 +20,16 @@
 
             <ImageView
                 android:id="@+id/ivDepartmentThumbnail"
-                style="@style/Base.CardView.Image"
+                style="@style/AppTheme.Widget.CardView.Image"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/card_image_size"
-                android:src="@drawable/department" />
+                android:layout_height="@dimen/card_image_size" />
 
             <TextView
                 android:id="@+id/tvDepartmentTitle"
-                style="@style/Base.CardView.Image.Title"
+                style="@style/AppTheme.Widget.CardView.Image.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/default_view_margin"
-                android:text="Research &amp; Development" />
+                android:layout_margin="@dimen/default_view_margin" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

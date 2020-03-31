@@ -6,7 +6,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvFaq"
-        style="@style/Base.CardView.itemView"
+        style="@style/AppTheme.Widget.CardView.ItemView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -17,23 +17,20 @@
             android:orientation="vertical">
 
             <LinearLayout
+                style="@style/AppTheme.Layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/default_layout_padding"
-                android:paddingTop="@dimen/default_layout_padding"
-                android:paddingEnd="@dimen/default_layout_padding"
-                android:paddingBottom="@dimen/default_layout_padding">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvQuestion"
-                    style="@style/Base.CardView.Title"
+                    style="@style/AppTheme.Widget.CardView.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/tvAnswer"
-                    style="@style/Base.CardView.Body"
+                    style="@style/AppTheme.Widget.CardView.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>

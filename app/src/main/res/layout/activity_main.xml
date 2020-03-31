@@ -8,7 +8,7 @@
 
     <Button
         android:id="@+id/btnInfo"
-        style="@style/AppTheme.Button.Round.Pink"
+        style="@style/AppTheme.Widget.Button.Round.Pink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_info_screen"
@@ -19,7 +19,7 @@
 
     <Button
         android:id="@+id/btnMap"
-        style="@style/AppTheme.Button.Round.Pink"
+        style="@style/AppTheme.Widget.Button.Round.Pink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_map_screen"
@@ -30,7 +30,7 @@
 
     <Button
         android:id="@+id/btnGames"
-        style="@style/AppTheme.Button.Round.Pink"
+        style="@style/AppTheme.Widget.Button.Round.Pink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_games_screen"
@@ -41,7 +41,7 @@
 
     <Button
         android:id="@+id/btnFacts"
-        style="@style/AppTheme.Button.Round.Pink"
+        style="@style/AppTheme.Widget.Button.Round.Pink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_facts_screen"
@@ -52,7 +52,7 @@
 
     <Button
         android:id="@+id/btnFaq"
-        style="@style/AppTheme.Button.Round.Pink"
+        style="@style/AppTheme.Widget.Button.Round.Pink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_faq_screen"
@@ -63,7 +63,7 @@
 
     <Button
         android:id="@+id/btnDepartment"
-        style="@style/AppTheme.Button.Round.Pink"
+        style="@style/AppTheme.Widget.Button.Round.Pink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_department_screen"
