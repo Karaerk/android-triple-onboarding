@@ -5,11 +5,12 @@
     style="@style/AppTheme.Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
     tools:context=".GamesActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvQuiz"
-        style="@style/AppTheme.Widget.CardView.View"
+        style="@style/AppTheme.Widget.CardView.ItemView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

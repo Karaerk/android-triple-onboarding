@@ -45,9 +45,21 @@
     </style>
 
     <!-- Styles defined for different kinds of views -->
-    <style name="AppTheme.Widget"/>
+    <style name="AppTheme.Widget" />
 
-    <style name="AppTheme.Widget.Button"/>
+    <style name="AppTheme.Widget.Layout" />
+
+    <style name="AppTheme.Widget.Layout.Horizontal">
+        <item name="android:paddingStart">@dimen/default_layout_padding</item>
+        <item name="android:paddingEnd">@dimen/default_layout_padding</item>
+    </style>
+
+    <style name="AppTheme.Widget.Layout.Vertical">
+        <item name="android:paddingTop">@dimen/default_layout_padding</item>
+        <item name="android:paddingBottom">@dimen/default_layout_padding</item>
+    </style>
+
+    <style name="AppTheme.Widget.Button" />
 
     <style name="AppTheme.Widget.Button.Round" parent="Widget.AppCompat.Button.Colored">
         <item name="android:textSize">18sp</item>
@@ -89,12 +101,7 @@
         <item name="android:windowTitleStyle">@style/AppTheme.Text.Large</item>
     </style>
 
-    <style name="AppTheme.Widget.CardView"/>
-
-    <style name="AppTheme.Widget.CardView.Layout">
-        <item name="android:paddingStart">@dimen/default_layout_padding</item>
-        <item name="android:paddingEnd">@dimen/default_layout_padding</item>
-    </style>
+    <style name="AppTheme.Widget.CardView" />
 
     <style name="AppTheme.Widget.CardView.View" parent="Base.CardView">
         <item name="android:layout_width">match_parent</item>
@@ -115,7 +122,7 @@
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
-    <style name="AppTheme.Widget.CardView.Body" parent="AppTheme.Text.Light"/>
+    <style name="AppTheme.Widget.CardView.Body" parent="AppTheme.Text.Light" />
 
     <style name="AppTheme.Widget.CardView.Body.Inner">
         <item name="android:layout_alignParentBottom">true</item>
