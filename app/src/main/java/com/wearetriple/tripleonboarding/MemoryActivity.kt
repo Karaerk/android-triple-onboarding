@@ -20,7 +20,9 @@ class MemoryActivity : AppCompatActivity() {
     private val questions = ArrayList<MemoryQuestion>()
     private val answeredQuestions = ArrayList<MemoryQuestion>()
     private val repository = BaseEntityRepository<MemoryQuestion>(MemoryQuestion.DATABASE_KEY)
-    private var correctAnswers = 0
+    private var currentCorrectAnswers = 0
+    private var currentWrongAnswers = 0
+    private var totalScore = 0
     private var currentIndex = NO_CURRENT_QUESTION
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,10 +87,12 @@ class MemoryActivity : AppCompatActivity() {
                 )
             }
 
-        correctAnswers = 0
+        currentCorrectAnswers = 0
+        currentWrongAnswers = 0
         val numberOfQuestions = answeredQuestions.size + questions.size
         tvStatus.text =
             getString(R.string.label_game_status, answeredQuestions.size + 1, numberOfQuestions)
+        tvScore.text = getString(R.string.label_game_score, totalScore)
         Glide.with(this).load(currentQuestion.image).into(ivQuestion)
     }
 
@@ -108,7 +112,7 @@ class MemoryActivity : AppCompatActivity() {
     private fun showGameOverDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
 
-        dialogBuilder.setMessage(getString(R.string.description_memory_done))
+        dialogBuilder.setMessage(getString(R.string.description_memory_done, totalScore))
             .setCancelable(false)
             .setPositiveButton(getString(R.string.btn_leave_game)) { dialog, _ ->
                 dialog.dismiss()
@@ -136,6 +140,8 @@ class MemoryActivity : AppCompatActivity() {
             questions.addAll(answeredQuestions)
             answeredQuestions.clear()
             currentIndex = NO_CURRENT_QUESTION
+            currentWrongAnswers = 0
+            totalScore = 0
         }
         updateState()
     }
@@ -149,11 +155,18 @@ class MemoryActivity : AppCompatActivity() {
         when (answer.correct) {
             CORRECT_ANSWER -> {
                 messages.addAll(resources.getStringArray(R.array.correct_answer))
-                correctAnswers++
+
+                currentCorrectAnswers++
+                val earnedPoints = MAX_POINTS_PER_QUESTION.minus(currentWrongAnswers)
+                totalScore += if (earnedPoints > 0) earnedPoints else 0
+                tvScore.text = getString(R.string.label_game_score, totalScore)
 
                 checkAllCorrectAnswersFound()
             }
-            else -> messages.addAll(resources.getStringArray(R.array.incorrect_answer))
+            else -> {
+                currentWrongAnswers++
+                messages.addAll(resources.getStringArray(R.array.incorrect_answer))
+            }
         }
 
         val randomIndex = (0..messages.lastIndex).random()
@@ -169,7 +182,7 @@ class MemoryActivity : AppCompatActivity() {
             questions[currentIndex].answer.filter { memoryAnswer -> memoryAnswer.correct == CORRECT_ANSWER }
                 .size
 
-        if (correctAnswers == numberOfCorrectAnswers)
+        if (currentCorrectAnswers == numberOfCorrectAnswers)
             updateState()
     }
 

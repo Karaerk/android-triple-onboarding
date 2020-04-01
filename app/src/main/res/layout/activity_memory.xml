@@ -10,10 +10,20 @@
     <TextView
         android:id="@+id/tvStatus"
         style="@style/AppTheme.Text.Small"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvScore"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvScore"
+        style="@style/AppTheme.Text.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvStatus"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
