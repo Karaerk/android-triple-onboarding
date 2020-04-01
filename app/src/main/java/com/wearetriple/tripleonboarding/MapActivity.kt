@@ -57,6 +57,7 @@ class MapActivity : AppCompatActivity() {
     private fun mapLevelClicked(mapLevel: MapLevel) {
         Glide.with(this).asBitmap().load(mapLevel.image).into(object : CustomTarget<Bitmap?>() {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
+                ivMap.resetZoom()
                 ivMap.setImageBitmap(resource)
             }
 
