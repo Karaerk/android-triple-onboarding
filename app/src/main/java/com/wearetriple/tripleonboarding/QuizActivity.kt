@@ -114,8 +114,7 @@ class QuizActivity : AppCompatActivity() {
             .setCancelable(false)
             .setPositiveButton(getString(R.string.btn_stop_quiz)) { dialog, _ ->
                 dialog.dismiss()
-                val intent = Intent(this, GamesActivity::class.java)
-                startActivity(intent)
+                finish()
             }
             .setNegativeButton(getString(R.string.btn_replay_quiz)) { dialog, _ ->
                 dialog.cancel()
