@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wearetriple.tripleonboarding">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,8 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".MemoryActivity"
+            android:parentActivityName=".GamesActivity"/>
+        <activity
             android:name=".DepartmentDetailActivity"
-            android:parentActivityName=".DepartmentOverviewActivity"/>
+            android:parentActivityName=".DepartmentOverviewActivity" />
         <activity android:name=".DepartmentOverviewActivity" />
         <activity android:name=".FaqActivity" />
         <activity android:name=".FactsActivity" />

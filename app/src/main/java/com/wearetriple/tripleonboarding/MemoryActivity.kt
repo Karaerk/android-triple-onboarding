@@ -6,28 +6,27 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.wearetriple.tripleonboarding.adapter.QuizAnswerAdapter
+import com.bumptech.glide.Glide
+import com.wearetriple.tripleonboarding.adapter.MemoryAnswerAdapter
 import com.wearetriple.tripleonboarding.model.Answer
 import com.wearetriple.tripleonboarding.model.CORRECT_ANSWER
 import com.wearetriple.tripleonboarding.model.DataCallback
-import com.wearetriple.tripleonboarding.model.QuizQuestion
+import com.wearetriple.tripleonboarding.model.MemoryQuestion
 import com.wearetriple.tripleonboarding.repository.BaseEntityRepository
-import kotlinx.android.synthetic.main.activity_quiz.*
+import kotlinx.android.synthetic.main.activity_memory.*
 
-const val NO_CURRENT_QUESTION = -1
+class MemoryActivity : AppCompatActivity() {
 
-class QuizActivity : AppCompatActivity() {
-
-    private val questions = ArrayList<QuizQuestion>()
-    private val answeredQuestions = ArrayList<QuizQuestion>()
-    private val repository = BaseEntityRepository<QuizQuestion>(QuizQuestion.DATABASE_KEY)
+    private val questions = ArrayList<MemoryQuestion>()
+    private val answeredQuestions = ArrayList<MemoryQuestion>()
+    private val repository = BaseEntityRepository<MemoryQuestion>(MemoryQuestion.DATABASE_KEY)
     private var correctAnswers = 0
     private var currentIndex = NO_CURRENT_QUESTION
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_quiz)
-        supportActionBar?.title = getString(R.string.title_quiz_screen)
+        setContentView(R.layout.activity_memory)
+        supportActionBar?.title = getString(R.string.title_memory_screen)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         initViews()
@@ -46,8 +45,8 @@ class QuizActivity : AppCompatActivity() {
      * Gets all questions stored in the database.
      */
     private fun getAllQuestions() {
-        repository.getAll(object : DataCallback<QuizQuestion> {
-            override fun onCallback(list: ArrayList<QuizQuestion>) {
+        repository.getAll(object : DataCallback<MemoryQuestion> {
+            override fun onCallback(list: ArrayList<MemoryQuestion>) {
                 if (list.isEmpty())
                     return
 
@@ -56,7 +55,7 @@ class QuizActivity : AppCompatActivity() {
 
                 questions.addAll(list)
 
-                startQuiz()
+                startMemoryGame()
             }
         })
     }
@@ -80,9 +79,9 @@ class QuizActivity : AppCompatActivity() {
         val currentQuestion = prepareNextQuestion()
         currentQuestion.answer.shuffle()
         rvAnswers.adapter =
-            QuizAnswerAdapter(currentQuestion.answer) { quizAnswer ->
+            MemoryAnswerAdapter(currentQuestion.answer) { memoryAnswer ->
                 answerClicked(
-                    quizAnswer
+                    memoryAnswer
                 )
             }
 
@@ -90,13 +89,13 @@ class QuizActivity : AppCompatActivity() {
         val numberOfQuestions = answeredQuestions.size + questions.size
         tvStatus.text =
             getString(R.string.label_game_status, answeredQuestions.size + 1, numberOfQuestions)
-        tvQuestion.text = currentQuestion.question
+        Glide.with(this).load(currentQuestion.image).into(ivQuestion)
     }
 
     /**
      * Looks for the next question to ask to the user.
      */
-    private fun prepareNextQuestion(): QuizQuestion {
+    private fun prepareNextQuestion(): MemoryQuestion {
         val randomIndex = (0..questions.lastIndex).random()
         currentIndex = randomIndex
 
@@ -104,12 +103,12 @@ class QuizActivity : AppCompatActivity() {
     }
 
     /**
-     * Gives the user the option to do the quiz again or to leave the quiz.
+     * Gives the user the option to restart the memory game or to leave the game.
      */
     private fun showGameOverDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
 
-        dialogBuilder.setMessage(getString(R.string.description_quiz_done))
+        dialogBuilder.setMessage(getString(R.string.description_memory_done))
             .setCancelable(false)
             .setPositiveButton(getString(R.string.btn_leave_game)) { dialog, _ ->
                 dialog.dismiss()
@@ -117,7 +116,7 @@ class QuizActivity : AppCompatActivity() {
             }
             .setNegativeButton(getString(R.string.btn_replay_game)) { dialog, _ ->
                 dialog.cancel()
-                startQuiz()
+                startMemoryGame()
             }
 
         // create dialog box
@@ -129,9 +128,9 @@ class QuizActivity : AppCompatActivity() {
     }
 
     /**
-     * (Re)starts the quiz by cleaning up last session.
+     * (Re)starts the memory game by cleaning up last session.
      */
-    private fun startQuiz() {
+    private fun startMemoryGame() {
         // Clean up left overs from previous session
         if (answeredQuestions.isNotEmpty()) {
             questions.addAll(answeredQuestions)
@@ -167,10 +166,11 @@ class QuizActivity : AppCompatActivity() {
      */
     private fun checkAllCorrectAnswersFound() {
         val numberOfCorrectAnswers =
-            questions[currentIndex].answer.filter { quizAnswer -> quizAnswer.correct == CORRECT_ANSWER }
+            questions[currentIndex].answer.filter { memoryAnswer -> memoryAnswer.correct == CORRECT_ANSWER }
                 .size
 
         if (correctAnswers == numberOfCorrectAnswers)
             updateState()
     }
+
 }

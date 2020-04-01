@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <Button
-        android:id="@+id/btnQuizAnswer"
+        android:id="@+id/btnAnswer"
         style="@style/AppTheme.Widget.Button.Round.Pink.Big"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -12,9 +12,10 @@
     <dimen name="question_height">200dp</dimen>
     <dimen name="card_image_size">120dp</dimen>
     <dimen name="card_image_title_elevation">4dp</dimen>
-    <dimen name="card_shadow_dx">6</dimen>
-    <dimen name="card_shadow_dy">6</dimen>
-    <dimen name="card_shadow_radius">6</dimen>
     <dimen name="card_inner_body_margin">10dp</dimen>
     <dimen name="cover_image_size">200dp</dimen>
+    <dimen name="memory_image_padding">20dp</dimen>
+    <dimen name="image_corner_radius">12dp</dimen>
+    <dimen name="image_elevation">10dp</dimen>
+    <dimen name="memory_image_margin">8dp</dimen>
 </resources>

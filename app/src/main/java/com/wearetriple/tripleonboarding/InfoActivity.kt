@@ -3,7 +3,6 @@ package com.wearetriple.tripleonboarding
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.ContextThemeWrapper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wearetriple.tripleonboarding.adapter.InfoTopicAdapter
@@ -55,7 +54,7 @@ class InfoActivity : AppCompatActivity() {
 
         dialogBuilder.setMessage(infoTopic.content)
             .setCancelable(false)
-            .setNegativeButton(getString(R.string.btn_close_popup)) { dialog, _ ->
+            .setNegativeButton(getString(R.string.btn_close_dialog)) { dialog, _ ->
                 dialog.cancel()
             }
 

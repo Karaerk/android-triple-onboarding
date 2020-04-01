@@ -48,7 +48,7 @@
                 android:layout_gravity="end"
                 android:layout_margin="@dimen/card_button_margin"
                 android:padding="@dimen/default_layout_padding"
-                android:text="@string/btn_start_quiz" />
+                android:text="@string/btn_start_game" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -95,7 +95,7 @@
                 android:layout_gravity="end"
                 android:layout_margin="@dimen/card_button_margin"
                 android:padding="@dimen/default_layout_padding"
-                android:text="@string/btn_start_quiz" />
+                android:text="@string/btn_start_game" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

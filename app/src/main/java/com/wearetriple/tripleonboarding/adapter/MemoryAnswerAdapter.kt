@@ -8,10 +8,10 @@ import com.wearetriple.tripleonboarding.R
 import com.wearetriple.tripleonboarding.model.Answer
 import kotlinx.android.synthetic.main.item_answer.view.*
 
-class QuizAnswerAdapter(
+class MemoryAnswerAdapter(
     private val answers: List<Answer>,
     private val clickListener: (Answer) -> Unit
-) : RecyclerView.Adapter<QuizAnswerAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<MemoryAnswerAdapter.ViewHolder>() {
 
     /**
      * Prepares the view before passing it to the RecyclerView.

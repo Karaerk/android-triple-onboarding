@@ -24,6 +24,11 @@ class GamesActivity : AppCompatActivity() {
             val intent = Intent(this, QuizActivity::class.java)
             startActivity(intent)
         }
-        //TODO: btnStartMemory.setOnClickListener {  }
+
+        cvMemory.setOnClickListener { btnStartMemory.callOnClick() }
+        btnStartMemory.setOnClickListener {
+            val intent = Intent(this, MemoryActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
