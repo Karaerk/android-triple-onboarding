@@ -3,48 +3,39 @@ package com.wearetriple.tripleonboarding.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.wearetriple.tripleonboarding.R
 import com.wearetriple.tripleonboarding.model.MapLevel
 import kotlinx.android.synthetic.main.item_map_level.view.*
 
+/**
+ * Used to prepare recyclerview's items.
+ */
 class MapLevelAdapter(
-    private val mapLevels: List<MapLevel>,
-    private val clickListener: (MapLevel) -> Unit
-) : RecyclerView.Adapter<MapLevelAdapter.ViewHolder>() {
+    override val items: List<MapLevel>,
+    override val clickListener: (MapLevel) -> Unit
+) : AbstractAdapter<MapLevel>(items, clickListener) {
 
     /**
      * Prepares the view before passing it to the RecyclerView.
      */
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : AbstractAdapter<MapLevel>.ViewHolder(itemView) {
 
-        fun bind(mapLevel: MapLevel) {
-            itemView.btnMapLevel.text = mapLevel.level
-            itemView.btnMapLevel.setOnClickListener { clickListener(mapLevel) }
+        override fun bind(item: MapLevel) {
+            itemView.btnMapLevel.text = item.level
+            itemView.btnMapLevel.setOnClickListener { clickListener(item) }
         }
     }
 
     /**
      * Creates and returns a ViewHolder object, inflating a standard layout
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): AbstractAdapter<MapLevel>.ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_map_level, parent, false)
         )
-    }
-
-    /**
-     * Returns the size of the list
-     */
-    override fun getItemCount(): Int {
-        return mapLevels.size
-    }
-
-    /**
-     * Called by RecyclerView to display the data at the specified position.
-     */
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(mapLevels[position])
     }
 
 }

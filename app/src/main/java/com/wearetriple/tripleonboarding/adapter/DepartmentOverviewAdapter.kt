@@ -3,7 +3,6 @@ package com.wearetriple.tripleonboarding.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wearetriple.tripleonboarding.R
 import com.wearetriple.tripleonboarding.model.Department
@@ -13,27 +12,30 @@ import kotlinx.android.synthetic.main.item_department_overview.view.*
  * Used to prepare recyclerview's items.
  */
 class DepartmentOverviewAdapter(
-    private val departments: List<Department>,
-    private val clickListener: (Department) -> Unit
-) : RecyclerView.Adapter<DepartmentOverviewAdapter.ViewHolder>() {
+    override val items: List<Department>,
+    override val clickListener: (Department) -> Unit
+) : AbstractAdapter<Department>(items, clickListener) {
 
     /**
      * Prepares the view before passing it to the RecyclerView.
      */
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : AbstractAdapter<Department>.ViewHolder(itemView) {
 
-        fun bind(department: Department) {
-            itemView.tvDepartmentTitle.text = department.title
-            itemView.cvDepartment.setOnClickListener { clickListener(department) }
+        override fun bind(item: Department) {
+            itemView.tvDepartmentTitle.text = item.title
+            itemView.cvDepartment.setOnClickListener { clickListener(item) }
 
-            Glide.with(itemView.context).load(department.image).into(itemView.ivDepartmentThumbnail)
+            Glide.with(itemView.context).load(item.image).into(itemView.ivDepartmentThumbnail)
         }
     }
 
     /**
      * Creates and returns a ViewHolder object, inflating a standard layout.
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): AbstractAdapter<Department>.ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.item_department_overview,
@@ -41,20 +43,6 @@ class DepartmentOverviewAdapter(
                 false
             )
         )
-    }
-
-    /**
-     * Returns the size of the list.
-     */
-    override fun getItemCount(): Int {
-        return departments.size
-    }
-
-    /**
-     * Called by RecyclerView to display the data at the specified position.
-     */
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(departments[position])
     }
 
 }

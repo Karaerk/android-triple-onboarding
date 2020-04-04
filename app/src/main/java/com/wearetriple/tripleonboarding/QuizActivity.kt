@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.wearetriple.tripleonboarding.adapter.QuizAnswerAdapter
+import com.wearetriple.tripleonboarding.adapter.AnswerAdapter
 import com.wearetriple.tripleonboarding.model.Answer
 import com.wearetriple.tripleonboarding.model.CORRECT_ANSWER
 import com.wearetriple.tripleonboarding.model.DataCallback
@@ -83,7 +83,7 @@ class QuizActivity : AppCompatActivity() {
         val currentQuestion = prepareNextQuestion()
         currentQuestion.answer.shuffle()
         rvAnswers.adapter =
-            QuizAnswerAdapter(currentQuestion.answer) { quizAnswer ->
+            AnswerAdapter(currentQuestion.answer) { quizAnswer ->
                 answerClicked(
                     quizAnswer
                 )

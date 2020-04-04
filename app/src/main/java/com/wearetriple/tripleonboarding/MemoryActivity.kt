@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.wearetriple.tripleonboarding.adapter.MemoryAnswerAdapter
+import com.wearetriple.tripleonboarding.adapter.AnswerAdapter
 import com.wearetriple.tripleonboarding.model.Answer
 import com.wearetriple.tripleonboarding.model.CORRECT_ANSWER
 import com.wearetriple.tripleonboarding.model.DataCallback
@@ -81,7 +81,7 @@ class MemoryActivity : AppCompatActivity() {
         val currentQuestion = prepareNextQuestion()
         currentQuestion.answer.shuffle()
         rvAnswers.adapter =
-            MemoryAnswerAdapter(currentQuestion.answer) { memoryAnswer ->
+            AnswerAdapter(currentQuestion.answer) { memoryAnswer ->
                 answerClicked(
                     memoryAnswer
                 )
