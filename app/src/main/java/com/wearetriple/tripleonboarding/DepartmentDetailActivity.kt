@@ -1,6 +1,8 @@
 package com.wearetriple.tripleonboarding
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
+import android.text.util.Linkify
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import com.bumptech.glide.Glide
@@ -30,5 +32,7 @@ class DepartmentDetailActivity : AppCompatActivity() {
         Glide.with(this).load(department.image).into(ivDepartment)
 
         tvContent.text = HtmlCompat.fromHtml(department.content, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        tvContent.movementMethod = LinkMovementMethod.getInstance();
+        Linkify.addLinks(tvContent, Linkify.WEB_URLS)
     }
 }

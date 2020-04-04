@@ -1,6 +1,8 @@
 package com.wearetriple.tripleonboarding
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
+import android.text.util.Linkify
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -39,6 +41,8 @@ class HourBookDetailActivity : AppCompatActivity() {
     private fun initViews() {
         tvContent.text =
             HtmlCompat.fromHtml(hourBookTopic.content, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        tvContent.movementMethod = LinkMovementMethod.getInstance();
+        Linkify.addLinks(tvContent, Linkify.WEB_URLS)
 
         if (isActionPresent()) {
             fabLaunchUrl.visibility = VISIBLE
