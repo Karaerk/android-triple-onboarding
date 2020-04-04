@@ -67,9 +67,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_department_screen"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnHours"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnFaq" />
+
+    <Button
+        android:id="@+id/btnHours"
+        style="@style/AppTheme.Widget.Button.Round.Pink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_hours_screen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDepartment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

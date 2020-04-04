@@ -9,6 +9,15 @@
         <item name="alertDialogTheme">@style/AppTheme.Widget.AlertDialog</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <!-- Defines the base style of views -->
     <style name="AppTheme.Layout">
         <item name="android:padding">@dimen/default_layout_padding</item>
@@ -113,8 +122,8 @@
     </style>
 
     <style name="AppTheme.Widget.CardView.ItemView" parent="AppTheme.Widget.CardView.View">
-        <item name="android:layout_marginTop">@dimen/card_button_margin</item>
-        <item name="android:layout_marginBottom">@dimen/card_button_margin</item>
+        <item name="android:layout_marginTop">@dimen/default_view_margin</item>
+        <item name="android:layout_marginBottom">@dimen/default_view_margin</item>
         <item name="cardUseCompatPadding">true</item>
     </style>
 

@@ -12,8 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".HourBookDetailActivity"
+            android:parentActivityName=".HourBookOverviewActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".HourBookOverviewActivity" />
+        <activity
             android:name=".MemoryActivity"
-            android:parentActivityName=".GamesActivity"/>
+            android:parentActivityName=".GamesActivity" />
         <activity
             android:name=".DepartmentDetailActivity"
             android:parentActivityName=".DepartmentOverviewActivity" />

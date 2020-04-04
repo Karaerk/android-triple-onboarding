@@ -43,5 +43,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, DepartmentOverviewActivity::class.java)
             startActivity(intent)
         }
+        btnHours.setOnClickListener {
+            val intent = Intent(this, HourBookOverviewActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
