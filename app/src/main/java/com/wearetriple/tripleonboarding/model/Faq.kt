@@ -6,8 +6,4 @@ package com.wearetriple.tripleonboarding.model
 class Faq(
     val question: String = "",
     val answer: String = ""
-) : Identifiable() {
-    companion object {
-        const val DATABASE_KEY = "faq"
-    }
-}
+)

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapActivity">
+    tools:context=".ui.map.MapActivity">
 
     <com.ortiz.touchview.TouchImageView
         android:id="@+id/ivMap"

@@ -8,8 +8,4 @@ package com.wearetriple.tripleonboarding.model
 data class QuizQuestion(
     val question: String = "",
     val answer: ArrayList<Answer> = arrayListOf()
-) : Identifiable() {
-    companion object {
-        const val DATABASE_KEY = "quiz"
-    }
-}
+)

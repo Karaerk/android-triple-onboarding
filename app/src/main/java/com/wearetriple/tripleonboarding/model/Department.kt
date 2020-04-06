@@ -12,8 +12,4 @@ data class Department(
     val content: String = "",
     val thumbnail: String = "",
     val image: String = ""
-) : Identifiable(), Parcelable {
-    companion object {
-        const val DATABASE_KEY = "department"
-    }
-}
+) : Parcelable

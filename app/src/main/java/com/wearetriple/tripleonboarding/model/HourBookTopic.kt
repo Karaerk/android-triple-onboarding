@@ -14,8 +14,4 @@ data class HourBookTopic(
     val content: String = "",
     val action: @RawValue HourBookAction? = null,
     val child: @RawValue ArrayList<HourBookChild> = arrayListOf()
-) : Identifiable(), Parcelable {
-    companion object {
-        const val DATABASE_KEY = "hours"
-    }
-}
+) : Parcelable

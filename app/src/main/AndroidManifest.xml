@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.wearetriple.tripleonboarding">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,26 +13,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".HourBookDetailActivity"
-            android:parentActivityName=".HourBookOverviewActivity"
+            android:name=".ui.hourbook.detail.HourBookDetailActivity"
+            android:parentActivityName=".ui.hourbook.overview.HourBookOverviewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".HourBookOverviewActivity" />
+        <activity android:name=".ui.hourbook.overview.HourBookOverviewActivity" />
         <activity
-            android:name=".MemoryActivity"
-            android:parentActivityName=".GamesActivity" />
+            android:name=".ui.games.memory.MemoryActivity"
+            android:parentActivityName=".ui.games.GamesActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".DepartmentDetailActivity"
-            android:parentActivityName=".DepartmentOverviewActivity" />
-        <activity android:name=".DepartmentOverviewActivity" />
-        <activity android:name=".FaqActivity" />
-        <activity android:name=".FactsActivity" />
+            android:name=".ui.department.detail.DepartmentDetailActivity"
+            android:parentActivityName=".ui.department.overview.DepartmentOverviewActivity" />
+        <activity android:name=".ui.department.overview.DepartmentOverviewActivity" />
+        <activity android:name=".ui.faq.FaqActivity" />
+        <activity android:name=".ui.fact.FactActivity" />
         <activity
-            android:name=".QuizActivity"
-            android:parentActivityName=".GamesActivity" />
-        <activity android:name=".GamesActivity" />
-        <activity android:name=".MapActivity" />
-        <activity android:name=".InfoActivity" />
-        <activity android:name=".MainActivity">
+            android:name=".ui.games.quiz.QuizActivity"
+            android:parentActivityName=".ui.games.GamesActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".ui.games.GamesActivity" />
+        <activity android:name=".ui.map.MapActivity" />
+        <activity android:name=".ui.info.InfoActivity" />
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
