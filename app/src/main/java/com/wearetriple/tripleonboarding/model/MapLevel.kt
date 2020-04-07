@@ -6,8 +6,4 @@ package com.wearetriple.tripleonboarding.model
 data class MapLevel(
     val image: String = "",
     val level: String = ""
-) : Identifiable() {
-    companion object {
-        const val DATABASE_KEY = "map"
-    }
-}
+)

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.wearetriple.tripleonboarding">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,19 +13,40 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".QuizActivity"
-            android:parentActivityName=".GamesActivity">
-        </activity>
-        <activity android:name=".GamesActivity" />
-        <activity android:name=".MapActivity" />
-        <activity android:name=".InfoActivity" />
-        <activity android:name=".MainActivity">
+            android:name=".ui.hourbook.detail.HourBookDetailActivity"
+            android:parentActivityName=".ui.hourbook.overview.HourBookOverviewActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.hourbook.overview.HourBookOverviewActivity" />
+        <activity
+            android:name=".ui.games.memory.MemoryActivity"
+            android:parentActivityName=".ui.games.GamesActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.department.detail.DepartmentDetailActivity"
+            android:parentActivityName=".ui.department.overview.DepartmentOverviewActivity" />
+        <activity android:name=".ui.department.overview.DepartmentOverviewActivity" />
+        <activity android:name=".ui.faq.FaqActivity" />
+        <activity android:name=".ui.fact.FactActivity" />
+        <activity
+            android:name=".ui.games.quiz.QuizActivity"
+            android:parentActivityName=".ui.games.GamesActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".ui.games.GamesActivity" />
+        <activity android:name=".ui.map.MapActivity" />
+        <activity android:name=".ui.info.InfoActivity" />
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -6,9 +6,11 @@
 
     <Button
         android:id="@+id/btnMapLevel"
+        style="@style/AppTheme.Widget.Button.Square.Small"
         android:layout_width="@dimen/btn_map_level_size"
         android:layout_height="@dimen/btn_map_level_size"
-        android:textColor="@color/btnTextColor"
+        android:layout_marginTop="@dimen/default_view_margin"
+        android:textColor="@color/primary_darkblue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

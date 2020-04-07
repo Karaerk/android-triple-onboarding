@@ -2,14 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Layout"
+    style="@style/AppTheme.Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GamesActivity">
+    android:clipToPadding="false"
+    tools:context=".ui.games.GamesActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvQuiz"
-        style="@style/Base.CardView.View"
+        style="@style/AppTheme.Widget.CardView.ItemView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,13 +29,13 @@
                 android:paddingEnd="@dimen/default_layout_padding">
 
                 <TextView
-                    style="@style/Base.CardView.Title"
+                    style="@style/AppTheme.Widget.CardView.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/games_quiz" />
 
                 <TextView
-                    style="@style/Base.CardView.Body"
+                    style="@style/AppTheme.Widget.CardView.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit." />
@@ -46,17 +47,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_margin="@dimen/card_button_margin"
+                android:layout_margin="@dimen/default_view_margin"
                 android:padding="@dimen/default_layout_padding"
-                android:text="@string/btn_start_quiz" />
+                android:text="@string/btn_start_game" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvMemory"
-        style="@style/Base.CardView.View"
-        android:layout_marginTop="@dimen/card_button_margin"
+        style="@style/AppTheme.Widget.CardView.View"
+        android:layout_marginTop="@dimen/default_view_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvQuiz">
@@ -75,13 +76,13 @@
                 android:paddingEnd="@dimen/default_layout_padding">
 
                 <TextView
-                    style="@style/Base.CardView.Title"
+                    style="@style/AppTheme.Widget.CardView.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/games_memory" />
 
                 <TextView
-                    style="@style/Base.CardView.Body"
+                    style="@style/AppTheme.Widget.CardView.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit." />
@@ -93,9 +94,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_margin="@dimen/card_button_margin"
+                android:layout_margin="@dimen/default_view_margin"
                 android:padding="@dimen/default_layout_padding"
-                android:text="@string/btn_start_quiz" />
+                android:text="@string/btn_start_game" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
