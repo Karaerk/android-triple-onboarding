@@ -2,6 +2,7 @@ package com.wearetriple.tripleonboarding.ui.department.overview
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -52,6 +53,8 @@ class DepartmentOverviewActivity : AppCompatActivity() {
             if (list != null) {
                 departments.clear()
                 departments.addAll(list)
+
+                pbActivity.visibility = View.GONE
                 departmentAdapter.notifyDataSetChanged()
             }
         })

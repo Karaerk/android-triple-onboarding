@@ -1,6 +1,7 @@
 package com.wearetriple.tripleonboarding.ui.fact
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -51,6 +52,8 @@ class FactActivity : AppCompatActivity() {
             if (list != null) {
                 facts.clear()
                 facts.addAll(list)
+
+                pbActivity.visibility = View.GONE
                 factAdapter.notifyDataSetChanged()
             }
         })

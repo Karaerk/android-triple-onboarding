@@ -1,6 +1,7 @@
 package com.wearetriple.tripleonboarding.ui.faq
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -45,6 +46,8 @@ class FaqActivity : AppCompatActivity() {
             if (list != null) {
                 faq.clear()
                 faq.addAll(list)
+
+                pbActivity.visibility = View.GONE
                 faqAdapter.notifyDataSetChanged()
             }
         })

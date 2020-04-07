@@ -1,6 +1,7 @@
 package com.wearetriple.tripleonboarding.ui.games.memory
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -48,6 +49,7 @@ class MemoryActivity : AppCompatActivity() {
                 if (list.isEmpty())
                     return@Observer
 
+                pbActivity.visibility = View.GONE
                 startGame()
             }
         })

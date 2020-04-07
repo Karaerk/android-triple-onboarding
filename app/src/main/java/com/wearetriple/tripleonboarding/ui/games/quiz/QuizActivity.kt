@@ -1,6 +1,7 @@
 package com.wearetriple.tripleonboarding.ui.games.quiz
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -47,6 +48,7 @@ class QuizActivity : AppCompatActivity() {
                 if (list.isEmpty())
                     return@Observer
 
+                pbActivity.visibility = View.GONE
                 startGame()
             }
         })

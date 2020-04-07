@@ -3,6 +3,7 @@ package com.wearetriple.tripleonboarding.ui.map
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -56,6 +57,7 @@ class MapActivity : AppCompatActivity() {
                 mapLevels.clear()
                 mapLevels.addAll(list)
 
+                pbActivity.visibility = View.GONE
                 mapLevelClicked(list[0]) // Load up the first floor's image
 
                 mapLevelAdapter.notifyDataSetChanged()

@@ -2,6 +2,7 @@ package com.wearetriple.tripleonboarding.ui.hourbook.overview
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -56,6 +57,8 @@ class HourBookOverviewActivity : AppCompatActivity() {
             if (list != null) {
                 hourBookTopics.clear()
                 hourBookTopics.addAll(list)
+
+                pbActivity.visibility = View.GONE
                 hourBookTopicAdapter.notifyDataSetChanged()
             }
         })

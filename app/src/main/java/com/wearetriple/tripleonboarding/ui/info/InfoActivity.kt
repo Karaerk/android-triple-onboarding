@@ -1,6 +1,7 @@
 package com.wearetriple.tripleonboarding.ui.info
 
 import android.os.Bundle
+import android.view.View.GONE
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -52,6 +53,8 @@ class InfoActivity : AppCompatActivity() {
             if (list != null) {
                 infoTopics.clear()
                 infoTopics.addAll(list)
+
+                pbActivity.visibility = GONE
                 infoTopicAdapter.notifyDataSetChanged()
             }
         })
