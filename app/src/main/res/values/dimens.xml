@@ -4,17 +4,11 @@
     <dimen name="default_layout_padding">16dp</dimen>
     <dimen name="default_view_margin">8dp</dimen>
     <dimen name="fab_margin">@dimen/default_layout_padding</dimen>
-
-    <dimen name="map_grid_btn_padding">18dp</dimen>
     <dimen name="btn_map_level_size">70dp</dimen>
     <dimen name="card_title_text_size">16sp</dimen>
-    <dimen name="card_image_elevation">1sp</dimen>
     <dimen name="question_height">200dp</dimen>
     <dimen name="card_image_size">120dp</dimen>
-    <dimen name="card_image_title_elevation">4dp</dimen>
-    <dimen name="card_inner_body_margin">10dp</dimen>
     <dimen name="cover_image_size">200dp</dimen>
-    <dimen name="memory_image_padding">20dp</dimen>
     <dimen name="image_corner_radius">12dp</dimen>
     <dimen name="image_elevation">10dp</dimen>
     <dimen name="memory_image_margin">8dp</dimen>

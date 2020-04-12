@@ -36,7 +36,7 @@ class DepartmentDetailActivity : AppCompatActivity() {
             Glide.with(this).load(it.image).into(ivDepartment)
 
             tvContent.text = HtmlCompat.fromHtml(it.content, HtmlCompat.FROM_HTML_MODE_LEGACY)
-            tvContent.movementMethod = LinkMovementMethod.getInstance();
+            tvContent.movementMethod = LinkMovementMethod.getInstance()
             Linkify.addLinks(tvContent, Linkify.WEB_URLS)
         })
 

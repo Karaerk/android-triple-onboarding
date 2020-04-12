@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        toolbar.title = getString(R.string.app_name)
+//        setSupportActionBar(toolbar)
 
         initViews()
     }
@@ -55,5 +57,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, HourBookOverviewActivity::class.java)
             startActivity(intent)
         }
+
+
     }
 }

@@ -36,7 +36,9 @@
         <activity android:name=".ui.games.GamesActivity" />
         <activity android:name=".ui.map.MapActivity" />
         <activity android:name=".ui.info.InfoActivity" />
-        <activity android:name=".ui.main.MainActivity">
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

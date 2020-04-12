@@ -133,11 +133,6 @@
 
     <style name="AppTheme.Widget.CardView.Body" parent="AppTheme.Text.Light" />
 
-    <style name="AppTheme.Widget.CardView.Body.Inner">
-        <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:layout_margin">@dimen/card_inner_body_margin</item>
-    </style>
-
     <style name="AppTheme.Widget.CardView.Image">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>

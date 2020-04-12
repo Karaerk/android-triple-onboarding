@@ -106,7 +106,7 @@ class QuizActivity : AppCompatActivity() {
         dialogBuilder.setMessage(
             getString(
                 R.string.description_quiz_done,
-                quizViewModel.gameStatus.value!!.totalScore
+                resources.getQuantityString(R.plurals.number_of_points, quizViewModel.gameStatus.value!!.totalScore)
             )
         )
             .setCancelable(false)

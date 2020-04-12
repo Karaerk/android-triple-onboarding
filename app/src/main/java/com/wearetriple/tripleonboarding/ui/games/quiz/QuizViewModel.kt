@@ -24,7 +24,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     private val questionsLiveData = MediatorLiveData<ArrayList<QuizQuestion>>()
 
     var gameStatus = MutableLiveData<GameStatus>(GameStatus())
-    var leftoverQuestions = MutableLiveData<ArrayList<QuizQuestion>>(arrayListOf())
+    private var leftoverQuestions = MutableLiveData<ArrayList<QuizQuestion>>(arrayListOf())
     var currentQuestion = MutableLiveData<QuizQuestion>()
     var message = MutableLiveData<String?>()
     var gameOver = MutableLiveData<Boolean>(false)
@@ -86,7 +86,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Prepares a new question for the user by randomly selecting one of the leftovers.
      */
-    fun prepareNextQuestion() {
+    private fun prepareNextQuestion() {
         if (leftoverQuestions.value!!.isEmpty()) {
             gameOver.value = true
         } else {
@@ -124,7 +124,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
      * Handles the things needed to be done when/before choosing the right answer.
      * For example: keeping track of wrong guesses, earned points, etc.
      */
-    fun updateGameStatusAfterAnswer(correctAnswer: Boolean) {
+    private fun updateGameStatusAfterAnswer(correctAnswer: Boolean) {
         if (correctAnswer) {
             val status = gameStatus.value!!
             status.currentCorrectAnswers++
@@ -145,15 +145,13 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
      * Returns the number of current question which indicates the user's progress.
      */
     fun getQuestionNumber(): Int {
-        val questionNumber = (getAll().value!!.size - leftoverQuestions.value!!.size) + 1
-
-        return questionNumber
+        return (getAll().value!!.size - leftoverQuestions.value!!.size) + 1
     }
 
     /**
      * Checks if all possible answers from a question is found.
      */
-    fun isAllCorrectAnswersFound(): Boolean {
+    private fun isAllCorrectAnswersFound(): Boolean {
         val numberOfCorrectAnswers =
             currentQuestion.value!!.answer.filter { answer -> answer.correct == CORRECT_ANSWER }
                 .size

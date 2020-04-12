@@ -13,8 +13,8 @@ class FirebaseQueryLiveData(ref: DatabaseReference) : LiveData<DataSnapshot>() {
     private var query: Query = ref
 
     companion object {
-        val LOG_TAG = "FirebaseQueryLiveData"
-        val POST_DELAY = 2000L
+        const val LOG_TAG = "FirebaseQueryLiveData"
+        const val POST_DELAY = 2000L
     }
 
     /**

@@ -38,7 +38,7 @@
                     style="@style/AppTheme.Widget.CardView.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit." />
+                    android:text="@string/placeholder_text" />
             </LinearLayout>
 
             <Button
@@ -85,7 +85,7 @@
                     style="@style/AppTheme.Widget.CardView.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit." />
+                    android:text="@string/placeholder_text" />
             </LinearLayout>
 
             <Button

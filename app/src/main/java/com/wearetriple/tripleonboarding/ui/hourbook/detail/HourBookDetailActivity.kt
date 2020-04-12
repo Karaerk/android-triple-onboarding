@@ -42,7 +42,7 @@ class HourBookDetailActivity : AppCompatActivity() {
         hourBookDetailViewModel.hourBookTopic.observe(this, Observer {
             tvContent.text =
                 HtmlCompat.fromHtml(it.content, HtmlCompat.FROM_HTML_MODE_LEGACY)
-            tvContent.movementMethod = LinkMovementMethod.getInstance();
+            tvContent.movementMethod = LinkMovementMethod.getInstance()
             Linkify.addLinks(tvContent, Linkify.WEB_URLS)
 
             if (hourBookDetailViewModel.isActionPresent()) {

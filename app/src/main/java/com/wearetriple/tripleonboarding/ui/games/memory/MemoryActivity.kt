@@ -107,7 +107,7 @@ class MemoryActivity : AppCompatActivity() {
         dialogBuilder.setMessage(
             getString(
                 R.string.description_memory_done,
-                memoryViewModel.gameStatus.value!!.totalScore
+                resources.getQuantityString(R.plurals.number_of_points, memoryViewModel.gameStatus.value!!.totalScore)
             )
         )
             .setCancelable(false)
