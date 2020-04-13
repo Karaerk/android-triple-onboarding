@@ -10,4 +10,11 @@ class DepartmentDetailViewModel : ViewModel() {
     companion object {
         const val CLICKED_DEPARTMENT = "CLICKED_DEPARTMENT"
     }
+
+    /**
+     * Keeps track of currently selected department for the detail view.
+     */
+    fun initDepartment(department: Department) {
+        this.department.value = department
+    }
 }

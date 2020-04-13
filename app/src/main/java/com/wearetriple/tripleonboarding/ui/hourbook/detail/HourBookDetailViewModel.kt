@@ -23,8 +23,19 @@ class HourBookDetailViewModel : ViewModel() {
         return newUrl
     }
 
+    /**
+     * Checks if an action (like opening a website) is present at current topic.
+     */
     fun isActionPresent() = hourBookTopic.value?.action != null
+
+    /**
+     * Checks if current topic has subjects with its own content.
+     */
     fun isChildSubjectsPresent() = hourBookTopic.value!!.child.size > 0
+
+    /**
+     * Checks if given url follows Android's pattern for urls.
+     */
     private fun isUrlProperlyFormatted(url: String) =
         (url.startsWith("http://") || url.startsWith("https://"))
 }

@@ -15,6 +15,7 @@ class DepartmentOverviewViewModel : ViewModel() {
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private val liveData = FirebaseQueryLiveData(DATABASE_REF)
     private val departmentLiveData = MediatorLiveData<List<Department>>()
+    val departments = departmentLiveData
 
     companion object {
         private const val DATABASE_KEY = "department"

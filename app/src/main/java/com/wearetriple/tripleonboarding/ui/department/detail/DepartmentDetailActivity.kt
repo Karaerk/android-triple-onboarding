@@ -39,15 +39,12 @@ class DepartmentDetailActivity : AppCompatActivity() {
             tvContent.movementMethod = LinkMovementMethod.getInstance()
             Linkify.addLinks(tvContent, Linkify.WEB_URLS)
         })
-
-
     }
 
     /**
      * Prepares the data needed for this activity.
      */
     private fun initViewModel() {
-        departmentDetailViewModel.department.value =
-            intent.getParcelableExtra(DepartmentDetailViewModel.CLICKED_DEPARTMENT)
+        departmentDetailViewModel.initDepartment(intent.getParcelableExtra(DepartmentDetailViewModel.CLICKED_DEPARTMENT))
     }
 }

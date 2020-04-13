@@ -46,17 +46,13 @@ class DepartmentOverviewActivity : AppCompatActivity() {
     private fun initViewModel() {
         departmentOverviewViewModel =
             ViewModelProvider(this@DepartmentOverviewActivity).get(DepartmentOverviewViewModel::class.java)
+        
+        departmentOverviewViewModel.departments.observe(this, Observer { list ->
+            departments.clear()
+            departments.addAll(list)
 
-        val liveData = departmentOverviewViewModel.getAll()
-
-        liveData.observe(this, Observer { list ->
-            if (list != null) {
-                departments.clear()
-                departments.addAll(list)
-
-                pbActivity.visibility = View.GONE
-                departmentAdapter.notifyDataSetChanged()
-            }
+            pbActivity.visibility = View.GONE
+            departmentAdapter.notifyDataSetChanged()
         })
     }
 
