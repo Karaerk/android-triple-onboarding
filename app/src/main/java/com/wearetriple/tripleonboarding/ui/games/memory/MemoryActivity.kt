@@ -57,7 +57,7 @@ class MemoryActivity : AppCompatActivity() {
     }
 
     /**
-     * (Re)starts the game by cleaning up last session.
+     * Starts the game by cleaning up last session.
      */
     private fun startGame() {
         // Clean up left overs from previous session
@@ -107,7 +107,11 @@ class MemoryActivity : AppCompatActivity() {
         dialogBuilder.setMessage(
             getString(
                 R.string.description_memory_done,
-                resources.getQuantityString(R.plurals.number_of_points, memoryViewModel.gameStatus.value!!.totalScore)
+                resources.getQuantityString(
+                    R.plurals.number_of_points,
+                    memoryViewModel.gameStatus.value!!.totalScore,
+                    memoryViewModel.gameStatus.value!!.totalScore
+                )
             )
         )
             .setCancelable(false)
@@ -117,7 +121,7 @@ class MemoryActivity : AppCompatActivity() {
             }
             .setNegativeButton(getString(R.string.btn_replay_game)) { dialog, _ ->
                 dialog.cancel()
-                startGame()
+                memoryViewModel.prepareNewGame()
             }
 
         // create dialog box

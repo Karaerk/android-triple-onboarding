@@ -75,12 +75,10 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
      * Resets all data to its initial state.
      */
     private fun resetData() {
-        gameStatus = MutableLiveData(GameStatus())
-        leftoverQuestions = MutableLiveData(arrayListOf())
+        gameStatus.value = GameStatus()
+        leftoverQuestions.value!!.clear()
         leftoverQuestions.value!!.addAll(questionsLiveData.value!!)
-        currentQuestion = MutableLiveData()
-        message = MutableLiveData()
-        gameOver = MutableLiveData(false)
+        gameOver.value = false
     }
 
     /**

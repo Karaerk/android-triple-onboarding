@@ -56,7 +56,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     /**
-     * (Re)starts the game by cleaning up last session.
+     * Starts the game by cleaning up last session.
      */
     private fun startGame() {
         // Clean up left overs from previous session
@@ -106,7 +106,11 @@ class QuizActivity : AppCompatActivity() {
         dialogBuilder.setMessage(
             getString(
                 R.string.description_quiz_done,
-                resources.getQuantityString(R.plurals.number_of_points, quizViewModel.gameStatus.value!!.totalScore)
+                resources.getQuantityString(
+                    R.plurals.number_of_points,
+                    quizViewModel.gameStatus.value!!.totalScore,
+                    quizViewModel.gameStatus.value!!.totalScore
+                )
             )
         )
             .setCancelable(false)
@@ -116,7 +120,7 @@ class QuizActivity : AppCompatActivity() {
             }
             .setNegativeButton(getString(R.string.btn_replay_game)) { dialog, _ ->
                 dialog.cancel()
-                startGame()
+                quizViewModel.prepareNewGame()
             }
 
         // create dialog box
