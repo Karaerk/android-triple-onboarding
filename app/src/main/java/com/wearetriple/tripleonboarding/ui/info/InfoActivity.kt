@@ -15,9 +15,8 @@ import kotlinx.android.synthetic.main.activity_info.*
 
 class InfoActivity : AppCompatActivity() {
 
-    private val infoTopics = arrayListOf<InfoTopic>()
     private val infoTopicAdapter =
-        InfoTopicAdapter(infoTopics) { infoTopic: InfoTopic ->
+        InfoTopicAdapter(arrayListOf()) { infoTopic: InfoTopic ->
             infoTopicClicked(
                 infoTopic
             )
@@ -47,16 +46,11 @@ class InfoActivity : AppCompatActivity() {
     private fun initViewModel() {
         infoViewModel = ViewModelProvider(this@InfoActivity).get(InfoViewModel::class.java)
 
-        val liveData = infoViewModel.getAll()
-
-        liveData.observe(this, Observer { list ->
-            if (list != null) {
-                infoTopics.clear()
-                infoTopics.addAll(list)
-
+        infoViewModel.infoTopics.observe(this, Observer { list ->
                 pbActivity.visibility = GONE
+                infoTopicAdapter.items.clear()
+                infoTopicAdapter.items.addAll(list)
                 infoTopicAdapter.notifyDataSetChanged()
-            }
         })
     }
 

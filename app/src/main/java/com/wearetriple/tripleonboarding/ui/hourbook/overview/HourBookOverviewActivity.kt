@@ -16,10 +16,9 @@ import kotlinx.android.synthetic.main.activity_hour_book_overview.*
 
 class HourBookOverviewActivity : AppCompatActivity() {
 
-    private val hourBookTopics = arrayListOf<HourBookTopic>()
     private val hourBookTopicAdapter =
         HourBookOverviewAdapter(
-            hourBookTopics
+            arrayListOf()
         ) { infoTopic: HourBookTopic ->
             hourBookTopicClicked(
                 infoTopic
@@ -51,16 +50,11 @@ class HourBookOverviewActivity : AppCompatActivity() {
         hourBookOverviewViewModel =
             ViewModelProvider(this@HourBookOverviewActivity).get(HourBookOverviewViewModel::class.java)
 
-        val liveData = hourBookOverviewViewModel.getAll()
-
-        liveData.observe(this, Observer { list ->
-            if (list != null) {
-                hourBookTopics.clear()
-                hourBookTopics.addAll(list)
-
-                pbActivity.visibility = View.GONE
-                hourBookTopicAdapter.notifyDataSetChanged()
-            }
+        hourBookOverviewViewModel.hourBookTopics.observe(this, Observer { list ->
+            pbActivity.visibility = View.GONE
+            hourBookTopicAdapter.items.clear()
+            hourBookTopicAdapter.items.addAll(list)
+            hourBookTopicAdapter.notifyDataSetChanged()
         })
     }
 

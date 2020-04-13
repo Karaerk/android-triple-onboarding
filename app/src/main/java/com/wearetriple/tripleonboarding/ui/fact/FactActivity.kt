@@ -14,9 +14,8 @@ import kotlinx.android.synthetic.main.activity_facts.*
 
 class FactActivity : AppCompatActivity() {
 
-    private val facts = arrayListOf<Fact>()
     private val factAdapter =
-        FactAdapter(facts) { fact: Fact ->
+        FactAdapter(arrayListOf()) { fact: Fact ->
             factClicked(
                 fact
             )
@@ -46,16 +45,11 @@ class FactActivity : AppCompatActivity() {
     private fun initViewModel() {
         factViewModel = ViewModelProvider(this@FactActivity).get(FactViewModel::class.java)
 
-        val liveData = factViewModel.getAll()
-
-        liveData.observe(this, Observer { list ->
-            if (list != null) {
-                facts.clear()
-                facts.addAll(list)
-
-                pbActivity.visibility = View.GONE
-                factAdapter.notifyDataSetChanged()
-            }
+        factViewModel.facts.observe(this, Observer { list ->
+            pbActivity.visibility = View.GONE
+            factAdapter.items.clear()
+            factAdapter.items.addAll(list)
+            factAdapter.notifyDataSetChanged()
         })
     }
 

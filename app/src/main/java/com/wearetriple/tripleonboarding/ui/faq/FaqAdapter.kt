@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_faq.view.*
  * Used to prepare recyclerview's items.
  */
 class FaqAdapter(
-    override val items: List<Faq>
+    override var items: ArrayList<Faq>
 ) : AbstractAdapter<Faq>(items) {
 
     /**

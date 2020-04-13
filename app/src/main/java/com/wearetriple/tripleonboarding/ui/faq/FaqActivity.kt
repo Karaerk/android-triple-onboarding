@@ -13,8 +13,7 @@ import kotlinx.android.synthetic.main.activity_faq.*
 
 class FaqActivity : AppCompatActivity() {
 
-    private val faq = arrayListOf<Faq>()
-    private val faqAdapter = FaqAdapter(faq)
+    private val faqAdapter = FaqAdapter(arrayListOf())
     private lateinit var faqViewModel: FaqViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,16 +39,11 @@ class FaqActivity : AppCompatActivity() {
     private fun initViewModel() {
         faqViewModel = ViewModelProvider(this@FaqActivity).get(FaqViewModel::class.java)
 
-        val liveData = faqViewModel.getAll()
-
-        liveData.observe(this, Observer { list ->
-            if (list != null) {
-                faq.clear()
-                faq.addAll(list)
-
-                pbActivity.visibility = View.GONE
-                faqAdapter.notifyDataSetChanged()
-            }
+        faqViewModel.faq.observe(this, Observer { list ->
+            pbActivity.visibility = View.GONE
+            faqAdapter.items.clear()
+            faqAdapter.items.addAll(list)
+            faqAdapter.notifyDataSetChanged()
         })
     }
 }

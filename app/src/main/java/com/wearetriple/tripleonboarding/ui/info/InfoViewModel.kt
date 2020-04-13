@@ -16,6 +16,7 @@ class InfoViewModel : ViewModel() {
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private val liveData = FirebaseQueryLiveData(DATABASE_REF)
     private val infoTopicLiveData = MediatorLiveData<List<InfoTopic>>()
+    val infoTopics = infoTopicLiveData
 
     companion object {
         private const val DATABASE_KEY = "info"
@@ -43,10 +44,5 @@ class InfoViewModel : ViewModel() {
                 infoTopicLiveData.setValue(arrayListOf())
             }
         }
-    }
-
-    @NonNull
-    fun getAll(): LiveData<List<InfoTopic>> {
-        return infoTopicLiveData
     }
 }

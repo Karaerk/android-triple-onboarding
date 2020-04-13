@@ -44,26 +44,28 @@ class HourBookDetailActivity : AppCompatActivity() {
                 HtmlCompat.fromHtml(it.content, HtmlCompat.FROM_HTML_MODE_LEGACY)
             tvContent.movementMethod = LinkMovementMethod.getInstance()
             Linkify.addLinks(tvContent, Linkify.WEB_URLS)
+        })
 
-            if (hourBookDetailViewModel.isActionPresent()) {
+        hourBookDetailViewModel.actionPresent.observe(this, Observer {
+            if (it == true) {
                 fabLaunchUrl.visibility = VISIBLE
                 fabLaunchUrl.setOnClickListener { launchBrowser() }
             }
+        })
 
-            if (hourBookDetailViewModel.isChildSubjectsPresent()) {
-                llChildInfo.setPadding(0)
-                rvChild.visibility = VISIBLE
-                rvChild.isFocusable = false
-                val hourBookChildAdapter =
-                    HourBookDetailAdapter(
-                        it.child
-                    ) { hourBookChild: HourBookChild ->
-                        hourBookChildClicked(hourBookChild)
-                    }
-                rvChild.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-                rvChild.adapter = hourBookChildAdapter
-                hourBookChildAdapter.notifyDataSetChanged()
-            }
+        hourBookDetailViewModel.childSubjects.observe(this, Observer {
+            llChildInfo.setPadding(0)
+            rvChild.visibility = VISIBLE
+            rvChild.isFocusable = false
+            val hourBookChildAdapter =
+                HourBookDetailAdapter(
+                    it
+                ) { hourBookChild: HourBookChild ->
+                    hourBookChildClicked(hourBookChild)
+                }
+            rvChild.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+            rvChild.adapter = hourBookChildAdapter
+            hourBookChildAdapter.notifyDataSetChanged()
         })
     }
 
@@ -71,8 +73,8 @@ class HourBookDetailActivity : AppCompatActivity() {
      * Prepares the data needed for this activity.
      */
     private fun initViewModel() {
-        hourBookDetailViewModel.hourBookTopic.value =
-            intent.getParcelableExtra(HourBookDetailViewModel.CLICKED_HOUR_BOOK_TOPIC)
+        hourBookDetailViewModel.initTopic(intent.getParcelableExtra(HourBookDetailViewModel.CLICKED_HOUR_BOOK_TOPIC))
+
     }
 
     /**

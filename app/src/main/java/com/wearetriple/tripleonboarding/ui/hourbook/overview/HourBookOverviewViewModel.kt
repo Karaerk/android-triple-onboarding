@@ -15,6 +15,7 @@ class HourBookOverviewViewModel : ViewModel() {
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private val liveData = FirebaseQueryLiveData(DATABASE_REF)
     private val hourBookTopicsLiveData = MediatorLiveData<List<HourBookTopic>>()
+    val hourBookTopics = hourBookTopicsLiveData
 
     companion object {
         private const val DATABASE_KEY = "hours"
@@ -42,10 +43,5 @@ class HourBookOverviewViewModel : ViewModel() {
                 hourBookTopicsLiveData.setValue(arrayListOf())
             }
         }
-    }
-
-    @NonNull
-    fun getAll(): LiveData<List<HourBookTopic>> {
-        return hourBookTopicsLiveData
     }
 }

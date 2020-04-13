@@ -18,9 +18,8 @@ import kotlinx.android.synthetic.main.activity_map.*
 
 class MapActivity : AppCompatActivity() {
 
-    private val mapLevels = arrayListOf<MapLevel>()
     private val mapLevelAdapter =
-        MapLevelAdapter(mapLevels) { mapLevel ->
+        MapLevelAdapter(arrayListOf()) { mapLevel ->
             mapLevelClicked(
                 mapLevel
             )
@@ -50,18 +49,13 @@ class MapActivity : AppCompatActivity() {
     private fun initViewModel() {
         mapViewModel = ViewModelProvider(this@MapActivity).get(MapViewModel::class.java)
 
-        val liveData = mapViewModel.getAll()
+        mapViewModel.mapLevels.observe(this, Observer { list ->
+            pbActivity.visibility = View.GONE
+            mapLevelClicked(list[0]) // Load up the first floor's image
 
-        liveData.observe(this, Observer { list ->
-            if (list != null) {
-                mapLevels.clear()
-                mapLevels.addAll(list)
-
-                pbActivity.visibility = View.GONE
-                mapLevelClicked(list[0]) // Load up the first floor's image
-
-                mapLevelAdapter.notifyDataSetChanged()
-            }
+            mapLevelAdapter.items.clear()
+            mapLevelAdapter.items.addAll(list)
+            mapLevelAdapter.notifyDataSetChanged()
         })
     }
 

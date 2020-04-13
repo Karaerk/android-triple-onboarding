@@ -15,6 +15,7 @@ class MapViewModel : ViewModel() {
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private val liveData = FirebaseQueryLiveData(DATABASE_REF)
     private val mapLevelLiveData = MediatorLiveData<List<MapLevel>>()
+    val mapLevels = mapLevelLiveData
 
     companion object {
         private const val DATABASE_KEY = "map"
@@ -42,10 +43,5 @@ class MapViewModel : ViewModel() {
                 mapLevelLiveData.setValue(arrayListOf())
             }
         }
-    }
-
-    @NonNull
-    fun getAll(): LiveData<List<MapLevel>> {
-        return mapLevelLiveData
     }
 }

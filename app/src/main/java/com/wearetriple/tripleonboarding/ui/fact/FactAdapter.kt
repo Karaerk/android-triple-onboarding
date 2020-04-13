@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_fact.view.*
  * Used to prepare recyclerview's items.
  */
 class FactAdapter(
-    override val items: List<Fact>,
+    override var items: ArrayList<Fact>,
     override val clickListener: (Fact) -> Unit
 ) : AbstractAdapter<Fact>(items, clickListener) {
 

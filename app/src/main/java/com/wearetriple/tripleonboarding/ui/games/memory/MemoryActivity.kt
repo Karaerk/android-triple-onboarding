@@ -43,15 +43,12 @@ class MemoryActivity : AppCompatActivity() {
         memoryViewModel =
             ViewModelProvider(this@MemoryActivity).get(MemoryViewModel::class.java)
 
-        val liveData = memoryViewModel.getAll()
-        liveData.observe(this, Observer { list ->
-            if (list != null) {
-                if (list.isEmpty())
-                    return@Observer
+        memoryViewModel.questions.observe(this, Observer { list ->
+            if (list.isEmpty())
+                return@Observer
 
-                pbActivity.visibility = View.GONE
-                startGame()
-            }
+            pbActivity.visibility = View.GONE
+            startGame()
         })
 
     }
@@ -71,15 +68,8 @@ class MemoryActivity : AppCompatActivity() {
      */
     private fun updateGameScreen() {
         memoryViewModel.gameStatus.observe(this, Observer {
-            if (!memoryViewModel.gameOver.value!!) {
-                tvStatus.text = getString(
-                    R.string.label_game_status,
-                    memoryViewModel.getQuestionNumber(),
-                    memoryViewModel.getAll().value!!.size
-                )
-            }
-
-            tvScore.text = getString(R.string.label_game_score, it.totalScore)
+            tvStatus.text = memoryViewModel.getGameStatus()
+            tvScore.text = memoryViewModel.getScore()
         })
 
         memoryViewModel.currentQuestion.observe(this, Observer {
@@ -105,14 +95,7 @@ class MemoryActivity : AppCompatActivity() {
         val dialogBuilder = AlertDialog.Builder(this)
 
         dialogBuilder.setMessage(
-            getString(
-                R.string.description_memory_done,
-                resources.getQuantityString(
-                    R.plurals.number_of_points,
-                    memoryViewModel.gameStatus.value!!.totalScore,
-                    memoryViewModel.gameStatus.value!!.totalScore
-                )
-            )
+            memoryViewModel.getEndResult()
         )
             .setCancelable(false)
             .setPositiveButton(getString(R.string.btn_leave_game)) { dialog, _ ->

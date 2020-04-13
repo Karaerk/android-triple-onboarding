@@ -42,15 +42,12 @@ class QuizActivity : AppCompatActivity() {
         quizViewModel =
             ViewModelProvider(this@QuizActivity).get(QuizViewModel::class.java)
 
-        val liveData = quizViewModel.getAll()
-        liveData.observe(this, Observer { list ->
-            if (list != null) {
-                if (list.isEmpty())
-                    return@Observer
+        quizViewModel.questions.observe(this, Observer { list ->
+            if (list.isEmpty())
+                return@Observer
 
-                pbActivity.visibility = View.GONE
-                startGame()
-            }
+            pbActivity.visibility = View.GONE
+            startGame()
         })
 
     }
@@ -70,15 +67,8 @@ class QuizActivity : AppCompatActivity() {
      */
     private fun updateGameScreen() {
         quizViewModel.gameStatus.observe(this, Observer {
-            if (!quizViewModel.gameOver.value!!) {
-                tvStatus.text = getString(
-                    R.string.label_game_status,
-                    quizViewModel.getQuestionNumber(),
-                    quizViewModel.getAll().value!!.size
-                )
-            }
-
-            tvScore.text = getString(R.string.label_game_score, it.totalScore)
+            tvStatus.text = quizViewModel.getGameStatus()
+            tvScore.text = quizViewModel.getScore()
         })
 
         quizViewModel.currentQuestion.observe(this, Observer {
@@ -104,14 +94,7 @@ class QuizActivity : AppCompatActivity() {
         val dialogBuilder = AlertDialog.Builder(this)
 
         dialogBuilder.setMessage(
-            getString(
-                R.string.description_quiz_done,
-                resources.getQuantityString(
-                    R.plurals.number_of_points,
-                    quizViewModel.gameStatus.value!!.totalScore,
-                    quizViewModel.gameStatus.value!!.totalScore
-                )
-            )
+            quizViewModel.getEndResult()
         )
             .setCancelable(false)
             .setPositiveButton(getString(R.string.btn_leave_game)) { dialog, _ ->

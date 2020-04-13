@@ -44,9 +44,4 @@ class DepartmentOverviewViewModel : ViewModel() {
             }
         }
     }
-
-    @NonNull
-    fun getAll(): LiveData<List<Department>> {
-        return departmentLiveData
-    }
 }

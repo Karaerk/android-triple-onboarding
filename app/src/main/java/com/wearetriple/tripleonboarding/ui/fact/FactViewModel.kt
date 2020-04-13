@@ -15,6 +15,7 @@ class FactViewModel : ViewModel() {
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private val liveData = FirebaseQueryLiveData(DATABASE_REF)
     private val factLiveData = MediatorLiveData<List<Fact>>()
+    val facts = factLiveData
 
     companion object {
         private const val DATABASE_KEY = "facts"
@@ -42,10 +43,5 @@ class FactViewModel : ViewModel() {
                 factLiveData.setValue(arrayListOf())
             }
         }
-    }
-
-    @NonNull
-    fun getAll(): LiveData<List<Fact>> {
-        return factLiveData
     }
 }

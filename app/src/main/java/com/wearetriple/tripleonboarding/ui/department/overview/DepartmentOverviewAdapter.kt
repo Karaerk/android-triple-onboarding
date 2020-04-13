@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_department_overview.view.*
  * Used to prepare recyclerview's items.
  */
 class DepartmentOverviewAdapter(
-    override val items: List<Department>,
+    override var items: ArrayList<Department>,
     override val clickListener: (Department) -> Unit
 ) : AbstractAdapter<Department>(items, clickListener) {
 

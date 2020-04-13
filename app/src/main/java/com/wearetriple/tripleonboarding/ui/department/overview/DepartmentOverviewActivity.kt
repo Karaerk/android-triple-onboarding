@@ -16,10 +16,9 @@ import kotlinx.android.synthetic.main.activity_department_overview.*
 
 class DepartmentOverviewActivity : AppCompatActivity() {
 
-    private val departments = arrayListOf<Department>()
     private val departmentAdapter =
         DepartmentOverviewAdapter(
-            departments
+            arrayListOf()
         ) { department -> onDepartmentClick(department) }
     private lateinit var departmentOverviewViewModel: DepartmentOverviewViewModel
 
@@ -48,10 +47,9 @@ class DepartmentOverviewActivity : AppCompatActivity() {
             ViewModelProvider(this@DepartmentOverviewActivity).get(DepartmentOverviewViewModel::class.java)
         
         departmentOverviewViewModel.departments.observe(this, Observer { list ->
-            departments.clear()
-            departments.addAll(list)
-
             pbActivity.visibility = View.GONE
+            departmentAdapter.items.clear()
+            departmentAdapter.items.addAll(list)
             departmentAdapter.notifyDataSetChanged()
         })
     }

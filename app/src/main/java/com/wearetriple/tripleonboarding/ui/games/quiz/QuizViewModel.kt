@@ -22,6 +22,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private val liveData = FirebaseQueryLiveData(DATABASE_REF)
     private val questionsLiveData = MediatorLiveData<ArrayList<QuizQuestion>>()
+    var questions = questionsLiveData
 
     var gameStatus = MutableLiveData<GameStatus>(GameStatus())
     private var leftoverQuestions = MutableLiveData<ArrayList<QuizQuestion>>(arrayListOf())
@@ -79,6 +80,38 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
         leftoverQuestions.value!!.clear()
         leftoverQuestions.value!!.addAll(questionsLiveData.value!!)
         gameOver.value = false
+    }
+
+    /**
+     * @return A String representation of the game's status.
+     */
+    fun getGameStatus(): String {
+        return context.getString(
+            R.string.label_game_status,
+            getQuestionNumber(),
+            questions.value!!.size
+        )
+    }
+
+    /**
+     * @return A String representation of the user's current score.
+     */
+    fun getScore(): String {
+        return context.getString(R.string.label_game_score, gameStatus.value!!.totalScore)
+    }
+
+    /**
+     * @return A String representation of the game's end result.
+     */
+    fun getEndResult(): String {
+        return context.getString(
+            R.string.description_quiz_done,
+            context.resources.getQuantityString(
+                R.plurals.number_of_points,
+                gameStatus.value!!.totalScore,
+                gameStatus.value!!.totalScore
+            )
+        )
     }
 
     /**
@@ -140,10 +173,16 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * Returns the number of current question which indicates the user's progress.
+     * @return The number of current question which indicates the user's progress.
      */
-    fun getQuestionNumber(): Int {
-        return (getAll().value!!.size - leftoverQuestions.value!!.size) + 1
+    private fun getQuestionNumber(): Int {
+        val numberOfQuestions = questions.value!!.size
+        val difference = numberOfQuestions - leftoverQuestions.value!!.size
+
+        return when (difference) {
+            numberOfQuestions -> numberOfQuestions
+            else -> difference + 1
+        }
     }
 
     /**
