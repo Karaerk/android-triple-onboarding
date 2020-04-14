@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import com.wearetriple.tripleonboarding.R
 import com.wearetriple.tripleonboarding.database.FirebaseQueryLiveData
@@ -11,13 +13,12 @@ import com.wearetriple.tripleonboarding.model.Answer
 import com.wearetriple.tripleonboarding.model.CORRECT_ANSWER
 import com.wearetriple.tripleonboarding.model.GameStatus
 import com.wearetriple.tripleonboarding.model.MemoryQuestion
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MemoryViewModel(application: Application) : AndroidViewModel(application) {
     private val context = application
-    private val mainScope = CoroutineScope(Dispatchers.Main)
     private val liveData = FirebaseQueryLiveData(DATABASE_REF)
     private val questionsLiveData = MediatorLiveData<ArrayList<MemoryQuestion>>()
     var questions = questionsLiveData
@@ -35,21 +36,10 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     init {
-        questionsLiveData.addSource(
-            liveData
-        ) { dataSnapshot ->
+        questionsLiveData.addSource(liveData) { dataSnapshot ->
             if (dataSnapshot != null) {
-                mainScope.launch {
-                    val list = ArrayList<MemoryQuestion>()
-
-                    dataSnapshot.children.forEach {
-                        val item: MemoryQuestion? = it.getValue(MemoryQuestion::class.java)
-
-                        if (item != null)
-                            list.add(item)
-                    }
-
-                    questionsLiveData.postValue(list)
+                viewModelScope.launch {
+                    postLiveData(dataSnapshot)
                 }
             } else {
                 questionsLiveData.setValue(arrayListOf())
@@ -57,6 +47,25 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    /**
+     * Posts a new set of data inside the live data attribute.
+     */
+    private suspend fun postLiveData(dataSnapshot: DataSnapshot) = withContext(Dispatchers.IO) {
+        val list = ArrayList<MemoryQuestion>()
+
+        dataSnapshot.children.forEach {
+            val item: MemoryQuestion? = it.getValue(MemoryQuestion::class.java)
+
+            if (item != null)
+                list.add(item)
+        }
+
+        questionsLiveData.postValue(list)
+    }
+
+    /**
+     * Prepares a new game by resetting data and getting the next question ready
+     */
     /**
      * Prepares a new game by resetting data and getting the next question ready
      */
@@ -68,6 +77,9 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * Resets all data to its initial state.
      */
+    /**
+     * Resets all data to its initial state.
+     */
     private fun resetData() {
         gameStatus.value = GameStatus()
         leftoverQuestions.value!!.clear()
@@ -75,6 +87,9 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
         gameOver.value = false
     }
 
+    /**
+     * @return A String representation of the game's status.
+     */
     /**
      * @return A String representation of the game's status.
      */
@@ -89,10 +104,16 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * @return A String representation of the user's current score.
      */
+    /**
+     * @return A String representation of the user's current score.
+     */
     fun getScore(): String {
         return context.getString(R.string.label_game_score, gameStatus.value!!.totalScore)
     }
 
+    /**
+     * @return A String representation of the game's end result.
+     */
     /**
      * @return A String representation of the game's end result.
      */
@@ -110,6 +131,9 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * Prepares a new question for the user by randomly selecting one of the leftovers.
      */
+    /**
+     * Prepares a new question for the user by randomly selecting one of the leftovers.
+     */
     private fun prepareNextQuestion() {
         if (leftoverQuestions.value!!.isEmpty()) {
             gameOver.value = true
@@ -124,6 +148,10 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
         gameStatus.value = GameStatus(totalScore = gameStatus.value!!.totalScore)
     }
 
+    /**
+     * Checks the result of the given answers and sends back a message to the user to let them
+     * know the result.
+     */
     /**
      * Checks the result of the given answers and sends back a message to the user to let them
      * know the result.
@@ -148,6 +176,10 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
      * Handles the things needed to be done when/before choosing the right answer.
      * For example: keeping track of wrong guesses, earned points, etc.
      */
+    /**
+     * Handles the things needed to be done when/before choosing the right answer.
+     * For example: keeping track of wrong guesses, earned points, etc.
+     */
     private fun updateGameStatusAfterAnswer(correctAnswer: Boolean) {
         if (correctAnswer) {
             val status = gameStatus.value!!
@@ -168,6 +200,9 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * @return The number of current question which indicates the user's progress.
      */
+    /**
+     * @return The number of current question which indicates the user's progress.
+     */
     private fun getQuestionNumber(): Int {
         val numberOfQuestions = questions.value!!.size
         val difference = numberOfQuestions - leftoverQuestions.value!!.size
@@ -178,6 +213,9 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    /**
+     * Checks if all possible answers from a question is found.
+     */
     /**
      * Checks if all possible answers from a question is found.
      */

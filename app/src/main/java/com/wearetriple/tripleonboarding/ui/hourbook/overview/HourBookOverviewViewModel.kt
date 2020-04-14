@@ -1,18 +1,17 @@
 package com.wearetriple.tripleonboarding.ui.hourbook.overview
 
-import androidx.annotation.NonNull
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import com.wearetriple.tripleonboarding.database.FirebaseQueryLiveData
 import com.wearetriple.tripleonboarding.model.HourBookTopic
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HourBookOverviewViewModel : ViewModel() {
-    private val mainScope = CoroutineScope(Dispatchers.Main)
     private val liveData = FirebaseQueryLiveData(DATABASE_REF)
     private val hourBookTopicsLiveData = MediatorLiveData<List<HourBookTopic>>()
     val hourBookTopics = hourBookTopicsLiveData
@@ -23,25 +22,30 @@ class HourBookOverviewViewModel : ViewModel() {
     }
 
     init {
-        hourBookTopicsLiveData.addSource(
-            liveData
-        ) { dataSnapshot ->
+        hourBookTopicsLiveData.addSource(liveData) { dataSnapshot ->
             if (dataSnapshot != null) {
-                mainScope.launch {
-                    val list = ArrayList<HourBookTopic>()
-
-                    dataSnapshot.children.forEach {
-                        val item: HourBookTopic? = it.getValue(HourBookTopic::class.java)
-
-                        if (item != null)
-                            list.add(item)
-                    }
-
-                    hourBookTopicsLiveData.postValue(list)
+                viewModelScope.launch {
+                    postLiveData(dataSnapshot)
                 }
             } else {
                 hourBookTopicsLiveData.setValue(arrayListOf())
             }
         }
+    }
+
+    /**
+     * Posts a new set of data inside the live data attribute.
+     */
+    private suspend fun postLiveData(dataSnapshot: DataSnapshot) = withContext(Dispatchers.IO) {
+        val list = ArrayList<HourBookTopic>()
+
+        dataSnapshot.children.forEach {
+            val item: HourBookTopic? = it.getValue(HourBookTopic::class.java)
+
+            if (item != null)
+                list.add(item)
+        }
+
+        hourBookTopicsLiveData.postValue(list)
     }
 }

@@ -1,18 +1,17 @@
 package com.wearetriple.tripleonboarding.ui.map
 
-import androidx.annotation.NonNull
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import com.wearetriple.tripleonboarding.database.FirebaseQueryLiveData
 import com.wearetriple.tripleonboarding.model.MapLevel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MapViewModel : ViewModel() {
-    private val mainScope = CoroutineScope(Dispatchers.Main)
     private val liveData = FirebaseQueryLiveData(DATABASE_REF)
     private val mapLevelLiveData = MediatorLiveData<List<MapLevel>>()
     val mapLevels = mapLevelLiveData
@@ -23,25 +22,30 @@ class MapViewModel : ViewModel() {
     }
 
     init {
-        mapLevelLiveData.addSource(
-            liveData
-        ) { dataSnapshot ->
+        mapLevelLiveData.addSource(liveData) { dataSnapshot ->
             if (dataSnapshot != null) {
-                mainScope.launch {
-                    val list = ArrayList<MapLevel>()
-
-                    dataSnapshot.children.forEach {
-                        val item: MapLevel? = it.getValue(MapLevel::class.java)
-
-                        if (item != null)
-                            list.add(item)
-                    }
-
-                    mapLevelLiveData.postValue(list)
+                viewModelScope.launch {
+                    postLiveData(dataSnapshot)
                 }
             } else {
                 mapLevelLiveData.setValue(arrayListOf())
             }
         }
+    }
+
+    /**
+     * Posts a new set of data inside the live data attribute.
+     */
+    private suspend fun postLiveData(dataSnapshot: DataSnapshot) = withContext(Dispatchers.IO) {
+        val list = ArrayList<MapLevel>()
+
+        dataSnapshot.children.forEach {
+            val item: MapLevel? = it.getValue(MapLevel::class.java)
+
+            if (item != null)
+                list.add(item)
+        }
+
+        mapLevelLiveData.postValue(list)
     }
 }

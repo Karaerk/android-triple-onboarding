@@ -1,18 +1,15 @@
 package com.wearetriple.tripleonboarding.ui.fact
 
-import androidx.annotation.NonNull
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import com.wearetriple.tripleonboarding.database.FirebaseQueryLiveData
 import com.wearetriple.tripleonboarding.model.Fact
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FactViewModel : ViewModel() {
-    private val mainScope = CoroutineScope(Dispatchers.Main)
     private val liveData = FirebaseQueryLiveData(DATABASE_REF)
     private val factLiveData = MediatorLiveData<List<Fact>>()
     val facts = factLiveData
@@ -23,25 +20,31 @@ class FactViewModel : ViewModel() {
     }
 
     init {
-        factLiveData.addSource(
-            liveData
-        ) { dataSnapshot ->
+        factLiveData.addSource(liveData) { dataSnapshot ->
             if (dataSnapshot != null) {
-                mainScope.launch {
-                    val list = ArrayList<Fact>()
-
-                    dataSnapshot.children.forEach {
-                        val item: Fact? = it.getValue(Fact::class.java)
-
-                        if (item != null)
-                            list.add(item)
-                    }
-
-                    factLiveData.postValue(list)
+                viewModelScope.launch {
+                    postLiveData(dataSnapshot)
                 }
             } else {
-                factLiveData.setValue(arrayListOf())
+                factLiveData.value = arrayListOf()
             }
         }
+    }
+
+    /**
+     * Posts a new set of data inside the live data attribute.
+     */
+    private fun postLiveData(dataSnapshot: DataSnapshot) {
+
+        val list = ArrayList<Fact>()
+
+        dataSnapshot.children.forEach {
+            val item: Fact? = it.getValue(Fact::class.java)
+
+            if (item != null)
+                list.add(item)
+        }
+
+        factLiveData.postValue(list)
     }
 }
