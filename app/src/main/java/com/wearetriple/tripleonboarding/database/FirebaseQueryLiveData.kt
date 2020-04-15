@@ -5,6 +5,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.google.firebase.database.*
 
+/**
+ * Handles the transactions from Firebase
+ * TODO: Create a generic repository (repository pattern) which
+ *  allows the app to perform generic transactions and also allows the app to choose a database
+ */
 class FirebaseQueryLiveData(ref: DatabaseReference) : LiveData<DataSnapshot>() {
     private var listenerRemovePending: Boolean = false
     private val handler: Handler = Handler()
