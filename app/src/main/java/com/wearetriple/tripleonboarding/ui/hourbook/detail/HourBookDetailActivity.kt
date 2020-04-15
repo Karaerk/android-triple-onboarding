@@ -13,7 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wearetriple.tripleonboarding.R
+import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.HourBookChild
+import com.wearetriple.tripleonboarding.model.HourBookTopic
 import com.wearetriple.tripleonboarding.model.helper.CustomTabsHelper
 import kotlinx.android.synthetic.main.activity_hour_book_detail.*
 import kotlinx.android.synthetic.main.content_hour_book_detail.*
@@ -31,42 +33,7 @@ class HourBookDetailActivity : AppCompatActivity() {
         hourBookDetailViewModel =
             ViewModelProvider(this@HourBookDetailActivity).get(HourBookDetailViewModel::class.java)
 
-        initViews()
         initViewModel()
-    }
-
-    /**
-     * Prepares the views inside this activity.
-     */
-    private fun initViews() {
-        hourBookDetailViewModel.hourBookTopic.observe(this, Observer {
-            tvContent.text =
-                HtmlCompat.fromHtml(it.content, HtmlCompat.FROM_HTML_MODE_LEGACY)
-            tvContent.movementMethod = LinkMovementMethod.getInstance()
-            Linkify.addLinks(tvContent, Linkify.WEB_URLS)
-        })
-
-        hourBookDetailViewModel.actionPresent.observe(this, Observer {
-            if (it == true) {
-                fabLaunchUrl.visibility = VISIBLE
-                fabLaunchUrl.setOnClickListener { launchBrowser() }
-            }
-        })
-
-        hourBookDetailViewModel.childSubjects.observe(this, Observer {
-            llChildInfo.setPadding(0)
-            rvChild.visibility = VISIBLE
-            rvChild.isFocusable = false
-            val hourBookChildAdapter =
-                HourBookDetailAdapter(
-                    it
-                ) { hourBookChild: HourBookChild ->
-                    hourBookChildClicked(hourBookChild)
-                }
-            rvChild.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-            rvChild.adapter = hourBookChildAdapter
-            hourBookChildAdapter.notifyDataSetChanged()
-        })
     }
 
     /**
@@ -75,6 +42,47 @@ class HourBookDetailActivity : AppCompatActivity() {
     private fun initViewModel() {
         hourBookDetailViewModel.initTopic(intent.getParcelableExtra(HourBookDetailViewModel.CLICKED_HOUR_BOOK_TOPIC))
 
+        hourBookDetailViewModel.hourBookTopic.observeNonNull(this, this::initDetails)
+        hourBookDetailViewModel.actionPresent.observeNonNull(this, this::initAction)
+        hourBookDetailViewModel.childSubjects.observeNonNull(this, this::initChildSubjects)
+    }
+
+    /**
+     * Initializes the details of the topic.
+     */
+    private fun initDetails(hourBookTopic: HourBookTopic) {
+        tvContent.text =
+            HtmlCompat.fromHtml(hourBookTopic.content, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        tvContent.movementMethod = LinkMovementMethod.getInstance()
+        Linkify.addLinks(tvContent, Linkify.WEB_URLS)
+    }
+
+    /**
+     * Initializes the action connected to the topic.
+     */
+    private fun initAction(isPresent: Boolean) {
+        if (isPresent) {
+            fabLaunchUrl.visibility = VISIBLE
+            fabLaunchUrl.setOnClickListener { launchBrowser() }
+        }
+    }
+
+    /**
+     * Initializes the child subjects connected to the topic.
+     */
+    private fun initChildSubjects(list: List<HourBookChild>) {
+        llChildInfo.setPadding(0)
+        rvChild.visibility = VISIBLE
+        rvChild.isFocusable = false
+        val hourBookChildAdapter =
+            HourBookDetailAdapter(
+                list
+            ) { hourBookChild: HourBookChild ->
+                hourBookChildClicked(hourBookChild)
+            }
+        rvChild.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        rvChild.adapter = hourBookChildAdapter
+        hourBookChildAdapter.notifyDataSetChanged()
     }
 
     /**

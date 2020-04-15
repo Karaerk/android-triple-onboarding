@@ -5,10 +5,11 @@ import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.wearetriple.tripleonboarding.R
+import com.wearetriple.tripleonboarding.extension.observeNonNull
+import com.wearetriple.tripleonboarding.model.Department
 import kotlinx.android.synthetic.main.activity_department_detail.*
 
 class DepartmentDetailActivity : AppCompatActivity() {
@@ -23,22 +24,19 @@ class DepartmentDetailActivity : AppCompatActivity() {
         departmentDetailViewModel =
             ViewModelProvider(this@DepartmentDetailActivity).get(DepartmentDetailViewModel::class.java)
 
-        initViews()
         initViewModel()
     }
 
     /**
      * Prepares the views inside this activity.
      */
-    private fun initViews() {
-        departmentDetailViewModel.department.observe(this, Observer {
-            supportActionBar?.title = it.title
-            Glide.with(this).load(it.image).into(ivDepartment)
+    private fun initViews(department: Department) {
+        supportActionBar?.title = department.title
+        Glide.with(this).load(department.image).into(ivDepartment)
 
-            tvContent.text = HtmlCompat.fromHtml(it.content, HtmlCompat.FROM_HTML_MODE_LEGACY)
-            tvContent.movementMethod = LinkMovementMethod.getInstance()
-            Linkify.addLinks(tvContent, Linkify.WEB_URLS)
-        })
+        tvContent.text = HtmlCompat.fromHtml(department.content, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        tvContent.movementMethod = LinkMovementMethod.getInstance()
+        Linkify.addLinks(tvContent, Linkify.WEB_URLS)
     }
 
     /**
@@ -46,5 +44,7 @@ class DepartmentDetailActivity : AppCompatActivity() {
      */
     private fun initViewModel() {
         departmentDetailViewModel.initDepartment(intent.getParcelableExtra(DepartmentDetailViewModel.CLICKED_DEPARTMENT))
+
+        departmentDetailViewModel.department.observeNonNull(this, this::initViews)
     }
 }

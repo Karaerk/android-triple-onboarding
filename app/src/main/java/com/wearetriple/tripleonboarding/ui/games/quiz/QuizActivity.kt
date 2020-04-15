@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wearetriple.tripleonboarding.R
+import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.Answer
+import com.wearetriple.tripleonboarding.model.QuizQuestion
 import com.wearetriple.tripleonboarding.ui.games.AnswerAdapter
 import kotlinx.android.synthetic.main.activity_quiz.*
 
@@ -42,14 +44,18 @@ class QuizActivity : AppCompatActivity() {
         quizViewModel =
             ViewModelProvider(this@QuizActivity).get(QuizViewModel::class.java)
 
-        quizViewModel.questions.observe(this, Observer { list ->
-            if (list.isEmpty())
-                return@Observer
+        quizViewModel.questions.observeNonNull(this, this::initGame)
+    }
 
-            pbActivity.visibility = View.GONE
-            startGame()
-        })
+    /**
+     * Initializes the game.
+     */
+    private fun initGame(list: List<QuizQuestion>) {
+        if (list.isEmpty())
+            return
 
+        pbActivity.visibility = View.GONE
+        startGame()
     }
 
     /**
@@ -66,25 +72,42 @@ class QuizActivity : AppCompatActivity() {
      * shown the right information at the right time.
      */
     private fun updateGameScreen() {
-        quizViewModel.gameStatus.observe(this, Observer {
-            tvStatus.text = quizViewModel.getGameStatus()
-            tvScore.text = quizViewModel.getScore()
-        })
+        quizViewModel.gameStatus.observeNonNull(this, this::updateGameStatus)
+        quizViewModel.currentQuestion.observeNonNull(this, this::updateCurrentQuestion)
+        quizViewModel.message.observeNonNull(this, this::showMessageToUser)
+        quizViewModel.gameOver.observeNonNull(this, this::observeGameOver)
+    }
 
-        quizViewModel.currentQuestion.observe(this, Observer {
-            rvAnswers.adapter = AnswerAdapter(it.answer) { answer -> answerClicked(answer) }
-            tvQuestion.text = it.question
-        })
+    /**
+     * Updates the game's status shown on the screen.
+     */
+    private fun updateGameStatus() {
+        tvStatus.text = quizViewModel.getGameStatus()
+        tvScore.text = quizViewModel.getScore()
+    }
 
-        quizViewModel.message.observe(this, Observer {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-        })
+    /**
+     * Updates the current question shown on the screen.
+     */
+    private fun updateCurrentQuestion(question: QuizQuestion) {
+        rvAnswers.adapter = AnswerAdapter(question.answer) { answer -> answerClicked(answer) }
+        tvQuestion.text = question.question
+    }
 
-        quizViewModel.gameOver.observe(this, Observer {
-            if (it == true) {
-                showGameOverDialog()
-            }
-        })
+    /**
+     * Shows a new message to the user through a [Toast].
+     */
+    private fun showMessageToUser(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * Shows the game over screen whenever the game is done.
+     */
+    private fun observeGameOver(boolean: Boolean) {
+        if (boolean) {
+            showGameOverDialog()
+        }
     }
 
     /**

@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wearetriple.tripleonboarding.R
+import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.Fact
 import kotlinx.android.synthetic.main.activity_facts.*
 
@@ -45,12 +46,17 @@ class FactActivity : AppCompatActivity() {
     private fun initViewModel() {
         factViewModel = ViewModelProvider(this@FactActivity).get(FactViewModel::class.java)
 
-        factViewModel.facts.observe(this, Observer { list ->
-            pbActivity.visibility = View.GONE
-            factAdapter.items.clear()
-            factAdapter.items.addAll(list)
-            factAdapter.notifyDataSetChanged()
-        })
+        factViewModel.facts.observeNonNull(this, this::initRecyclerView)
+    }
+
+    /**
+     * Initializes the recyclerview.
+     */
+    private fun initRecyclerView(list: List<Fact>) {
+        pbActivity.visibility = View.GONE
+        factAdapter.items.clear()
+        factAdapter.items.addAll(list)
+        factAdapter.notifyDataSetChanged()
     }
 
     /**

@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wearetriple.tripleonboarding.R
+import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.HourBookTopic
 import com.wearetriple.tripleonboarding.ui.hourbook.detail.HourBookDetailActivity
 import com.wearetriple.tripleonboarding.ui.hourbook.detail.HourBookDetailViewModel
@@ -50,12 +51,17 @@ class HourBookOverviewActivity : AppCompatActivity() {
         hourBookOverviewViewModel =
             ViewModelProvider(this@HourBookOverviewActivity).get(HourBookOverviewViewModel::class.java)
 
-        hourBookOverviewViewModel.hourBookTopics.observe(this, Observer { list ->
-            pbActivity.visibility = View.GONE
-            hourBookTopicAdapter.items.clear()
-            hourBookTopicAdapter.items.addAll(list)
-            hourBookTopicAdapter.notifyDataSetChanged()
-        })
+        hourBookOverviewViewModel.hourBookTopics.observeNonNull(this, this::initRecyclerView)
+    }
+
+    /**
+     * Initializes the recyclerview.
+     */
+    private fun initRecyclerView(list: List<HourBookTopic>) {
+        pbActivity.visibility = View.GONE
+        hourBookTopicAdapter.items.clear()
+        hourBookTopicAdapter.items.addAll(list)
+        hourBookTopicAdapter.notifyDataSetChanged()
     }
 
 

@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.wearetriple.tripleonboarding.R
+import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.MapLevel
 import kotlinx.android.synthetic.main.activity_map.*
 
@@ -49,14 +50,19 @@ class MapActivity : AppCompatActivity() {
     private fun initViewModel() {
         mapViewModel = ViewModelProvider(this@MapActivity).get(MapViewModel::class.java)
 
-        mapViewModel.mapLevels.observe(this, Observer { list ->
-            pbActivity.visibility = View.GONE
-            mapLevelClicked(list[0]) // Load up the first floor's image
+        mapViewModel.mapLevels.observeNonNull(this, this::initRecyclerView)
+    }
 
-            mapLevelAdapter.items.clear()
-            mapLevelAdapter.items.addAll(list)
-            mapLevelAdapter.notifyDataSetChanged()
-        })
+    /**
+     * Initializes the recyclerview.
+     */
+    private fun initRecyclerView(list: List<MapLevel>) {
+        pbActivity.visibility = View.GONE
+        mapLevelClicked(list[0]) // Load up the first floor's image
+
+        mapLevelAdapter.items.clear()
+        mapLevelAdapter.items.addAll(list)
+        mapLevelAdapter.notifyDataSetChanged()
     }
 
     /**

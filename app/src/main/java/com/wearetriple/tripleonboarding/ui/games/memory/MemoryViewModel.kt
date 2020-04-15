@@ -26,7 +26,7 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     var gameStatus = MutableLiveData<GameStatus>(GameStatus())
     private var leftoverQuestions = MutableLiveData<ArrayList<MemoryQuestion>>(arrayListOf())
     var currentQuestion = MutableLiveData<MemoryQuestion>()
-    var message = MutableLiveData<String?>()
+    var message = MutableLiveData<String>()
     var gameOver = MutableLiveData<Boolean>(false)
 
     companion object {

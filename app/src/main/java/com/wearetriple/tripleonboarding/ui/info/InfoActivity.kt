@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.View.GONE
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wearetriple.tripleonboarding.R
+import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.InfoTopic
 import kotlinx.android.synthetic.main.activity_info.*
 
@@ -46,12 +46,18 @@ class InfoActivity : AppCompatActivity() {
     private fun initViewModel() {
         infoViewModel = ViewModelProvider(this@InfoActivity).get(InfoViewModel::class.java)
 
-        infoViewModel.infoTopics.observe(this, Observer { list ->
-                pbActivity.visibility = GONE
-                infoTopicAdapter.items.clear()
-                infoTopicAdapter.items.addAll(list)
-                infoTopicAdapter.notifyDataSetChanged()
-        })
+        infoViewModel.infoTopics.observeNonNull(this, this::initRecyclerView)
+
+    }
+
+    /**
+     * Initializes the recyclerview.
+     */
+    private fun initRecyclerView(list: List<InfoTopic>) {
+        pbActivity.visibility = GONE
+        infoTopicAdapter.items.clear()
+        infoTopicAdapter.items.addAll(list)
+        infoTopicAdapter.notifyDataSetChanged()
     }
 
     /**

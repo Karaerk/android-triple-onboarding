@@ -26,7 +26,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     var gameStatus = MutableLiveData<GameStatus>(GameStatus())
     private var leftoverQuestions = MutableLiveData<ArrayList<QuizQuestion>>(arrayListOf())
     var currentQuestion = MutableLiveData<QuizQuestion>()
-    var message = MutableLiveData<String?>()
+    var message = MutableLiveData<String>()
     var gameOver = MutableLiveData<Boolean>(false)
 
     companion object {

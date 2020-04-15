@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wearetriple.tripleonboarding.R
+import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.Faq
 import kotlinx.android.synthetic.main.activity_faq.*
 
@@ -39,11 +40,16 @@ class FaqActivity : AppCompatActivity() {
     private fun initViewModel() {
         faqViewModel = ViewModelProvider(this@FaqActivity).get(FaqViewModel::class.java)
 
-        faqViewModel.faq.observe(this, Observer { list ->
-            pbActivity.visibility = View.GONE
-            faqAdapter.items.clear()
-            faqAdapter.items.addAll(list)
-            faqAdapter.notifyDataSetChanged()
-        })
+        faqViewModel.faq.observeNonNull(this, this::initRecyclerView)
+    }
+
+    /**
+     * Initializes the recyclerview.
+     */
+    private fun initRecyclerView(list: List<Faq>) {
+        pbActivity.visibility = View.GONE
+        faqAdapter.items.clear()
+        faqAdapter.items.addAll(list)
+        faqAdapter.notifyDataSetChanged()
     }
 }

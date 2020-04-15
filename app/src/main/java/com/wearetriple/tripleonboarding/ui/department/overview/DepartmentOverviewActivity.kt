@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wearetriple.tripleonboarding.R
+import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.Department
 import com.wearetriple.tripleonboarding.ui.department.detail.DepartmentDetailActivity
 import com.wearetriple.tripleonboarding.ui.department.detail.DepartmentDetailViewModel
@@ -46,12 +47,17 @@ class DepartmentOverviewActivity : AppCompatActivity() {
         departmentOverviewViewModel =
             ViewModelProvider(this@DepartmentOverviewActivity).get(DepartmentOverviewViewModel::class.java)
         
-        departmentOverviewViewModel.departments.observe(this, Observer { list ->
-            pbActivity.visibility = View.GONE
-            departmentAdapter.items.clear()
-            departmentAdapter.items.addAll(list)
-            departmentAdapter.notifyDataSetChanged()
-        })
+        departmentOverviewViewModel.departments.observeNonNull(this, this::initRecyclerView)
+    }
+
+    /**
+     * Initializes the recyclerview.
+     */
+    private fun initRecyclerView(list: List<Department>) {
+        pbActivity.visibility = View.GONE
+        departmentAdapter.items.clear()
+        departmentAdapter.items.addAll(list)
+        departmentAdapter.notifyDataSetChanged()
     }
 
     /**

@@ -5,13 +5,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wearetriple.tripleonboarding.R
+import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.Answer
+import com.wearetriple.tripleonboarding.model.MemoryQuestion
 import com.wearetriple.tripleonboarding.ui.games.AnswerAdapter
 import kotlinx.android.synthetic.main.activity_memory.*
 
@@ -43,14 +44,18 @@ class MemoryActivity : AppCompatActivity() {
         memoryViewModel =
             ViewModelProvider(this@MemoryActivity).get(MemoryViewModel::class.java)
 
-        memoryViewModel.questions.observe(this, Observer { list ->
-            if (list.isEmpty())
-                return@Observer
+        memoryViewModel.questions.observeNonNull(this, this::initGame)
+    }
 
-            pbActivity.visibility = View.GONE
-            startGame()
-        })
+    /**
+     * Initializes the game.
+     */
+    private fun initGame(list: List<MemoryQuestion>) {
+        if (list.isEmpty())
+            return
 
+        pbActivity.visibility = View.GONE
+        startGame()
     }
 
     /**
@@ -67,25 +72,42 @@ class MemoryActivity : AppCompatActivity() {
      * shown the right information at the right time.
      */
     private fun updateGameScreen() {
-        memoryViewModel.gameStatus.observe(this, Observer {
-            tvStatus.text = memoryViewModel.getGameStatus()
-            tvScore.text = memoryViewModel.getScore()
-        })
+        memoryViewModel.gameStatus.observeNonNull(this, this::updateGameStatus)
+        memoryViewModel.currentQuestion.observeNonNull(this, this::updateCurrentQuestion)
+        memoryViewModel.message.observeNonNull(this, this::showMessageToUser)
+        memoryViewModel.gameOver.observeNonNull(this, this::observeGameOver)
+    }
 
-        memoryViewModel.currentQuestion.observe(this, Observer {
-            rvAnswers.adapter = AnswerAdapter(it.answer) { answer -> answerClicked(answer) }
-            Glide.with(this).load(it.image).into(ivQuestion)
-        })
+    /**
+     * Updates the game's status shown on the screen.
+     */
+    private fun updateGameStatus() {
+        tvStatus.text = memoryViewModel.getGameStatus()
+        tvScore.text = memoryViewModel.getScore()
+    }
 
-        memoryViewModel.message.observe(this, Observer {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-        })
+    /**
+     * Updates the current question shown on the screen.
+     */
+    private fun updateCurrentQuestion(question: MemoryQuestion) {
+        rvAnswers.adapter = AnswerAdapter(question.answer) { answer -> answerClicked(answer) }
+        Glide.with(this).load(question.image).into(ivQuestion)
+    }
 
-        memoryViewModel.gameOver.observe(this, Observer {
-            if (it == true) {
-                showGameOverDialog()
-            }
-        })
+    /**
+     * Shows a new message to the user through a [Toast].
+     */
+    private fun showMessageToUser(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * Shows the game over screen whenever the game is done.
+     */
+    private fun observeGameOver(boolean: Boolean) {
+        if (boolean) {
+            showGameOverDialog()
+        }
     }
 
     /**
