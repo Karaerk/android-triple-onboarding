@@ -5,10 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.FirebaseDatabase
 import com.wearetriple.tripleonboarding.R
-import com.wearetriple.tripleonboarding.database.FirebaseQueryLiveData
+import com.wearetriple.tripleonboarding.database.EntityRepository
 import com.wearetriple.tripleonboarding.model.Answer
 import com.wearetriple.tripleonboarding.model.CORRECT_ANSWER
 import com.wearetriple.tripleonboarding.model.GameStatus
@@ -19,8 +17,8 @@ import kotlinx.coroutines.withContext
 
 class QuizViewModel(application: Application) : AndroidViewModel(application) {
     private val context = application
-    private val liveData = FirebaseQueryLiveData(DATABASE_REF)
-    private val questionsLiveData = MediatorLiveData<ArrayList<QuizQuestion>>()
+    private val repository = EntityRepository()
+    private val questionsLiveData = MediatorLiveData<List<QuizQuestion>>()
     var questions = questionsLiveData
 
     var gameStatus = MutableLiveData<GameStatus>(GameStatus())
@@ -32,35 +30,20 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     companion object {
         private const val DATABASE_KEY = "quiz"
         private const val MAX_POINTS_PER_QUESTION = 10
-        private val DATABASE_REF = FirebaseDatabase.getInstance().getReference(DATABASE_KEY)
     }
 
     init {
-        questionsLiveData.addSource(liveData) { dataSnapshot ->
-            if (dataSnapshot != null) {
-                viewModelScope.launch {
-                    postLiveData(dataSnapshot)
-                }
-            } else {
-                questionsLiveData.setValue(arrayListOf())
-            }
+        viewModelScope.launch {
+            postLiveData()
         }
     }
 
     /**
      * Posts a new set of data inside the live data attribute.
      */
-    private suspend fun postLiveData(dataSnapshot: DataSnapshot) = withContext(Dispatchers.IO) {
-        val list = ArrayList<QuizQuestion>()
-
-        dataSnapshot.children.forEach {
-            val item: QuizQuestion? = it.getValue(QuizQuestion::class.java)
-
-            if (item != null)
-                list.add(item)
-        }
-
-        questionsLiveData.postValue(list)
+    private suspend fun postLiveData() = withContext(Dispatchers.IO) {
+        val data = repository.getAllFromTable<QuizQuestion>(DATABASE_KEY)
+        questionsLiveData.postValue(data)
     }
 
     /**
