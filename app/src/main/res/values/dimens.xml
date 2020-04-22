@@ -8,7 +8,6 @@
     <dimen name="card_title_text_size">16sp</dimen>
     <dimen name="question_height">200dp</dimen>
     <dimen name="card_image_size">120dp</dimen>
-    <dimen name="card_video_thumbnail_size">200dp</dimen>
     <dimen name="cover_image_size">200dp</dimen>
     <dimen name="image_corner_radius">12dp</dimen>
     <dimen name="image_elevation">10dp</dimen>

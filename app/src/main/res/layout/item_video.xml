@@ -21,8 +21,9 @@ android:layout_height="wrap_content">
             android:id="@+id/ivVideoThumbnail"
             style="@style/AppTheme.Widget.CardView.Image"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/card_video_thumbnail_size"
-            android:scaleType="centerCrop"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:contentDescription="@string/description_video_image" />
 
         <TextView
