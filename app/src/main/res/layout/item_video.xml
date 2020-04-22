@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+style="@style/AppTheme.Widget.Layout.Horizontal"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+
+<androidx.cardview.widget.CardView
+    android:id="@+id/cvVideo"
+    style="@style/AppTheme.Widget.CardView.ItemView"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivVideoThumbnail"
+            style="@style/AppTheme.Widget.CardView.Image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_video_thumbnail_size"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/description_video_image" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/AppTheme.Widget.CardView.Image.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_view_margin" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.wearetriple.tripleonboarding.model.helper
+package com.wearetriple.tripleonboarding.ui.helper
 
 import android.content.Context
 import android.content.Intent
@@ -19,7 +19,10 @@ class CustomTabsHelper {
          * Launches a url either through a custom tab or through the user's default browser.
          */
         fun launchUrl(context: Context, url: String) {
-            if (isCustomTabsAvailable(context)) {
+            if (isCustomTabsAvailable(
+                    context
+                )
+            ) {
                 val builder = CustomTabsIntent.Builder()
                 builder.setToolbarColor(ContextCompat.getColor(context, R.color.primary_darkblue))
                 val customTabsIntent = builder.build()

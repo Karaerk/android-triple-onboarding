@@ -68,6 +68,12 @@
         <item name="android:paddingBottom">@dimen/default_layout_padding</item>
     </style>
 
+    <style name="AppTheme.Widget.VideoView">
+        <item name="elevation">4dp</item>
+        <item name="android:tint">@android:color/white</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
     <style name="AppTheme.Widget.Button" />
 
     <style name="AppTheme.Widget.Button.Round" parent="Widget.AppCompat.Button.Colored">

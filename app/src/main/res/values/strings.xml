@@ -22,6 +22,7 @@
     <string name="games_memory">Memory</string>
     <string name="description_memory_image">Een medewerker van Triple</string>
     <string name="title_hours_screen">Urenboek</string>
+    <string name="title_video_screen">Video</string>
     <string-array name="correct_answer">
         <item>Goed bezig!!</item>
         <item>Jij weet het!</item>
@@ -34,6 +35,7 @@
         <item>Verkeerde antwoord</item>
     </string-array>
     <string name="placeholder_text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</string>
+    <string name="description_video_image">Een voorvertoning van de video</string>
     <string name="description_department_image">Een voorvertoning van de locatie van de afdeling</string>
     <string name="description_department_map">Een kaart waarop de locatie van de afdeling te zien is</string>
 </resources>

@@ -8,7 +8,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.core.view.setPadding
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +15,7 @@ import com.wearetriple.tripleonboarding.R
 import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.HourBookChild
 import com.wearetriple.tripleonboarding.model.HourBookTopic
-import com.wearetriple.tripleonboarding.model.helper.CustomTabsHelper
+import com.wearetriple.tripleonboarding.ui.helper.CustomTabsHelper
 import kotlinx.android.synthetic.main.activity_hour_book_detail.*
 import kotlinx.android.synthetic.main.content_hour_book_detail.*
 

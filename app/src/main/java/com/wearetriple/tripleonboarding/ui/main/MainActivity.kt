@@ -11,6 +11,7 @@ import com.wearetriple.tripleonboarding.ui.games.GamesActivity
 import com.wearetriple.tripleonboarding.ui.hourbook.overview.HourBookOverviewActivity
 import com.wearetriple.tripleonboarding.ui.info.InfoActivity
 import com.wearetriple.tripleonboarding.ui.map.MapActivity
+import com.wearetriple.tripleonboarding.ui.video.overview.VideoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -57,7 +58,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, HourBookOverviewActivity::class.java)
             startActivity(intent)
         }
-
-
+        btnVideo.setOnClickListener {
+            val intent = Intent(this, VideoActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
