@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-style="@style/AppTheme.Widget.Layout.Horizontal"
-android:layout_width="match_parent"
-android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/AppTheme.Widget.Layout.Horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-<androidx.cardview.widget.CardView
-    android:id="@+id/cvVideo"
-    style="@style/AppTheme.Widget.CardView.ItemView"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvVideo"
+        style="@style/AppTheme.Widget.CardView.ItemView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/ivVideoThumbnail"
-            style="@style/AppTheme.Widget.CardView.Image"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:contentDescription="@string/description_video_image" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvTitle"
-            style="@style/AppTheme.Widget.CardView.Image.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_view_margin" />
+            <ImageView
+                android:id="@+id/ivVideoThumbnail"
+                style="@style/AppTheme.Widget.CardView.Image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cover_image_size"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/description_video_image"
+                android:scaleType="centerCrop" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/AppTheme.Widget.CardView.Image.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_view_margin" />
 
-</androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

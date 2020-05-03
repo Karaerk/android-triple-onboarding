@@ -1,9 +1,14 @@
 package com.wearetriple.tripleonboarding.ui.video.overview
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions.fitCenterTransform
 import com.wearetriple.tripleonboarding.R
 import com.wearetriple.tripleonboarding.model.Video
 import com.wearetriple.tripleonboarding.ui.helper.AbstractAdapter
@@ -26,7 +31,22 @@ class VideoAdapter(
             itemView.tvTitle.text = item.title
             itemView.cvVideo.setOnClickListener { clickListener(item) }
 
-            Glide.with(itemView.context).load(item.thumbnail).into(itemView.ivVideoThumbnail)
+            val roundingRadius = 5
+            val thumbnailSize = 0.25f
+            val reqOpt = fitCenterTransform()
+                .transform(RoundedCorners(roundingRadius))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .override(
+                    itemView.ivVideoThumbnail.width,
+                    itemView.ivVideoThumbnail.height
+                )
+
+            Glide.with(itemView.context)
+                .load(item.thumbnail)
+                .thumbnail(thumbnailSize)
+                .apply(reqOpt)
+                .placeholder(ColorDrawable(Color.WHITE))
+                .into(itemView.ivVideoThumbnail)
         }
     }
 
