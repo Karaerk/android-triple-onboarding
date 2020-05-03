@@ -36,6 +36,7 @@
     </string-array>
     <string name="placeholder_text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</string>
     <string name="description_video_image">Een voorvertoning van de video</string>
+    <string name="description_video_play_button">Een knop waarmee de video gestart kan worden</string>
     <string name="description_department_image">Een voorvertoning van de locatie van de afdeling</string>
     <string name="description_department_map">Een kaart waarop de locatie van de afdeling te zien is</string>
 </resources>
