@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.MainActivity">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -25,108 +24,31 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Button
-            android:id="@+id/btnInfo"
-            style="@style/AppTheme.Widget.Button.Round.Pink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_info_screen"
-            app:layout_constraintBottom_toTopOf="@+id/btnMap"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <fragment
+            android:id="@+id/navHostFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@id/bnView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/nav_graph" />
 
-        <Button
-            android:id="@+id/btnMap"
-            style="@style/AppTheme.Widget.Button.Round.Pink"
-            android:layout_width="wrap_content"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bnView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/title_map_screen"
-            app:layout_constraintBottom_toTopOf="@+id/btnGames"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnInfo" />
-
-        <Button
-            android:id="@+id/btnGames"
-            style="@style/AppTheme.Widget.Button.Round.Pink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_games_screen"
-            app:layout_constraintBottom_toTopOf="@+id/btnFacts"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnMap" />
-
-        <Button
-            android:id="@+id/btnFacts"
-            style="@style/AppTheme.Widget.Button.Round.Pink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_facts_screen"
-            app:layout_constraintBottom_toTopOf="@+id/btnFaq"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnGames" />
-
-        <Button
-            android:id="@+id/btnFaq"
-            style="@style/AppTheme.Widget.Button.Round.Pink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_faq_screen"
-            app:layout_constraintBottom_toTopOf="@+id/btnDepartment"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnFacts" />
-
-        <Button
-            android:id="@+id/btnDepartment"
-            style="@style/AppTheme.Widget.Button.Round.Pink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_department_screen"
-            app:layout_constraintBottom_toTopOf="@id/btnHours"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnFaq" />
-
-        <Button
-            android:id="@+id/btnHours"
-            style="@style/AppTheme.Widget.Button.Round.Pink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_hours_screen"
-            app:layout_constraintBottom_toTopOf="@id/btnVideo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnDepartment" />
-
-        <Button
-            android:id="@+id/btnVideo"
-            style="@style/AppTheme.Widget.Button.Round.Pink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_video_screen"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/windowBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnHours" />
+            app:menu="@menu/bottom_nav_menu">
 
-<!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--            android:id="@+id/bnApp"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="?android:attr/windowBackground"-->
-<!--            app:labelVisibilityMode="labeled"-->
-<!--            app:itemBackground="@android:color/white"-->
-<!--            app:itemIconTint="@color/primary_darkblue"-->
-<!--            app:itemTextColor="@color/primary_darkblue"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:menu="@menu/bottom_nav_menu" />-->
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

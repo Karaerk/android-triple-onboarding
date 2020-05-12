@@ -5,7 +5,7 @@
     style="@style/AppTheme.Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.games.quiz.QuizActivity">
+    tools:context=".ui.games.memory.MemoryFragment">
 
     <ProgressBar
         android:id="@+id/pbActivity"
@@ -36,14 +36,24 @@
         app:layout_constraintStart_toEndOf="@+id/tvStatus"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvQuestion"
-        style="@style/AppTheme.Text.Large"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/question_height"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/memory_image_margin"
+        android:elevation="@dimen/image_elevation"
+        app:cardCornerRadius="@dimen/image_corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvStatus" />
+        app:layout_constraintTop_toBottomOf="@+id/tvStatus">
+
+        <ImageView
+            android:id="@+id/ivQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/question_height"
+            android:contentDescription="@string/description_memory_image" />
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAnswers"
@@ -54,7 +64,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvStatus"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvQuestion" />
-
+        app:layout_constraintTop_toBottomOf="@+id/test" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

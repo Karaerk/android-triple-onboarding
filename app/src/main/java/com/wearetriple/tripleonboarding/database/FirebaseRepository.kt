@@ -24,8 +24,8 @@ class FirebaseRepository {
         const val INVALID_FORMAT = "invalid data format"
     }
 
-    inner class WrappedContinuation<T>(val c: Continuation<T>) : Continuation<T> {
-        var isResolved = false
+    inner class WrappedContinuation<T>(private val c: Continuation<T>) : Continuation<T> {
+        private var isResolved = false
         override val context: CoroutineContext
             get() = c.context
 

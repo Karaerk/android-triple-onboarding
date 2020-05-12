@@ -3,9 +3,11 @@ package com.wearetriple.tripleonboarding.ui.map
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,10 +17,11 @@ import com.bumptech.glide.request.transition.Transition
 import com.wearetriple.tripleonboarding.R
 import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.MapLevel
-import kotlinx.android.synthetic.main.activity_map.*
+import kotlinx.android.synthetic.main.fragment_map.*
 
-class MapActivity : AppCompatActivity() {
+class MapFragment : Fragment() {
 
+    private lateinit var activityContext: AppCompatActivity
     private val mapLevelAdapter =
         MapLevelAdapter(arrayListOf()) { mapLevel ->
             mapLevelClicked(
@@ -27,30 +30,40 @@ class MapActivity : AppCompatActivity() {
         }
     private lateinit var mapViewModel: MapViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
-        supportActionBar?.title = getString(R.string.title_map_screen)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_map, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        activityContext = (activity as AppCompatActivity)
+        activityContext.supportActionBar?.show()
 
         initViews()
         initViewModel()
     }
 
     /**
-     * Prepares the views inside this activity.
+     * Prepares the views inside this fragment.
      */
     private fun initViews() {
-        rvMapLevels.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, true)
+        rvMapLevels.layoutManager =
+            LinearLayoutManager(activityContext, RecyclerView.VERTICAL, true)
         rvMapLevels.adapter = mapLevelAdapter
     }
 
     /**
-     * Prepares the data needed for this activity.
+     * Prepares the data needed for this fragment.
      */
     private fun initViewModel() {
-        mapViewModel = ViewModelProvider(this@MapActivity).get(MapViewModel::class.java)
+        mapViewModel = ViewModelProvider(activityContext).get(MapViewModel::class.java)
 
-        mapViewModel.mapLevels.observeNonNull(this, this::initRecyclerView)
+        mapViewModel.mapLevels.observeNonNull(viewLifecycleOwner, this::initRecyclerView)
     }
 
     /**

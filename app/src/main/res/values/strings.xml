@@ -10,6 +10,7 @@
     <string name="title_faq_screen">FAQ</string>
     <string name="title_memory_screen">Triple Memory</string>
     <string name="title_department_screen">Afdelingen</string>
+    <string name="title_more_screen">Meer</string>
     <string name="description_quiz_done">Met %s heb je het spel succesvol afgerond. Je kan het wel!!</string>
     <string name="description_memory_done">Met %s heb je het spel succesvol afgerond. Topper!!</string>
     <string name="btn_start_game">Speel het spel</string>

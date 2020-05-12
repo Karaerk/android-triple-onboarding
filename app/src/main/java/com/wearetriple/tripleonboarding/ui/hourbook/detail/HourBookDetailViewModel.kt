@@ -10,10 +10,6 @@ class HourBookDetailViewModel : ViewModel() {
     val actionPresent = MutableLiveData<Boolean>()
     val childSubjects = MutableLiveData<ArrayList<HourBookChild>>()
 
-    companion object {
-        const val CLICKED_HOUR_BOOK_TOPIC = "CLICKED_HOUR_BOOK_TOPIC"
-    }
-
     fun initTopic(hourBookTopic: HourBookTopic) {
         this.hourBookTopic.value = hourBookTopic
         actionPresent.value = when {
@@ -38,7 +34,7 @@ class HourBookDetailViewModel : ViewModel() {
     /**
      * Checks if an action (like opening a website) is present at current topic.
      */
-    fun isActionPresent() = hourBookTopic.value?.action != null
+    private fun isActionPresent() = hourBookTopic.value?.action != null
 
     /**
      * Checks if given url follows Android's pattern for urls.

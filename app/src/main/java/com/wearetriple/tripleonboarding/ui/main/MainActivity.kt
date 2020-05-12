@@ -1,66 +1,55 @@
 package com.wearetriple.tripleonboarding.ui.main
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.wearetriple.tripleonboarding.R
-import com.wearetriple.tripleonboarding.ui.department.overview.DepartmentOverviewActivity
-import com.wearetriple.tripleonboarding.ui.fact.FactActivity
-import com.wearetriple.tripleonboarding.ui.faq.FaqActivity
-import com.wearetriple.tripleonboarding.ui.games.GamesActivity
-import com.wearetriple.tripleonboarding.ui.hourbook.overview.HourBookOverviewActivity
-import com.wearetriple.tripleonboarding.ui.info.InfoActivity
-import com.wearetriple.tripleonboarding.ui.map.MapActivity
-import com.wearetriple.tripleonboarding.ui.video.overview.VideoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         toolbar.title = getString(R.string.app_name)
-//        setSupportActionBar(toolbar)
 
-        initViews()
+        initNavigation()
     }
 
     /**
-     * Prepares the views inside this activity.
+     * Initializes the bottom navigation and shows it only for specific fragments.
      */
-    private fun initViews() {
-        btnInfo.setOnClickListener {
-            val intent = Intent(this, InfoActivity::class.java)
-            startActivity(intent)
+    private fun initNavigation() {
+        navController = findNavController(R.id.navHostFragment)
+
+        NavigationUI.setupWithNavController(bnView, navController)
+
+        val appBarConfiguration = AppBarConfiguration(bnView.menu)
+        toolbar.setupWithNavController(navController, appBarConfiguration)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.infoFragment,
+                R.id.mapFragment -> showBottomNavigationBar(true)
+            }
         }
-        btnMap.setOnClickListener {
-            val intent = Intent(this, MapActivity::class.java)
-            startActivity(intent)
-        }
-        btnGames.setOnClickListener {
-            val intent = Intent(this, GamesActivity::class.java)
-            startActivity(intent)
-        }
-        btnFacts.setOnClickListener {
-            val intent = Intent(this, FactActivity::class.java)
-            startActivity(intent)
-        }
-        btnFaq.setOnClickListener {
-            val intent = Intent(this, FaqActivity::class.java)
-            startActivity(intent)
-        }
-        btnDepartment.setOnClickListener {
-            val intent = Intent(this, DepartmentOverviewActivity::class.java)
-            startActivity(intent)
-        }
-        btnHours.setOnClickListener {
-            val intent = Intent(this, HourBookOverviewActivity::class.java)
-            startActivity(intent)
-        }
-        btnVideo.setOnClickListener {
-            val intent = Intent(this, VideoActivity::class.java)
-            startActivity(intent)
+    }
+
+    /**
+     * Prepares the state of the bottom navigation for a specific fragment.
+     */
+    private fun showBottomNavigationBar(visible: Boolean) {
+        when (visible) {
+            true -> bnView.visibility = View.VISIBLE
+            false -> bnView.visibility = View.GONE
         }
     }
 }

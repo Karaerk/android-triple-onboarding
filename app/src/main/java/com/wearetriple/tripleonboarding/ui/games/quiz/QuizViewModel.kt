@@ -21,11 +21,11 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     private val questionsLiveData = MediatorLiveData<List<QuizQuestion>>()
     var questions = questionsLiveData
 
-    var gameStatus = MutableLiveData<GameStatus>(GameStatus())
+    var gameStatus = MutableLiveData(GameStatus())
     private var leftoverQuestions = MutableLiveData<ArrayList<QuizQuestion>>(arrayListOf())
     var currentQuestion = MutableLiveData<QuizQuestion>()
     var message = MutableLiveData<String>()
-    var gameOver = MutableLiveData<Boolean>(false)
+    var gameOver = MutableLiveData(false)
 
     companion object {
         private const val DATABASE_KEY = "quiz"

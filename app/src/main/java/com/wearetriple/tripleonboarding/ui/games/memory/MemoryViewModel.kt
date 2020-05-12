@@ -21,11 +21,11 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     private val questionsLiveData = MediatorLiveData<List<MemoryQuestion>>()
     var questions = questionsLiveData
 
-    var gameStatus = MutableLiveData<GameStatus>(GameStatus())
+    var gameStatus = MutableLiveData(GameStatus())
     private var leftoverQuestions = MutableLiveData<ArrayList<MemoryQuestion>>(arrayListOf())
     var currentQuestion = MutableLiveData<MemoryQuestion>()
     var message = MutableLiveData<String>()
-    var gameOver = MutableLiveData<Boolean>(false)
+    var gameOver = MutableLiveData(false)
 
     companion object {
         private const val DATABASE_KEY = "memory"

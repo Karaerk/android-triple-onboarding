@@ -3,12 +3,17 @@ package com.wearetriple.tripleonboarding.ui.hourbook.detail
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
+import android.view.LayoutInflater
+import android.view.View
 import android.view.View.VISIBLE
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.core.view.setPadding
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wearetriple.tripleonboarding.R
@@ -16,34 +21,47 @@ import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.HourBookChild
 import com.wearetriple.tripleonboarding.model.HourBookTopic
 import com.wearetriple.tripleonboarding.ui.helper.CustomTabsHelper
-import kotlinx.android.synthetic.main.activity_hour_book_detail.*
 import kotlinx.android.synthetic.main.content_hour_book_detail.*
+import kotlinx.android.synthetic.main.fragment_hour_book_detail.*
 
-class HourBookDetailActivity : AppCompatActivity() {
+class HourBookDetailFragment : Fragment() {
 
+    private lateinit var activityContext: AppCompatActivity
     private lateinit var hourBookDetailViewModel: HourBookDetailViewModel
+    private val args: HourBookDetailFragmentArgs by navArgs()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hour_book_detail)
-        setSupportActionBar(toolbar)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_hour_book_detail, container, false)
+    }
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        activityContext = (activity as AppCompatActivity)
+        activityContext.supportActionBar?.show()
+
         hourBookDetailViewModel =
-            ViewModelProvider(this@HourBookDetailActivity).get(HourBookDetailViewModel::class.java)
+            ViewModelProvider(activityContext).get(HourBookDetailViewModel::class.java)
 
         initViewModel()
     }
 
     /**
-     * Prepares the data needed for this activity.
+     * Prepares the data needed for this fragment.
      */
     private fun initViewModel() {
-        hourBookDetailViewModel.initTopic(intent.getParcelableExtra(HourBookDetailViewModel.CLICKED_HOUR_BOOK_TOPIC))
+        hourBookDetailViewModel.initTopic(args.hourBookTopic)
 
-        hourBookDetailViewModel.hourBookTopic.observeNonNull(this, this::initDetails)
-        hourBookDetailViewModel.actionPresent.observeNonNull(this, this::initAction)
-        hourBookDetailViewModel.childSubjects.observeNonNull(this, this::initChildSubjects)
+        hourBookDetailViewModel.hourBookTopic.observeNonNull(viewLifecycleOwner, this::initDetails)
+        hourBookDetailViewModel.actionPresent.observeNonNull(viewLifecycleOwner, this::initAction)
+        hourBookDetailViewModel.childSubjects.observeNonNull(
+            viewLifecycleOwner,
+            this::initChildSubjects
+        )
     }
 
     /**
@@ -79,7 +97,7 @@ class HourBookDetailActivity : AppCompatActivity() {
             ) { hourBookChild: HourBookChild ->
                 hourBookChildClicked(hourBookChild)
             }
-        rvChild.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        rvChild.layoutManager = LinearLayoutManager(activityContext, RecyclerView.VERTICAL, false)
         rvChild.adapter = hourBookChildAdapter
         hourBookChildAdapter.notifyDataSetChanged()
     }
@@ -91,14 +109,14 @@ class HourBookDetailActivity : AppCompatActivity() {
         var url = hourBookDetailViewModel.hourBookTopic.value!!.action?.url!!
         url = hourBookDetailViewModel.getProperlyFormattedUrl(url)
 
-        CustomTabsHelper.launchUrl(this, url)
+        CustomTabsHelper.launchUrl(activityContext, url)
     }
 
     /**
      * Opens up a pop-up with details included about the clicked topic.
      */
     private fun hourBookChildClicked(hourBookChild: HourBookChild) {
-        val dialogBuilder = AlertDialog.Builder(this)
+        val dialogBuilder = AlertDialog.Builder(activityContext)
 
         dialogBuilder.setMessage(
             HtmlCompat.fromHtml(

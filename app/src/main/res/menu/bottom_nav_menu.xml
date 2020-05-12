@@ -2,22 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/info"
+        android:id="@+id/infoFragment"
         android:title="@string/title_info_screen"
         android:icon="@drawable/ic_info_outline_black_24dp"/>
 
     <item
-        android:id="@+id/map"
+        android:id="@+id/mapFragment"
         android:title="@string/title_map_screen"
         android:icon="@drawable/ic_map_black_24dp"/>
 
     <item
-        android:id="@+id/games"
+        android:id="@+id/gamesFragment"
         android:title="@string/title_games_screen"
         android:icon="@drawable/ic_videogame_asset_black_24dp"/>
 
     <item
-        android:id="@+id/facts"
+        android:id="@+id/factsFragment"
         android:title="@string/title_facts_screen_short"
         android:icon="@drawable/ic_local_library_black_24dp"/>
+    <item
+        android:id="@+id/moreFragment"
+        android:title="@string/title_more_screen"
+        android:icon="@drawable/ic_more_horiz_white_24dp"/>
 </menu>

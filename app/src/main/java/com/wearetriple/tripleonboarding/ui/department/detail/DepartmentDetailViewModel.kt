@@ -7,10 +7,6 @@ import com.wearetriple.tripleonboarding.model.Department
 class DepartmentDetailViewModel : ViewModel() {
     val department = MutableLiveData<Department>()
 
-    companion object {
-        const val CLICKED_DEPARTMENT = "CLICKED_DEPARTMENT"
-    }
-
     /**
      * Keeps track of currently selected department for the detail view.
      */

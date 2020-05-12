@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
  * code from the observer.
  */
 fun <T> LiveData<T>.observeNonNull(owner: LifecycleOwner, f: (T) -> Unit) {
-    this.observe(owner, Observer<T> { t -> t?.let(f) })
+    this.observe(owner, Observer { t -> t?.let(f) })
 }
 
 /**
@@ -17,5 +17,5 @@ fun <T> LiveData<T>.observeNonNull(owner: LifecycleOwner, f: (T) -> Unit) {
  * able to not require the user to pass in a parameter.
  */
 fun <T> LiveData<T>.observeNonNull(owner: LifecycleOwner, f: () -> Unit) {
-    this.observe(owner, Observer<T> { f() })
+    this.observe(owner, Observer { f() })
 }

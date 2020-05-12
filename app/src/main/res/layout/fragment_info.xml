@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.hourbook.overview.HourBookOverviewActivity">
+    tools:context=".ui.info.InfoFragment">
 
     <ProgressBar
         android:id="@+id/pbActivity"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvHourTopics"
+        android:id="@+id/rvInfoTopics"
         style="@style/AppTheme.Widget.Layout.Vertical"
         android:layout_width="0dp"
         android:layout_height="0dp"

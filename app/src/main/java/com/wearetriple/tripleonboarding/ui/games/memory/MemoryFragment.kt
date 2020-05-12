@@ -1,56 +1,69 @@
-package com.wearetriple.tripleonboarding.ui.games.quiz
+package com.wearetriple.tripleonboarding.ui.games.memory
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.wearetriple.tripleonboarding.R
 import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.Answer
-import com.wearetriple.tripleonboarding.model.QuizQuestion
+import com.wearetriple.tripleonboarding.model.MemoryQuestion
 import com.wearetriple.tripleonboarding.ui.games.AnswerAdapter
-import kotlinx.android.synthetic.main.activity_quiz.*
+import kotlinx.android.synthetic.main.fragment_memory.*
 
-class QuizActivity : AppCompatActivity() {
+class MemoryFragment : Fragment() {
 
-    private lateinit var quizViewModel: QuizViewModel
+    private lateinit var activityContext: AppCompatActivity
+    private lateinit var memoryViewModel: MemoryViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_quiz)
-        supportActionBar?.title = getString(R.string.title_quiz_screen)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_memory, container, false)
+    }
+    
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        activityContext = (activity as AppCompatActivity)
+        activityContext.supportActionBar?.show()
 
         initViews()
         initViewModel()
     }
 
     /**
-     * Prepares the views inside this activity.
+     * Prepares the views inside this fragment.
      */
     private fun initViews() {
-        rvAnswers.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, true)
+        rvAnswers.layoutManager = LinearLayoutManager(activityContext, RecyclerView.VERTICAL, true)
     }
 
     /**
-     * Prepares the data needed for this activity.
+     * Prepares the data needed for this fragment.
      */
     private fun initViewModel() {
-        quizViewModel =
-            ViewModelProvider(this@QuizActivity).get(QuizViewModel::class.java)
+        memoryViewModel =
+            ViewModelProvider(activityContext).get(MemoryViewModel::class.java)
 
-        quizViewModel.questions.observeNonNull(this, this::initGame)
+        memoryViewModel.questions.observeNonNull(viewLifecycleOwner, this::initGame)
     }
 
     /**
      * Initializes the game.
      */
-    private fun initGame(list: List<QuizQuestion>) {
+    private fun initGame(list: List<MemoryQuestion>) {
         if (list.isEmpty())
             return
 
@@ -63,7 +76,7 @@ class QuizActivity : AppCompatActivity() {
      */
     private fun startGame() {
         // Clean up left overs from previous session
-        quizViewModel.prepareNewGame()
+        memoryViewModel.prepareNewGame()
         updateGameScreen()
     }
 
@@ -72,33 +85,36 @@ class QuizActivity : AppCompatActivity() {
      * shown the right information at the right time.
      */
     private fun updateGameScreen() {
-        quizViewModel.gameStatus.observeNonNull(this, this::updateGameStatus)
-        quizViewModel.currentQuestion.observeNonNull(this, this::updateCurrentQuestion)
-        quizViewModel.message.observeNonNull(this, this::showMessageToUser)
-        quizViewModel.gameOver.observeNonNull(this, this::observeGameOver)
+        memoryViewModel.gameStatus.observeNonNull(viewLifecycleOwner, this::updateGameStatus)
+        memoryViewModel.currentQuestion.observeNonNull(
+            viewLifecycleOwner,
+            this::updateCurrentQuestion
+        )
+        memoryViewModel.message.observeNonNull(viewLifecycleOwner, this::showMessageToUser)
+        memoryViewModel.gameOver.observeNonNull(viewLifecycleOwner, this::observeGameOver)
     }
 
     /**
      * Updates the game's status shown on the screen.
      */
     private fun updateGameStatus() {
-        tvStatus.text = quizViewModel.getGameStatus()
-        tvScore.text = quizViewModel.getScore()
+        tvStatus.text = memoryViewModel.getGameStatus()
+        tvScore.text = memoryViewModel.getScore()
     }
 
     /**
      * Updates the current question shown on the screen.
      */
-    private fun updateCurrentQuestion(question: QuizQuestion) {
+    private fun updateCurrentQuestion(question: MemoryQuestion) {
         rvAnswers.adapter = AnswerAdapter(question.answer) { answer -> answerClicked(answer) }
-        tvQuestion.text = question.question
+        Glide.with(this).load(question.image).into(ivQuestion)
     }
 
     /**
      * Shows a new message to the user through a [Toast].
      */
     private fun showMessageToUser(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(activityContext, message, Toast.LENGTH_SHORT).show()
     }
 
     /**
@@ -114,19 +130,19 @@ class QuizActivity : AppCompatActivity() {
      * Shows a dialog to the user with the options to leave the game or to restart the game.
      */
     private fun showGameOverDialog() {
-        val dialogBuilder = AlertDialog.Builder(this)
+        val dialogBuilder = AlertDialog.Builder(activityContext)
 
         dialogBuilder.setMessage(
-            quizViewModel.getEndResult()
+            memoryViewModel.getEndResult()
         )
             .setCancelable(false)
             .setPositiveButton(getString(R.string.btn_leave_game)) { dialog, _ ->
                 dialog.dismiss()
-                finish()
+                findNavController().navigateUp()
             }
             .setNegativeButton(getString(R.string.btn_replay_game)) { dialog, _ ->
                 dialog.cancel()
-                quizViewModel.prepareNewGame()
+                memoryViewModel.prepareNewGame()
             }
 
         // create dialog box
@@ -141,7 +157,7 @@ class QuizActivity : AppCompatActivity() {
      * Starts checking the result of the given answer.
      */
     private fun answerClicked(answer: Answer) {
-        quizViewModel.checkGivenAnswerResult(answer)
+        memoryViewModel.checkGivenAnswerResult(answer)
     }
 
 }

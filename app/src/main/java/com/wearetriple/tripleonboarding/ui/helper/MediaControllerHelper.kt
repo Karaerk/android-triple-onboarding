@@ -16,7 +16,7 @@ import com.wearetriple.tripleonboarding.R
 class MediaControllerHelper(context: Context?) :
     MediaController(context) {
     private val activity = context as Activity
-    lateinit var fullScreen: ImageButton
+    private lateinit var fullScreen: ImageButton
 
     override fun setAnchorView(view: View) {
         super.setAnchorView(view)
