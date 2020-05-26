@@ -1,0 +1,15 @@
+{
+  "client_id": "482d1771-92c7-4fd7-8022-cfd17cb84866",
+  "authorization_user_agent": "DEFAULT",
+  "redirect_uri": "msauth://com.wearetriple.tripleonboarding/NqV%2Fj2Bl2uf11IrNPWHha3zrnts%3D",
+  "account_mode": "SINGLE",
+  "authorities": [
+    {
+      "type": "AAD",
+      "audience": {
+        "type": "AzureADandPersonalMicrosoftAccount",
+        "tenant_id": "common"
+      }
+    }
+  ]
+}

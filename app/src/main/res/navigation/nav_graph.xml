@@ -21,11 +21,11 @@
         android:label="@string/title_games_screen"
         tools:layout="@layout/fragment_games" >
         <action
-            android:id="@+id/action_gamesFragment_to_memoryFragment"
-            app:destination="@id/memoryFragment" />
-        <action
             android:id="@+id/action_gamesFragment_to_quizFragment"
             app:destination="@id/quizFragment" />
+        <action
+            android:id="@+id/action_gamesFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
     <fragment
         android:id="@+id/factsFragment"
@@ -111,4 +111,14 @@
         android:name="com.wearetriple.tripleonboarding.ui.games.quiz.QuizFragment"
         android:label="@string/title_quiz_screen"
         tools:layout="@layout/fragment_quiz" />
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.wearetriple.tripleonboarding.ui.signin.SignInFragment"
+        android:label="@string/title_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_memoryFragment"
+            app:destination="@id/memoryFragment"
+            app:popUpTo="@id/gamesFragment" />
+    </fragment>
 </navigation>

@@ -23,7 +23,7 @@
         <item name="android:padding">@dimen/default_layout_padding</item>
     </style>
 
-    <!-- Styles defined for text -->
+    <!-- Styles defined for elements -->
     <style name="AppTheme.Text">
         <item name="fontFamily">@font/raleway_medium</item>
         <item name="android:textColor">@color/primary_darkblue</item>
@@ -51,6 +51,23 @@
         <item name="fontFamily">@font/chivo_regular</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AppTheme.Text.Custom" />
+
+    <style name="AppTheme.Text.Custom.TitleSignIn">
+        <item name="fontFamily">@font/dosis_medium</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textColor">@color/primary_darkblue</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="AppTheme.Text.Custom.DescriptionSignIn">
+        <item name="fontFamily">@font/raleway_regular</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/primary_darkblue</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <!-- Styles defined for different kinds of views -->

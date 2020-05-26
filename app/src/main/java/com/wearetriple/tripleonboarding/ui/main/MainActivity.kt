@@ -34,22 +34,5 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(bnView.menu)
         toolbar.setupWithNavController(navController, appBarConfiguration)
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.infoFragment,
-                R.id.mapFragment -> showBottomNavigationBar(true)
-            }
-        }
-    }
-
-    /**
-     * Prepares the state of the bottom navigation for a specific fragment.
-     */
-    private fun showBottomNavigationBar(visible: Boolean) {
-        when (visible) {
-            true -> bnView.visibility = View.VISIBLE
-            false -> bnView.visibility = View.GONE
-        }
     }
 }

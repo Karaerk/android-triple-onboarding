@@ -42,7 +42,7 @@ class GamesFragment : Fragment() {
 
         cvMemory.setOnClickListener { btnStartMemory.callOnClick() }
         btnStartMemory.setOnClickListener {
-            findNavController().navigate(R.id.action_gamesFragment_to_memoryFragment)
+            findNavController().navigate(R.id.action_gamesFragment_to_signInFragment)
         }
     }
 }
