@@ -105,7 +105,13 @@
         android:id="@+id/memoryFragment"
         android:name="com.wearetriple.tripleonboarding.ui.games.memory.MemoryFragment"
         android:label="@string/title_memory_screen"
-        tools:layout="@layout/fragment_memory" />
+        tools:layout="@layout/fragment_memory" >
+        <action
+            android:id="@+id/action_memoryFragment_to_gamesFragment"
+            app:destination="@id/gamesFragment"
+            app:popUpTo="@id/gamesFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/quizFragment"
         android:name="com.wearetriple.tripleonboarding.ui.games.quiz.QuizFragment"

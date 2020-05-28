@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -32,7 +33,7 @@ class MemoryFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_memory, container, false)
     }
-    
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -130,15 +131,19 @@ class MemoryFragment : Fragment() {
      * Shows a dialog to the user with the options to leave the game or to restart the game.
      */
     private fun showGameOverDialog() {
+        val viewInflated = LayoutInflater.from(activityContext)
+            .inflate(R.layout.item_game_dialog, view as ViewGroup?, false)
+
+        viewInflated.findViewById<TextView>(R.id.tvEndResult).text = memoryViewModel.getEndResult()
+        viewInflated.findViewById<TextView>(R.id.tvHighscore).text = memoryViewModel.getHighscore()
+
         val dialogBuilder = AlertDialog.Builder(activityContext)
 
-        dialogBuilder.setMessage(
-            memoryViewModel.getEndResult()
-        )
+        dialogBuilder.setView(viewInflated)
             .setCancelable(false)
             .setPositiveButton(getString(R.string.btn_leave_game)) { dialog, _ ->
                 dialog.dismiss()
-                findNavController().navigateUp()
+                findNavController().navigate(R.id.action_memoryFragment_to_gamesFragment)
             }
             .setNegativeButton(getString(R.string.btn_replay_game)) { dialog, _ ->
                 dialog.cancel()

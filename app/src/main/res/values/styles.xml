@@ -22,6 +22,10 @@
     <style name="AppTheme.Layout">
         <item name="android:padding">@dimen/default_layout_padding</item>
     </style>
+    <style name="AppTheme.Layout.Dialog">
+        <item name="android:paddingStart">@dimen/dialog_space</item>
+        <item name="android:paddingEnd">@dimen/dialog_space</item>
+    </style>
 
     <!-- Styles defined for elements -->
     <style name="AppTheme.Text">

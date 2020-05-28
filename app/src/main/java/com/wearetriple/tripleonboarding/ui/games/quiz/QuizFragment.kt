@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -129,11 +130,15 @@ class QuizFragment : Fragment() {
      * Shows a dialog to the user with the options to leave the game or to restart the game.
      */
     private fun showGameOverDialog() {
+        val viewInflated = LayoutInflater.from(activityContext)
+            .inflate(R.layout.item_game_dialog, view as ViewGroup?, false)
+
+        viewInflated.findViewById<TextView>(R.id.tvEndResult).text = quizViewModel.getEndResult()
+        viewInflated.findViewById<TextView>(R.id.tvHighscore).text = quizViewModel.getHighscore()
+
         val dialogBuilder = AlertDialog.Builder(activityContext)
 
-        dialogBuilder.setMessage(
-            quizViewModel.getEndResult()
-        )
+        dialogBuilder.setView(viewInflated)
             .setCancelable(false)
             .setPositiveButton(getString(R.string.btn_leave_game)) { dialog, _ ->
                 dialog.dismiss()

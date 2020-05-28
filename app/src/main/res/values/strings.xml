@@ -17,7 +17,9 @@
     <string name="title_sign_in">Inloggen Active Directory</string>
 
     <string name="description_quiz_done">Met %s heb je het spel succesvol afgerond. Je kan het wel!!</string>
+    <string name="description_quiz_highscore">Je highscore is %s</string>
     <string name="description_memory_done">Met %s heb je het spel succesvol afgerond. Topper!!</string>
+    <string name="description_memory_highscore">Je highscore is %s.</string>
     <string name="description_memory_image">Een medewerker van Triple</string>
     <string name="description_video_image">Een voorvertoning van de video</string>
     <string name="description_video_play_button">Een knop waarmee de video gestart kan worden</string>
@@ -34,6 +36,7 @@
 
     <string name="label_game_status">Vraag %1$d/%2$d</string>
     <string name="label_game_score">Score %1$d</string>
+    <string name="label_game_highscore">Highscore %1$d</string>
     <string name="label_not_signed_in">Niet Ingelogd</string>
 
     <string name="placeholder_text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</string>

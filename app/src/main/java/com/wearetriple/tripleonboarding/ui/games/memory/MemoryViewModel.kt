@@ -7,18 +7,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.wearetriple.tripleonboarding.R
 import com.wearetriple.tripleonboarding.database.EntityRepository
-import com.wearetriple.tripleonboarding.model.Answer
-import com.wearetriple.tripleonboarding.model.CORRECT_ANSWER
-import com.wearetriple.tripleonboarding.model.GameStatus
-import com.wearetriple.tripleonboarding.model.MemoryQuestion
+import com.wearetriple.tripleonboarding.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MemoryViewModel(application: Application) : AndroidViewModel(application) {
     private val context = application
-    private val repository = EntityRepository()
+    private val repository = EntityRepository(application)
     private val questionsLiveData = MediatorLiveData<List<MemoryQuestion>>()
+    private val highscore = MutableLiveData<GameResult>()
     var questions = questionsLiveData
 
     var gameStatus = MutableLiveData(GameStatus())
@@ -35,7 +33,15 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     init {
         viewModelScope.launch {
             postLiveData()
+            postHighscore()
         }
+    }
+
+    /**
+     * Posts the user's latest highscore.
+     */
+    private suspend fun postHighscore() = withContext(Dispatchers.IO) {
+        highscore.postValue(repository.getHighscoreOfGame(Game.MEMORY))
     }
 
     /**
@@ -60,9 +66,6 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * Resets all data to its initial state.
      */
-    /**
-     * Resets all data to its initial state.
-     */
     private fun resetData() {
         gameStatus.value = GameStatus()
         leftoverQuestions.value!!.clear()
@@ -70,9 +73,6 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
         gameOver.value = false
     }
 
-    /**
-     * @return A String representation of the game's status.
-     */
     /**
      * @return A String representation of the game's status.
      */
@@ -87,16 +87,58 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * @return A String representation of the user's current score.
      */
-    /**
-     * @return A String representation of the user's current score.
-     */
     fun getScore(): String {
         return context.getString(R.string.label_game_score, gameStatus.value!!.totalScore)
     }
 
     /**
-     * @return A String representation of the game's end result.
+     * @return A String representation of the user's highscore on this game.
      */
+    fun getHighscore(): String {
+        val highscore = prepareHighscore()
+
+        return context.getString(
+            R.string.description_memory_highscore,
+            context.resources.getQuantityString(
+                R.plurals.number_of_points,
+                highscore,
+                highscore
+            )
+        )
+    }
+
+    /**
+     * Prepares the user's highscore before passing it to the UI.
+     */
+    private fun prepareHighscore(): Int {
+        val currentHighscore = highscore.value
+        val currentTotalScore = gameStatus.value!!.totalScore
+        var userHighscore = currentTotalScore
+
+        if (currentHighscore == null) {
+            val newHighscore = GameResult(Game.MEMORY, currentTotalScore)
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    newHighscore.id = repository.insertHighscore(newHighscore)
+                    highscore.postValue(newHighscore)
+                }
+            }
+
+        } else if (currentTotalScore > currentHighscore.highscore) {
+            currentHighscore.highscore = currentTotalScore
+
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    repository.updateHighscore(currentHighscore)
+                }
+            }
+        } else {
+            userHighscore = highscore.value!!.highscore
+        }
+
+        return userHighscore
+    }
+
     /**
      * @return A String representation of the game's end result.
      */
@@ -114,9 +156,6 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * Prepares a new question for the user by randomly selecting one of the leftovers.
      */
-    /**
-     * Prepares a new question for the user by randomly selecting one of the leftovers.
-     */
     private fun prepareNextQuestion() {
         if (leftoverQuestions.value!!.isEmpty()) {
             gameOver.value = true
@@ -131,10 +170,6 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
         gameStatus.value = GameStatus(totalScore = gameStatus.value!!.totalScore)
     }
 
-    /**
-     * Checks the result of the given answers and sends back a message to the user to let them
-     * know the result.
-     */
     /**
      * Checks the result of the given answers and sends back a message to the user to let them
      * know the result.
@@ -159,10 +194,6 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
      * Handles the things needed to be done when/before choosing the right answer.
      * For example: keeping track of wrong guesses, earned points, etc.
      */
-    /**
-     * Handles the things needed to be done when/before choosing the right answer.
-     * For example: keeping track of wrong guesses, earned points, etc.
-     */
     private fun updateGameStatusAfterAnswer(correctAnswer: Boolean) {
         if (correctAnswer) {
             val status = gameStatus.value!!
@@ -183,9 +214,6 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * @return The number of current question which indicates the user's progress.
      */
-    /**
-     * @return The number of current question which indicates the user's progress.
-     */
     private fun getQuestionNumber(): Int {
         val numberOfQuestions = questions.value!!.size
         val difference = numberOfQuestions - leftoverQuestions.value!!.size
@@ -196,9 +224,6 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    /**
-     * Checks if all possible answers from a question is found.
-     */
     /**
      * Checks if all possible answers from a question is found.
      */
