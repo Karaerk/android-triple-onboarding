@@ -1,51 +1,34 @@
 package com.wearetriple.tripleonboarding.ui.fact
 
-import androidx.annotation.NonNull
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.database.FirebaseDatabase
-import com.wearetriple.tripleonboarding.database.FirebaseQueryLiveData
+import androidx.lifecycle.viewModelScope
+import com.wearetriple.tripleonboarding.database.EntityRepository
 import com.wearetriple.tripleonboarding.model.Fact
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FactViewModel : ViewModel() {
-    private val mainScope = CoroutineScope(Dispatchers.Main)
-    private val liveData = FirebaseQueryLiveData(DATABASE_REF)
+    private val repository = EntityRepository()
     private val factLiveData = MediatorLiveData<List<Fact>>()
+    val facts = factLiveData
 
     companion object {
         private const val DATABASE_KEY = "facts"
-        private val DATABASE_REF = FirebaseDatabase.getInstance().getReference(DATABASE_KEY)
     }
 
     init {
-        factLiveData.addSource(
-            liveData
-        ) { dataSnapshot ->
-            if (dataSnapshot != null) {
-                mainScope.launch {
-                    val list = ArrayList<Fact>()
-
-                    dataSnapshot.children.forEach {
-                        val item: Fact? = it.getValue(Fact::class.java)
-
-                        if (item != null)
-                            list.add(item)
-                    }
-
-                    factLiveData.postValue(list)
-                }
-            } else {
-                factLiveData.setValue(arrayListOf())
-            }
+        viewModelScope.launch {
+            postLiveData()
         }
     }
 
-    @NonNull
-    fun getAll(): LiveData<List<Fact>> {
-        return factLiveData
+    /**
+     * Posts a new set of data inside the live data attribute.
+     */
+    private suspend fun postLiveData() = withContext(Dispatchers.IO) {
+        val data = repository.getAllFromTable<Fact>(DATABASE_KEY)
+        factLiveData.postValue(data)
     }
 }

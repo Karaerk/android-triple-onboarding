@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_info_topic.view.*
  * Used to prepare recyclerview's items.
  */
 class InfoTopicAdapter(
-    override val items: List<InfoTopic>,
+    override var items: ArrayList<InfoTopic>,
     override val clickListener: (InfoTopic) -> Unit
 ) : AbstractAdapter<InfoTopic>(items, clickListener) {
 

@@ -22,8 +22,12 @@
     <style name="AppTheme.Layout">
         <item name="android:padding">@dimen/default_layout_padding</item>
     </style>
+    <style name="AppTheme.Layout.Dialog">
+        <item name="android:paddingStart">@dimen/dialog_space</item>
+        <item name="android:paddingEnd">@dimen/dialog_space</item>
+    </style>
 
-    <!-- Styles defined for text -->
+    <!-- Styles defined for elements -->
     <style name="AppTheme.Text">
         <item name="fontFamily">@font/raleway_medium</item>
         <item name="android:textColor">@color/primary_darkblue</item>
@@ -53,6 +57,23 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="AppTheme.Text.Custom" />
+
+    <style name="AppTheme.Text.Custom.TitleSignIn">
+        <item name="fontFamily">@font/dosis_medium</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textColor">@color/primary_darkblue</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="AppTheme.Text.Custom.DescriptionSignIn">
+        <item name="fontFamily">@font/raleway_regular</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/primary_darkblue</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <!-- Styles defined for different kinds of views -->
     <style name="AppTheme.Widget" />
 
@@ -66,6 +87,12 @@
     <style name="AppTheme.Widget.Layout.Vertical">
         <item name="android:paddingTop">@dimen/default_layout_padding</item>
         <item name="android:paddingBottom">@dimen/default_layout_padding</item>
+    </style>
+
+    <style name="AppTheme.Widget.VideoView">
+        <item name="elevation">4dp</item>
+        <item name="android:tint">@android:color/white</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme.Widget.Button" />
@@ -132,11 +159,6 @@
     </style>
 
     <style name="AppTheme.Widget.CardView.Body" parent="AppTheme.Text.Light" />
-
-    <style name="AppTheme.Widget.CardView.Body.Inner">
-        <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:layout_margin">@dimen/card_inner_body_margin</item>
-    </style>
 
     <style name="AppTheme.Widget.CardView.Image">
         <item name="android:layout_width">match_parent</item>

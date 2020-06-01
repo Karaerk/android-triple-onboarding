@@ -1,66 +1,55 @@
 package com.wearetriple.tripleonboarding.ui.games.quiz
 
 import android.app.Application
-import androidx.annotation.NonNull
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.database.FirebaseDatabase
+import androidx.lifecycle.viewModelScope
 import com.wearetriple.tripleonboarding.R
-import com.wearetriple.tripleonboarding.database.FirebaseQueryLiveData
-import com.wearetriple.tripleonboarding.model.Answer
-import com.wearetriple.tripleonboarding.model.CORRECT_ANSWER
-import com.wearetriple.tripleonboarding.model.GameStatus
-import com.wearetriple.tripleonboarding.model.QuizQuestion
-import kotlinx.coroutines.CoroutineScope
+import com.wearetriple.tripleonboarding.database.EntityRepository
+import com.wearetriple.tripleonboarding.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class QuizViewModel(application: Application) : AndroidViewModel(application) {
     private val context = application
-    private val mainScope = CoroutineScope(Dispatchers.Main)
-    private val liveData = FirebaseQueryLiveData(DATABASE_REF)
-    private val questionsLiveData = MediatorLiveData<ArrayList<QuizQuestion>>()
+    private val repository = EntityRepository(application)
+    private val questionsLiveData = MediatorLiveData<List<QuizQuestion>>()
+    private val highscore = MutableLiveData<GameResult>()
+    var questions = questionsLiveData
 
-    var gameStatus = MutableLiveData<GameStatus>(GameStatus())
-    var leftoverQuestions = MutableLiveData<ArrayList<QuizQuestion>>(arrayListOf())
+    var gameStatus = MutableLiveData(GameStatus())
+    private var leftoverQuestions = MutableLiveData<ArrayList<QuizQuestion>>(arrayListOf())
     var currentQuestion = MutableLiveData<QuizQuestion>()
-    var message = MutableLiveData<String?>()
-    var gameOver = MutableLiveData<Boolean>(false)
+    var message = MutableLiveData<String>()
+    var gameOver = MutableLiveData(false)
 
     companion object {
         private const val DATABASE_KEY = "quiz"
         private const val MAX_POINTS_PER_QUESTION = 10
-        private val DATABASE_REF = FirebaseDatabase.getInstance().getReference(DATABASE_KEY)
     }
 
     init {
-        questionsLiveData.addSource(
-            liveData
-        ) { dataSnapshot ->
-            if (dataSnapshot != null) {
-                mainScope.launch {
-                    val list = ArrayList<QuizQuestion>()
-
-                    dataSnapshot.children.forEach {
-                        val item: QuizQuestion? = it.getValue(QuizQuestion::class.java)
-
-                        if (item != null)
-                            list.add(item)
-                    }
-
-                    questionsLiveData.postValue(list)
-                }
-            } else {
-                questionsLiveData.setValue(arrayListOf())
-            }
+        viewModelScope.launch {
+            postLiveData()
+            postHighscore()
         }
     }
 
-    @NonNull
-    fun getAll(): LiveData<ArrayList<QuizQuestion>> {
-        return questionsLiveData
+    /**
+     * Posts the user's latest highscore.
+     */
+    private suspend fun postHighscore() = withContext(Dispatchers.IO) {
+        highscore.postValue(repository.getHighscoreOfGame(Game.QUIZ))
+    }
+
+    /**
+     * Posts a new set of data inside the live data attribute.
+     */
+    private suspend fun postLiveData() = withContext(Dispatchers.IO) {
+        val data = repository.getAllFromTable<QuizQuestion>(DATABASE_KEY)
+        questionsLiveData.postValue(data)
     }
 
     /**
@@ -75,18 +64,100 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
      * Resets all data to its initial state.
      */
     private fun resetData() {
-        gameStatus = MutableLiveData(GameStatus())
-        leftoverQuestions = MutableLiveData(arrayListOf())
+        gameStatus.value = GameStatus()
+        leftoverQuestions.value!!.clear()
         leftoverQuestions.value!!.addAll(questionsLiveData.value!!)
-        currentQuestion = MutableLiveData()
-        message = MutableLiveData()
-        gameOver = MutableLiveData(false)
+        gameOver.value = false
+    }
+
+    /**
+     * @return A String representation of the game's status.
+     */
+    fun getGameStatus(): String {
+        return context.getString(
+            R.string.label_game_status,
+            getQuestionNumber(),
+            questions.value!!.size
+        )
+    }
+
+    /**
+     * @return A String representation of the user's current score.
+     */
+    fun getScore(): String {
+        return context.getString(R.string.label_game_score, gameStatus.value!!.totalScore)
+    }
+
+    /**
+     * @return A String representation of the user's highscore on this game.
+     */
+    fun getHighscore(): String {
+        val highscore = prepareHighscore()
+
+        return context.getString(
+            R.string.description_quiz_highscore,
+            context.resources.getQuantityString(
+                R.plurals.number_of_points,
+                highscore,
+                highscore
+            )
+        )
+    }
+
+    /**
+     * Prepares the user's highscore before passing it to the UI.
+     */
+    private fun prepareHighscore(): Int {
+        val currentHighscore = highscore.value
+        val currentTotalScore = gameStatus.value!!.totalScore
+        var userHighscore = currentTotalScore
+
+        when {
+            currentHighscore == null -> {
+                val newHighscore = GameResult(Game.QUIZ, currentTotalScore)
+                viewModelScope.launch {
+                    withContext(Dispatchers.IO) {
+                        newHighscore.id = repository.insertHighscore(newHighscore)
+                        highscore.postValue(newHighscore)
+                    }
+                }
+
+            }
+            currentTotalScore > currentHighscore.highscore -> {
+                currentHighscore.highscore = currentTotalScore
+
+                viewModelScope.launch {
+                    withContext(Dispatchers.IO) {
+                        repository.updateHighscore(currentHighscore)
+                    }
+                }
+            }
+            else -> {
+                userHighscore = highscore.value!!.highscore
+            }
+        }
+
+        return userHighscore
+    }
+
+    /**
+     * @return A String representation of the game's end result.
+     */
+    fun getEndResult(): String {
+        return context.getString(
+            R.string.description_quiz_done,
+            context.resources.getQuantityString(
+                R.plurals.number_of_points,
+                gameStatus.value!!.totalScore,
+                gameStatus.value!!.totalScore
+            )
+        )
     }
 
     /**
      * Prepares a new question for the user by randomly selecting one of the leftovers.
      */
-    fun prepareNextQuestion() {
+    private fun prepareNextQuestion() {
         if (leftoverQuestions.value!!.isEmpty()) {
             gameOver.value = true
         } else {
@@ -124,7 +195,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
      * Handles the things needed to be done when/before choosing the right answer.
      * For example: keeping track of wrong guesses, earned points, etc.
      */
-    fun updateGameStatusAfterAnswer(correctAnswer: Boolean) {
+    private fun updateGameStatusAfterAnswer(correctAnswer: Boolean) {
         if (correctAnswer) {
             val status = gameStatus.value!!
             status.currentCorrectAnswers++
@@ -142,18 +213,22 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * Returns the number of current question which indicates the user's progress.
+     * @return The number of current question which indicates the user's progress.
      */
-    fun getQuestionNumber(): Int {
-        val questionNumber = (getAll().value!!.size - leftoverQuestions.value!!.size) + 1
+    private fun getQuestionNumber(): Int {
+        val numberOfQuestions = questions.value!!.size
+        val difference = numberOfQuestions - leftoverQuestions.value!!.size
 
-        return questionNumber
+        return when (difference) {
+            numberOfQuestions -> numberOfQuestions
+            else -> difference + 1
+        }
     }
 
     /**
      * Checks if all possible answers from a question is found.
      */
-    fun isAllCorrectAnswersFound(): Boolean {
+    private fun isAllCorrectAnswersFound(): Boolean {
         val numberOfCorrectAnswers =
             currentQuestion.value!!.answer.filter { answer -> answer.correct == CORRECT_ANSWER }
                 .size
