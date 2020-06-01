@@ -115,25 +115,29 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
         val currentTotalScore = gameStatus.value!!.totalScore
         var userHighscore = currentTotalScore
 
-        if (currentHighscore == null) {
-            val newHighscore = GameResult(Game.MEMORY, currentTotalScore)
-            viewModelScope.launch {
-                withContext(Dispatchers.IO) {
-                    newHighscore.id = repository.insertHighscore(newHighscore)
-                    highscore.postValue(newHighscore)
+        when {
+            currentHighscore == null -> {
+                val newHighscore = GameResult(Game.MEMORY, currentTotalScore)
+                viewModelScope.launch {
+                    withContext(Dispatchers.IO) {
+                        newHighscore.id = repository.insertHighscore(newHighscore)
+                        highscore.postValue(newHighscore)
+                    }
+                }
+
+            }
+            currentTotalScore > currentHighscore.highscore -> {
+                currentHighscore.highscore = currentTotalScore
+
+                viewModelScope.launch {
+                    withContext(Dispatchers.IO) {
+                        repository.updateHighscore(currentHighscore)
+                    }
                 }
             }
-
-        } else if (currentTotalScore > currentHighscore.highscore) {
-            currentHighscore.highscore = currentTotalScore
-
-            viewModelScope.launch {
-                withContext(Dispatchers.IO) {
-                    repository.updateHighscore(currentHighscore)
-                }
+            else -> {
+                userHighscore = highscore.value!!.highscore
             }
-        } else {
-            userHighscore = highscore.value!!.highscore
         }
 
         return userHighscore

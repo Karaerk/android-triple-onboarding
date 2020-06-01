@@ -1,10 +1,10 @@
 package com.wearetriple.tripleonboarding.ui.more
 
-import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.ViewModel
 
 
-class MoreViewModel() : ViewModel() {
+class MoreViewModel : ViewModel() {
     private val menuItems = MediatorLiveData<List<String>>()
     val items = menuItems
 

@@ -11,7 +11,7 @@ import com.wearetriple.tripleonboarding.model.GameResult
 open class EntityRepository(val context: Context? = null) {
 
     val remoteRepository = FirebaseRepository()
-    lateinit var localRepository: GameResultRepository
+    private lateinit var localRepository: GameResultRepository
 
     init {
         if (context != null)
