@@ -16,87 +16,66 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            style="@style/AppTheme.Layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                style="@style/AppTheme.Text.Large"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/default_layout_padding"
-                android:paddingTop="@dimen/default_layout_padding"
-                android:paddingEnd="@dimen/default_layout_padding">
-
-                <TextView
-                    style="@style/AppTheme.Widget.CardView.Title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/games_quiz" />
-
-                <TextView
-                    style="@style/AppTheme.Widget.CardView.Body"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/placeholder_text" />
-            </LinearLayout>
+                android:layout_gravity="center_vertical"
+                android:layout_weight="50"
+                android:gravity="center_vertical"
+                android:text="@string/games_quiz" />
 
             <Button
                 android:id="@+id/btnStartQuiz"
                 style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_margin="@dimen/default_view_margin"
-                android:padding="@dimen/default_layout_padding"
-                android:text="@string/btn_start_game" />
+                android:layout_weight="50"
+                android:gravity="center_vertical"
+                android:text="@string/btn_start_game"
+                android:textAlignment="viewEnd"
+                tools:ignore="RtlCompat" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvMemory"
-        style="@style/AppTheme.Widget.CardView.View"
+        style="@style/AppTheme.Widget.CardView.ItemView"
         android:layout_marginTop="@dimen/default_view_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvQuiz">
 
         <LinearLayout
+            style="@style/AppTheme.Layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                style="@style/AppTheme.Text.Large"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/default_layout_padding"
-                android:paddingTop="@dimen/default_layout_padding"
-                android:paddingEnd="@dimen/default_layout_padding">
-
-                <TextView
-                    style="@style/AppTheme.Widget.CardView.Title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/games_memory" />
-
-                <TextView
-                    style="@style/AppTheme.Widget.CardView.Body"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/placeholder_text" />
-            </LinearLayout>
+                android:layout_weight="50"
+                android:gravity="center_vertical"
+                android:text="@string/games_memory" />
 
             <Button
                 android:id="@+id/btnStartMemory"
                 style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_margin="@dimen/default_view_margin"
-                android:padding="@dimen/default_layout_padding"
-                android:text="@string/btn_start_game" />
+                android:layout_weight="50"
+                android:gravity="center_vertical"
+                android:text="@string/btn_start_game"
+                android:textAlignment="viewEnd"
+                tools:ignore="RtlCompat" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

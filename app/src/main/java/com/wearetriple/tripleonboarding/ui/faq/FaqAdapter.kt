@@ -11,9 +11,9 @@ import kotlinx.android.synthetic.main.item_faq.view.*
 /**
  * Used to prepare recyclerview's items.
  */
-class FaqAdapter(
-    override var items: ArrayList<Faq>
-) : AbstractAdapter<Faq>(items) {
+class FaqAdapter() : AbstractAdapter<Faq>() {
+
+    override var items: List<Faq> = listOf()
 
     /**
      * Prepares the view before passing it to the RecyclerView.

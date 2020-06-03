@@ -22,29 +22,16 @@ import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.Department
 import kotlinx.android.synthetic.main.fragment_department_detail.*
 
-class DepartmentDetailFragment : Fragment() {
+class DepartmentDetailFragment : Fragment(R.layout.fragment_department_detail) {
 
-    private lateinit var activityContext: AppCompatActivity
     private lateinit var departmentDetailViewModel: DepartmentDetailViewModel
     private val args: DepartmentDetailFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_department_detail, container, false)
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        activityContext = (activity as AppCompatActivity)
-        activityContext.supportActionBar?.show()
-
-        departmentDetailViewModel =
-            ViewModelProvider(activityContext).get(DepartmentDetailViewModel::class.java)
         initViewModel()
+        requireActivity().actionBar?.show()
     }
 
     /**
@@ -77,6 +64,8 @@ class DepartmentDetailFragment : Fragment() {
      * Prepares the data needed for this fragment.
      */
     private fun initViewModel() {
+        departmentDetailViewModel =
+            ViewModelProvider(this).get(DepartmentDetailViewModel::class.java)
         departmentDetailViewModel.initDepartment(args.department)
 
         departmentDetailViewModel.department.observeNonNull(viewLifecycleOwner, this::initViews)

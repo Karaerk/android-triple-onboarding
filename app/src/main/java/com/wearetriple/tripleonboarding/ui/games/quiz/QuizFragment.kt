@@ -19,19 +19,12 @@ import com.wearetriple.tripleonboarding.model.Answer
 import com.wearetriple.tripleonboarding.model.QuizQuestion
 import com.wearetriple.tripleonboarding.ui.games.AnswerAdapter
 import kotlinx.android.synthetic.main.fragment_quiz.*
+import kotlinx.android.synthetic.main.item_game_dialog.view.*
 
-class QuizFragment : Fragment() {
+class QuizFragment : Fragment(R.layout.fragment_quiz) {
 
     private lateinit var activityContext: AppCompatActivity
     private lateinit var quizViewModel: QuizViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_quiz, container, false)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -106,7 +99,9 @@ class QuizFragment : Fragment() {
      * Updates the current question shown on the screen.
      */
     private fun updateCurrentQuestion(question: QuizQuestion) {
-        rvAnswers.adapter = AnswerAdapter(question.answer) { answer -> answerClicked(answer) }
+        val answerAdapter = AnswerAdapter { answer -> answerClicked(answer) }
+        answerAdapter.items = question.answer
+        rvAnswers.adapter = answerAdapter
         tvQuestion.text = question.question
     }
 
@@ -133,8 +128,8 @@ class QuizFragment : Fragment() {
         val viewInflated = LayoutInflater.from(activityContext)
             .inflate(R.layout.item_game_dialog, view as ViewGroup?, false)
 
-        viewInflated.findViewById<TextView>(R.id.tvEndResult).text = quizViewModel.getEndResult()
-        viewInflated.findViewById<TextView>(R.id.tvHighscore).text = quizViewModel.getHighscore()
+        viewInflated.tvEndResult.text = quizViewModel.getEndResult()
+        viewInflated.tvHighscore.text = quizViewModel.getHighscore()
 
         val dialogBuilder = AlertDialog.Builder(activityContext)
 

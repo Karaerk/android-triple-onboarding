@@ -1,9 +1,7 @@
 package com.wearetriple.tripleonboarding.ui.fact
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -15,24 +13,16 @@ import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.Fact
 import kotlinx.android.synthetic.main.fragment_facts.*
 
-class FactFragment : Fragment() {
+class FactFragment : Fragment(R.layout.fragment_facts) {
 
     private lateinit var activityContext: AppCompatActivity
     private val factAdapter =
-        FactAdapter(arrayListOf()) { fact: Fact ->
+        FactAdapter() { fact: Fact ->
             factClicked(
                 fact
             )
         }
     private lateinit var factViewModel: FactViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_facts, container, false)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -66,8 +56,7 @@ class FactFragment : Fragment() {
      */
     private fun initRecyclerView(list: List<Fact>) {
         pbActivity.visibility = View.GONE
-        factAdapter.items.clear()
-        factAdapter.items.addAll(list)
+        factAdapter.items = list
         factAdapter.notifyDataSetChanged()
     }
 

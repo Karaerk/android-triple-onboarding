@@ -11,9 +11,10 @@ import kotlinx.android.synthetic.main.item_more.view.*
  * Used to prepare recyclerview's items.
  */
 class MoreAdapter(
-    override var items: ArrayList<String>,
     override val clickListener: (String) -> Unit
-) : AbstractAdapter<String>(items, clickListener) {
+) : AbstractAdapter<String>(clickListener) {
+
+    override var items: List<String> = listOf()
 
     /**
      * Prepares the view before passing it to the RecyclerView.

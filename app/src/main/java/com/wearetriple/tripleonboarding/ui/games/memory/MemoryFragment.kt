@@ -20,19 +20,12 @@ import com.wearetriple.tripleonboarding.model.Answer
 import com.wearetriple.tripleonboarding.model.MemoryQuestion
 import com.wearetriple.tripleonboarding.ui.games.AnswerAdapter
 import kotlinx.android.synthetic.main.fragment_memory.*
+import kotlinx.android.synthetic.main.item_game_dialog.view.*
 
-class MemoryFragment : Fragment() {
+class MemoryFragment : Fragment(R.layout.fragment_memory) {
 
     private lateinit var activityContext: AppCompatActivity
     private lateinit var memoryViewModel: MemoryViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_memory, container, false)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -107,7 +100,9 @@ class MemoryFragment : Fragment() {
      * Updates the current question shown on the screen.
      */
     private fun updateCurrentQuestion(question: MemoryQuestion) {
-        rvAnswers.adapter = AnswerAdapter(question.answer) { answer -> answerClicked(answer) }
+        val answerAdapter = AnswerAdapter { answer -> answerClicked(answer) }
+        answerAdapter.items = question.answer
+        rvAnswers.adapter = answerAdapter
         Glide.with(this).load(question.image).into(ivQuestion)
     }
 
@@ -134,8 +129,8 @@ class MemoryFragment : Fragment() {
         val viewInflated = LayoutInflater.from(activityContext)
             .inflate(R.layout.item_game_dialog, view as ViewGroup?, false)
 
-        viewInflated.findViewById<TextView>(R.id.tvEndResult).text = memoryViewModel.getEndResult()
-        viewInflated.findViewById<TextView>(R.id.tvHighscore).text = memoryViewModel.getHighscore()
+        viewInflated.tvEndResult.text = memoryViewModel.getEndResult()
+        viewInflated.tvHighscore.text = memoryViewModel.getHighscore()
 
         val dialogBuilder = AlertDialog.Builder(activityContext)
 

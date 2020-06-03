@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
  * Used as a template for recyclerview's adapters.
  */
 abstract class AbstractAdapter<E>(
-    open val items: List<E>,
     open val clickListener: ((E) -> Unit)? = null
 ) : RecyclerView.Adapter<AbstractAdapter<E>.ViewHolder>() {
+
+    abstract var items: List<E>
 
     /**
      * Prepares the view before passing it to the RecyclerView.

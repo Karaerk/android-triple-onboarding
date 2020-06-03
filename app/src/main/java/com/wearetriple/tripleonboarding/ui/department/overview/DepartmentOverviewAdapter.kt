@@ -18,9 +18,10 @@ import kotlinx.android.synthetic.main.item_department_overview.view.*
  * Used to prepare recyclerview's items.
  */
 class DepartmentOverviewAdapter(
-    override var items: ArrayList<Department>,
     override val clickListener: (Department) -> Unit
-) : AbstractAdapter<Department>(items, clickListener) {
+) : AbstractAdapter<Department>(clickListener) {
+
+    override var items: List<Department> = listOf()
 
     /**
      * Prepares the view before passing it to the RecyclerView.

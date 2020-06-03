@@ -14,19 +14,11 @@ import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.Faq
 import kotlinx.android.synthetic.main.fragment_faq.*
 
-class FaqFragment : Fragment() {
+class FaqFragment : Fragment(R.layout.fragment_faq) {
 
     private lateinit var activityContext: AppCompatActivity
-    private val faqAdapter = FaqAdapter(arrayListOf())
+    private val faqAdapter = FaqAdapter()
     private lateinit var faqViewModel: FaqViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_faq, container, false)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -60,8 +52,7 @@ class FaqFragment : Fragment() {
      */
     private fun initRecyclerView(list: List<Faq>) {
         pbActivity.visibility = View.GONE
-        faqAdapter.items.clear()
-        faqAdapter.items.addAll(list)
+        faqAdapter.items = list
         faqAdapter.notifyDataSetChanged()
     }
 }

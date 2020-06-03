@@ -19,33 +19,22 @@ import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.MapLevel
 import kotlinx.android.synthetic.main.fragment_map.*
 
-class MapFragment : Fragment() {
+class MapFragment : Fragment(R.layout.fragment_map) {
 
-    private lateinit var activityContext: AppCompatActivity
     private val mapLevelAdapter =
-        MapLevelAdapter(arrayListOf()) { mapLevel ->
+        MapLevelAdapter { mapLevel ->
             mapLevelClicked(
                 mapLevel
             )
         }
     private lateinit var mapViewModel: MapViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        activityContext = (activity as AppCompatActivity)
-        activityContext.supportActionBar?.show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initViews()
         initViewModel()
+        requireActivity().actionBar?.show()
     }
 
     /**
@@ -53,7 +42,7 @@ class MapFragment : Fragment() {
      */
     private fun initViews() {
         rvMapLevels.layoutManager =
-            LinearLayoutManager(activityContext, RecyclerView.VERTICAL, true)
+            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, true)
         rvMapLevels.adapter = mapLevelAdapter
     }
 
@@ -61,7 +50,7 @@ class MapFragment : Fragment() {
      * Prepares the data needed for this fragment.
      */
     private fun initViewModel() {
-        mapViewModel = ViewModelProvider(activityContext).get(MapViewModel::class.java)
+        mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
 
         mapViewModel.mapLevels.observeNonNull(viewLifecycleOwner, this::initRecyclerView)
     }
@@ -73,8 +62,7 @@ class MapFragment : Fragment() {
         pbActivity.visibility = View.GONE
         mapLevelClicked(list[0]) // Load up the first floor's image
 
-        mapLevelAdapter.items.clear()
-        mapLevelAdapter.items.addAll(list)
+        mapLevelAdapter.items = list
         mapLevelAdapter.notifyDataSetChanged()
     }
 

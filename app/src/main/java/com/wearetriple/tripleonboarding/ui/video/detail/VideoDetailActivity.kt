@@ -13,19 +13,18 @@ import com.wearetriple.tripleonboarding.ui.helper.MediaControllerHelper
 import com.wearetriple.tripleonboarding.ui.video.detail.VideoDetailViewModel.Companion.CLICKED_VIDEO
 import kotlinx.android.synthetic.main.activity_full_screen_video.*
 
-class VideoDetailActivity : AppCompatActivity() {
+class VideoDetailActivity : AppCompatActivity(R.layout.activity_full_screen_video) {
 
     private lateinit var videoDetailViewModel: VideoDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_full_screen_video)
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        supportActionBar!!.hide()
+        supportActionBar?.hide()
         videoDetailViewModel =
             ViewModelProvider(this@VideoDetailActivity).get(VideoDetailViewModel::class.java)
 
@@ -52,7 +51,7 @@ class VideoDetailActivity : AppCompatActivity() {
      * Prepares the data needed for this activity.
      */
     private fun initViewModel() {
-        videoDetailViewModel.initVideo(intent.getParcelableExtra(CLICKED_VIDEO))
+        videoDetailViewModel.initVideo(intent.getParcelableExtra(CLICKED_VIDEO)!!)
 
         videoDetailViewModel.video.observeNonNull(this, this::initViews)
     }

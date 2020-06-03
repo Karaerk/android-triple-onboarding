@@ -17,11 +17,11 @@ import com.wearetriple.tripleonboarding.model.InfoTopic
 import kotlinx.android.synthetic.main.fragment_info.*
 
 
-class InfoFragment : Fragment() {
+class InfoFragment : Fragment(R.layout.fragment_info) {
 
     private lateinit var activityContext: AppCompatActivity
     private val infoTopicAdapter =
-        InfoTopicAdapter(arrayListOf()) { infoTopic: InfoTopic ->
+        InfoTopicAdapter { infoTopic: InfoTopic ->
             infoTopicClicked(
                 infoTopic
             )
@@ -70,8 +70,7 @@ class InfoFragment : Fragment() {
      */
     private fun initRecyclerView(list: List<InfoTopic>) {
         pbActivity.visibility = GONE
-        infoTopicAdapter.items.clear()
-        infoTopicAdapter.items.addAll(list)
+        infoTopicAdapter.items = list
         infoTopicAdapter.notifyDataSetChanged()
     }
 

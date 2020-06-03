@@ -12,9 +12,10 @@ import kotlinx.android.synthetic.main.item_map_level.view.*
  * Used to prepare recyclerview's items.
  */
 class MapLevelAdapter(
-    override var items: ArrayList<MapLevel>,
     override val clickListener: (MapLevel) -> Unit
-) : AbstractAdapter<MapLevel>(items, clickListener) {
+) : AbstractAdapter<MapLevel>(clickListener) {
+
+    override var items: List<MapLevel> = listOf()
 
     /**
      * Prepares the view before passing it to the RecyclerView.

@@ -12,9 +12,10 @@ import kotlinx.android.synthetic.main.item_answer.view.*
  * Used to prepare recyclerview's items.
  */
 class AnswerAdapter(
-    override val items: List<Answer>,
     override val clickListener: (Answer) -> Unit
-) : AbstractAdapter<Answer>(items, clickListener) {
+) : AbstractAdapter<Answer>(clickListener) {
+
+    override var items: List<Answer> = listOf()
 
     /**
      * Prepares the view before passing it to the RecyclerView.

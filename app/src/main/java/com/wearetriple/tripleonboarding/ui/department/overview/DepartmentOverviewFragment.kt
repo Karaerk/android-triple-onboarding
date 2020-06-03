@@ -15,22 +15,12 @@ import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.Department
 import kotlinx.android.synthetic.main.fragment_department_overview.*
 
-class DepartmentOverviewFragment : Fragment() {
+class DepartmentOverviewFragment : Fragment(R.layout.fragment_department_overview) {
 
     private lateinit var activityContext: AppCompatActivity
     private val departmentAdapter =
-        DepartmentOverviewAdapter(
-            arrayListOf()
-        ) { department -> onDepartmentClick(department) }
+        DepartmentOverviewAdapter { department -> onDepartmentClick(department) }
     private lateinit var departmentOverviewViewModel: DepartmentOverviewViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_department_overview, container, false)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -69,8 +59,7 @@ class DepartmentOverviewFragment : Fragment() {
      */
     private fun initRecyclerView(list: List<Department>) {
         pbActivity.visibility = View.GONE
-        departmentAdapter.items.clear()
-        departmentAdapter.items.addAll(list)
+        departmentAdapter.items = list
         departmentAdapter.notifyDataSetChanged()
     }
 

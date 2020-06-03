@@ -12,9 +12,10 @@ import kotlinx.android.synthetic.main.item_hour_book_topic.view.*
  * Used to prepare recyclerview's items.
  */
 class HourBookOverviewAdapter(
-    override var items: ArrayList<HourBookTopic>,
     override val clickListener: (HourBookTopic) -> Unit
-) : AbstractAdapter<HourBookTopic>(items, clickListener) {
+) : AbstractAdapter<HourBookTopic>(clickListener) {
+
+    override var items: List<HourBookTopic> = listOf()
 
     /**
      * Prepares the view before passing it to the RecyclerView.

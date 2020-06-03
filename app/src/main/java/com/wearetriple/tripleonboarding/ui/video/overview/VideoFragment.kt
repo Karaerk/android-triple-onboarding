@@ -18,24 +18,14 @@ import com.wearetriple.tripleonboarding.ui.video.detail.VideoDetailViewModel.Com
 import kotlinx.android.synthetic.main.fragment_video.*
 
 
-class VideoFragment : Fragment() {
+class VideoFragment : Fragment(R.layout.fragment_video) {
 
     private lateinit var activityContext: AppCompatActivity
     private val videoAdapter =
-        VideoAdapter(
-            arrayListOf()
-        ) { video: Video ->
+        VideoAdapter{ video: Video ->
             videoClicked(video)
         }
     private lateinit var videoViewModel: VideoViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_video, container, false)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -69,8 +59,7 @@ class VideoFragment : Fragment() {
      */
     private fun initRecyclerView(list: List<Video>) {
         pbActivity.visibility = View.GONE
-        videoAdapter.items.clear()
-        videoAdapter.items.addAll(list)
+        videoAdapter.items = list
         videoAdapter.notifyDataSetChanged()
     }
 

@@ -19,9 +19,10 @@ import kotlinx.android.synthetic.main.item_video.view.*
  * Used to prepare recyclerview's items.
  */
 class VideoAdapter(
-    override var items: ArrayList<Video>,
     override val clickListener: (Video) -> Unit
-) : AbstractAdapter<Video>(items, clickListener) {
+) : AbstractAdapter<Video>(clickListener) {
+
+    override var items: List<Video> = listOf()
 
     /**
      * Prepares the view before passing it to the RecyclerView.

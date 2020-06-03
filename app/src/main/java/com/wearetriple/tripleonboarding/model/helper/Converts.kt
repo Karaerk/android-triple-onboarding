@@ -5,12 +5,19 @@ import com.wearetriple.tripleonboarding.model.Game
 
 class Converts {
     @TypeConverter
-    fun fromGameEnum(value: Int): Game {
-        return value.let { Game.values()[it] }
+    fun fromGameEnum(value: String): Game {
+        return when(value) {
+            "Memory" -> Game.MEMORY
+            "Quiz" -> Game.QUIZ
+            else -> Game.QUIZ
+        }
     }
 
     @TypeConverter
-    fun gameEnumToInt(game: Game): Int {
-        return game.ordinal
+    fun gameEnumToString(game: Game): String {
+        return when(game) {
+            Game.MEMORY -> "Memory"
+            Game.QUIZ -> "Quiz"
+        }
     }
 }

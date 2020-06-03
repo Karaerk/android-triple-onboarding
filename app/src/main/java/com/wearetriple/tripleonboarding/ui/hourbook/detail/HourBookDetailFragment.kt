@@ -24,19 +24,11 @@ import com.wearetriple.tripleonboarding.ui.helper.CustomTabsHelper
 import kotlinx.android.synthetic.main.content_hour_book_detail.*
 import kotlinx.android.synthetic.main.fragment_hour_book_detail.*
 
-class HourBookDetailFragment : Fragment() {
+class HourBookDetailFragment : Fragment(R.layout.fragment_hour_book_detail) {
 
     private lateinit var activityContext: AppCompatActivity
     private lateinit var hourBookDetailViewModel: HourBookDetailViewModel
     private val args: HourBookDetailFragmentArgs by navArgs()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hour_book_detail, container, false)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -92,11 +84,10 @@ class HourBookDetailFragment : Fragment() {
         rvChild.visibility = VISIBLE
         rvChild.isFocusable = false
         val hourBookChildAdapter =
-            HourBookDetailAdapter(
-                list
-            ) { hourBookChild: HourBookChild ->
+            HourBookDetailAdapter{ hourBookChild: HourBookChild ->
                 hourBookChildClicked(hourBookChild)
             }
+        hourBookChildAdapter.items = list
         rvChild.layoutManager = LinearLayoutManager(activityContext, RecyclerView.VERTICAL, false)
         rvChild.adapter = hourBookChildAdapter
         hourBookChildAdapter.notifyDataSetChanged()

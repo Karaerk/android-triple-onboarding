@@ -18,22 +18,14 @@ import kotlinx.android.synthetic.main.fragment_info.pbActivity
 import kotlinx.android.synthetic.main.fragment_more.*
 
 
-class MoreFragment : Fragment() {
+class MoreFragment : Fragment(R.layout.fragment_more) {
 
     private lateinit var activityContext: AppCompatActivity
     private val itemsAdapter =
-        MoreAdapter(arrayListOf()) { item ->
+        MoreAdapter { item ->
             menuItemClicked(item)
         }
     private lateinit var moreViewModel: MoreViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_more, container, false)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -74,8 +66,7 @@ class MoreFragment : Fragment() {
      */
     private fun initRecyclerView(list: List<String>) {
         pbActivity.visibility = GONE
-        itemsAdapter.items.clear()
-        itemsAdapter.items.addAll(list)
+        itemsAdapter.items = list
         itemsAdapter.notifyDataSetChanged()
     }
 

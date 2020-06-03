@@ -15,26 +15,16 @@ import com.wearetriple.tripleonboarding.extension.observeNonNull
 import com.wearetriple.tripleonboarding.model.HourBookTopic
 import kotlinx.android.synthetic.main.fragment_hour_book_overview.*
 
-class HourBookOverviewFragment : Fragment() {
+class HourBookOverviewFragment : Fragment(R.layout.fragment_hour_book_overview) {
 
     private lateinit var activityContext: AppCompatActivity
     private val hourBookTopicAdapter =
-        HourBookOverviewAdapter(
-            arrayListOf()
-        ) { infoTopic: HourBookTopic ->
+        HourBookOverviewAdapter{ infoTopic: HourBookTopic ->
             hourBookTopicClicked(
                 infoTopic
             )
         }
     private lateinit var hourBookOverviewViewModel: HourBookOverviewViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hour_book_overview, container, false)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -73,8 +63,7 @@ class HourBookOverviewFragment : Fragment() {
      */
     private fun initRecyclerView(list: List<HourBookTopic>) {
         pbActivity.visibility = View.GONE
-        hourBookTopicAdapter.items.clear()
-        hourBookTopicAdapter.items.addAll(list)
+        hourBookTopicAdapter.items = list
         hourBookTopicAdapter.notifyDataSetChanged()
     }
 
