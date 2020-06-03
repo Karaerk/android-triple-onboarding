@@ -26,19 +26,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.microsoft.identity.client.BrowserTabActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:scheme="msauth"
-                    android:host="com.wearetriple.tripleonboarding"
-                    android:path="/NqV/j2Bl2uf11IrNPWHha3zrnts=" />
-            </intent-filter>
-        </activity>
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
