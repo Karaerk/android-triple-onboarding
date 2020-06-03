@@ -75,21 +75,28 @@ class MemoryFragment : Fragment(R.layout.fragment_memory) {
      * shown the right information at the right time.
      */
     private fun updateGameScreen() {
-        memoryViewModel.gameStatus.observeNonNull(viewLifecycleOwner, this::updateGameStatus)
         memoryViewModel.currentQuestion.observeNonNull(
             viewLifecycleOwner,
             this::updateCurrentQuestion
         )
         memoryViewModel.message.observeNonNull(viewLifecycleOwner, this::showMessageToUser)
         memoryViewModel.gameOver.observeNonNull(viewLifecycleOwner, this::observeGameOver)
+        memoryViewModel.userScore.observeNonNull(viewLifecycleOwner, this::observeUserScore)
+        memoryViewModel.userProgress.observeNonNull(viewLifecycleOwner, this::observeUserProgress)
     }
 
     /**
-     * Updates the game's status shown on the screen.
+     * Lets the user know how many points have been scored.
      */
-    private fun updateGameStatus() {
-        tvStatus.text = memoryViewModel.getGameStatus()
-        tvScore.text = memoryViewModel.getScore()
+    private fun observeUserScore(message: String) {
+        tvScore.text = message
+    }
+
+    /**
+     * Lets the user know what the state of the current session is.
+     */
+    private fun observeUserProgress(message: String) {
+        tvStatus.text = message
     }
 
     /**

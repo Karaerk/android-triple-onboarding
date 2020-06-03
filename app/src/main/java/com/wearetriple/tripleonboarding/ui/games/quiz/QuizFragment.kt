@@ -74,21 +74,28 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
      * shown the right information at the right time.
      */
     private fun updateGameScreen() {
-        quizViewModel.gameStatus.observeNonNull(viewLifecycleOwner, this::updateGameStatus)
         quizViewModel.currentQuestion.observeNonNull(
             viewLifecycleOwner,
             this::updateCurrentQuestion
         )
         quizViewModel.message.observeNonNull(viewLifecycleOwner, this::showMessageToUser)
         quizViewModel.gameOver.observeNonNull(viewLifecycleOwner, this::observeGameOver)
+        quizViewModel.userScore.observeNonNull(viewLifecycleOwner, this::observeUserScore)
+        quizViewModel.userProgress.observeNonNull(viewLifecycleOwner, this::observeUserProgress)
     }
 
     /**
-     * Updates the game's status shown on the screen.
+     * Lets the user know how many points have been scored.
      */
-    private fun updateGameStatus() {
-        tvStatus.text = quizViewModel.getGameStatus()
-        tvScore.text = quizViewModel.getScore()
+    private fun observeUserScore(message: String) {
+        tvScore.text = message
+    }
+
+    /**
+     * Lets the user know what the state of the current session is.
+     */
+    private fun observeUserProgress(message: String) {
+        tvStatus.text = message
     }
 
     /**

@@ -129,6 +129,11 @@
         <item name="android:paddingBottom">@dimen/default_grid_btn_padding</item>
     </style>
 
+    <style name="AppTheme.Widget.Button.Round.Pink.Medium" parent="AppTheme.Widget.Button.Round.Pink">
+        <item name="android:paddingTop">@dimen/default_view_margin</item>
+        <item name="android:paddingBottom">@dimen/default_view_margin</item>
+    </style>
+
     <style name="AppTheme.Widget.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/primary_pink</item>
         <item name="android:textAppearanceSmall">@style/AppTheme.Text.Light</item>

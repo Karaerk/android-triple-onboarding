@@ -2,9 +2,9 @@
     <string name="app_name">Triple Onboarding</string>
 
     <string name="title_quiz_screen">Triple Quiz</string>
-    <string name="title_map_screen">Plattegrond</string>
+    <string name="title_map_screen">Map</string>
     <string name="title_dialog_game">YOU did IT!</string>
-    <string name="title_info_screen">Informatie</string>
+    <string name="title_info_screen">Info</string>
     <string name="title_games_screen">Games</string>
     <string name="title_facts_screen">Feiten &amp; Weetjes</string>
     <string name="title_facts_screen_short">Feiten</string>

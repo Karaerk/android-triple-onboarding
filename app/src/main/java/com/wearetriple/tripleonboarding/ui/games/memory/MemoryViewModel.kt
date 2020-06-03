@@ -16,11 +16,13 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     private val questionsLiveData = MutableLiveData<List<MemoryQuestion>>()
     private val highscore = MutableLiveData<GameResult>()
     private val leftoverQuestions = MutableLiveData<ArrayList<MemoryQuestion>>(arrayListOf())
+    private val gameStatus = MutableLiveData(GameStatus())
     val questions: LiveData<List<MemoryQuestion>> = questionsLiveData
 
-    val gameStatus = MutableLiveData(GameStatus())
     val currentQuestion = MutableLiveData<MemoryQuestion>()
     val message = MutableLiveData<String>()
+    val userScore = MutableLiveData<String>()
+    val userProgress = MutableLiveData<String>()
     val gameOver = MutableLiveData(false)
 
     companion object {
@@ -63,6 +65,8 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
      */
     private fun resetData() {
         gameStatus.value = GameStatus()
+        userScore.value = getScore()
+        userProgress.value = getGameStatus()
         leftoverQuestions.value!!.clear()
         leftoverQuestions.value!!.addAll(questionsLiveData.value!!)
         gameOver.value = false
@@ -71,7 +75,7 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * @return A String representation of the game's status.
      */
-    fun getGameStatus(): String {
+    private fun getGameStatus(): String {
         return context.getString(
             R.string.label_game_status,
             getQuestionNumber(),
@@ -82,7 +86,7 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * @return A String representation of the user's current score.
      */
-    fun getScore(): String {
+    private fun getScore(): String {
         return context.getString(R.string.label_game_score, gameStatus.value!!.totalScore)
     }
 
@@ -163,6 +167,8 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
         }
 
         gameStatus.value = GameStatus(totalScore = gameStatus.value!!.totalScore)
+        userScore.value = getScore()
+        userProgress.value = getGameStatus()
     }
 
     /**
