@@ -143,7 +143,7 @@ class MemoryFragment : Fragment() {
             .setCancelable(false)
             .setPositiveButton(getString(R.string.btn_leave_game)) { dialog, _ ->
                 dialog.dismiss()
-                findNavController().navigate(R.id.action_memoryFragment_to_gamesFragment)
+                findNavController().navigateUp()
             }
             .setNegativeButton(getString(R.string.btn_replay_game)) { dialog, _ ->
                 dialog.cancel()
