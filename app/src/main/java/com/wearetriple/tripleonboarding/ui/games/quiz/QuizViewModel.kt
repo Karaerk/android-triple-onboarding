@@ -15,13 +15,13 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = EntityRepository(application)
     private val questionsLiveData = MutableLiveData<List<QuizQuestion>>()
     private val highscore = MutableLiveData<GameResult>()
+    private val leftoverQuestions = MutableLiveData<ArrayList<QuizQuestion>>(arrayListOf())
     val questions: LiveData<List<QuizQuestion>> = questionsLiveData
 
-    var gameStatus = MutableLiveData(GameStatus())
-    private var leftoverQuestions = MutableLiveData<ArrayList<QuizQuestion>>(arrayListOf())
-    var currentQuestion = MutableLiveData<QuizQuestion>()
-    var message = MutableLiveData<String>()
-    var gameOver = MutableLiveData(false)
+    val gameStatus = MutableLiveData(GameStatus())
+    val currentQuestion = MutableLiveData<QuizQuestion>()
+    val message = MutableLiveData<String>()
+    val gameOver = MutableLiveData(false)
 
     companion object {
         private const val DATABASE_KEY = "quiz"

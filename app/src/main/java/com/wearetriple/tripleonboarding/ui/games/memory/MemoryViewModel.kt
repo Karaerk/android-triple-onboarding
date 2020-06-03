@@ -15,13 +15,13 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     private val repository = EntityRepository(application)
     private val questionsLiveData = MutableLiveData<List<MemoryQuestion>>()
     private val highscore = MutableLiveData<GameResult>()
+    private val leftoverQuestions = MutableLiveData<ArrayList<MemoryQuestion>>(arrayListOf())
     val questions: LiveData<List<MemoryQuestion>> = questionsLiveData
 
-    var gameStatus = MutableLiveData(GameStatus())
-    private var leftoverQuestions = MutableLiveData<ArrayList<MemoryQuestion>>(arrayListOf())
-    var currentQuestion = MutableLiveData<MemoryQuestion>()
-    var message = MutableLiveData<String>()
-    var gameOver = MutableLiveData(false)
+    val gameStatus = MutableLiveData(GameStatus())
+    val currentQuestion = MutableLiveData<MemoryQuestion>()
+    val message = MutableLiveData<String>()
+    val gameOver = MutableLiveData(false)
 
     companion object {
         private const val DATABASE_KEY = "memory"
