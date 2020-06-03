@@ -2,22 +2,20 @@ package com.wearetriple.tripleonboarding.ui.games.memory
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.wearetriple.tripleonboarding.R
 import com.wearetriple.tripleonboarding.database.EntityRepository
 import com.wearetriple.tripleonboarding.model.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MemoryViewModel(application: Application) : AndroidViewModel(application) {
     private val context = application
     private val repository = EntityRepository(application)
-    private val questionsLiveData = MediatorLiveData<List<MemoryQuestion>>()
+    private val questionsLiveData = MutableLiveData<List<MemoryQuestion>>()
     private val highscore = MutableLiveData<GameResult>()
-    var questions = questionsLiveData
+    val questions: LiveData<List<MemoryQuestion>> = questionsLiveData
 
     var gameStatus = MutableLiveData(GameStatus())
     private var leftoverQuestions = MutableLiveData<ArrayList<MemoryQuestion>>(arrayListOf())
@@ -40,21 +38,18 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * Posts the user's latest highscore.
      */
-    private suspend fun postHighscore() = withContext(Dispatchers.IO) {
+    private suspend fun postHighscore() {
         highscore.postValue(repository.getHighscoreOfGame(Game.MEMORY))
     }
 
     /**
      * Posts a new set of data inside the live data attribute.
      */
-    private suspend fun postLiveData() = withContext(Dispatchers.IO) {
+    private suspend fun postLiveData() {
         val data = repository.getAllFromTable<MemoryQuestion>(DATABASE_KEY)
         questionsLiveData.postValue(data)
     }
 
-    /**
-     * Prepares a new game by resetting data and getting the next question ready
-     */
     /**
      * Prepares a new game by resetting data and getting the next question ready
      */
@@ -119,10 +114,8 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
             currentHighscore == null -> {
                 val newHighscore = GameResult(Game.MEMORY, currentTotalScore)
                 viewModelScope.launch {
-                    withContext(Dispatchers.IO) {
-                        newHighscore.id = repository.insertHighscore(newHighscore)
-                        highscore.postValue(newHighscore)
-                    }
+                    newHighscore.id = repository.insertHighscore(newHighscore)
+                    highscore.postValue(newHighscore)
                 }
 
             }
@@ -130,9 +123,7 @@ class MemoryViewModel(application: Application) : AndroidViewModel(application) 
                 currentHighscore.highscore = currentTotalScore
 
                 viewModelScope.launch {
-                    withContext(Dispatchers.IO) {
-                        repository.updateHighscore(currentHighscore)
-                    }
+                    repository.updateHighscore(currentHighscore)
                 }
             }
             else -> {
