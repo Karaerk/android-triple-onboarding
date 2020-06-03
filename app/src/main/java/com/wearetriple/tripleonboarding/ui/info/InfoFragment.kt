@@ -1,12 +1,9 @@
 package com.wearetriple.tripleonboarding.ui.info
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +16,6 @@ import kotlinx.android.synthetic.main.fragment_info.*
 
 class InfoFragment : Fragment(R.layout.fragment_info) {
 
-    private lateinit var activityContext: AppCompatActivity
     private val infoTopicAdapter =
         InfoTopicAdapter { infoTopic: InfoTopic ->
             infoTopicClicked(
@@ -28,22 +24,12 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         }
     private lateinit var infoViewModel: InfoViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        activityContext = (activity as AppCompatActivity)
-        activityContext.supportActionBar?.show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initViews()
         initViewModel()
+        requireActivity().actionBar?.show()
     }
 
     /**
@@ -51,7 +37,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
      */
     private fun initViews() {
         rvInfoTopics.layoutManager =
-            LinearLayoutManager(activityContext, RecyclerView.VERTICAL, false)
+            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
         rvInfoTopics.adapter = infoTopicAdapter
     }
 
@@ -59,7 +45,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
      * Prepares the data needed for this fragment.
      */
     private fun initViewModel() {
-        infoViewModel = ViewModelProvider(activityContext).get(InfoViewModel::class.java)
+        infoViewModel = ViewModelProvider(requireActivity()).get(InfoViewModel::class.java)
 
         infoViewModel.infoTopics.observeNonNull(viewLifecycleOwner, this::initRecyclerView)
 
@@ -78,7 +64,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
      * Opens up a pop-up with details included about the clicked topic.
      */
     private fun infoTopicClicked(infoTopic: InfoTopic) {
-        val dialogBuilder = AlertDialog.Builder(activityContext)
+        val dialogBuilder = AlertDialog.Builder(requireActivity())
 
         dialogBuilder.setMessage(infoTopic.content)
             .setCancelable(false)

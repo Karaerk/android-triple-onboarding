@@ -3,12 +3,9 @@ package com.wearetriple.tripleonboarding.ui.hourbook.detail
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
-import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
@@ -26,26 +23,23 @@ import kotlinx.android.synthetic.main.fragment_hour_book_detail.*
 
 class HourBookDetailFragment : Fragment(R.layout.fragment_hour_book_detail) {
 
-    private lateinit var activityContext: AppCompatActivity
     private lateinit var hourBookDetailViewModel: HourBookDetailViewModel
     private val args: HourBookDetailFragmentArgs by navArgs()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        activityContext = (activity as AppCompatActivity)
-        activityContext.supportActionBar?.show()
-
-        hourBookDetailViewModel =
-            ViewModelProvider(activityContext).get(HourBookDetailViewModel::class.java)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initViewModel()
+        requireActivity().actionBar?.show()
     }
 
     /**
      * Prepares the data needed for this fragment.
      */
     private fun initViewModel() {
+        hourBookDetailViewModel =
+            ViewModelProvider(requireActivity()).get(HourBookDetailViewModel::class.java)
+
         hourBookDetailViewModel.initTopic(args.hourBookTopic)
 
         hourBookDetailViewModel.hourBookTopic.observeNonNull(viewLifecycleOwner, this::initDetails)
@@ -84,11 +78,11 @@ class HourBookDetailFragment : Fragment(R.layout.fragment_hour_book_detail) {
         rvChild.visibility = VISIBLE
         rvChild.isFocusable = false
         val hourBookChildAdapter =
-            HourBookDetailAdapter{ hourBookChild: HourBookChild ->
+            HourBookDetailAdapter { hourBookChild: HourBookChild ->
                 hourBookChildClicked(hourBookChild)
             }
         hourBookChildAdapter.items = list
-        rvChild.layoutManager = LinearLayoutManager(activityContext, RecyclerView.VERTICAL, false)
+        rvChild.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
         rvChild.adapter = hourBookChildAdapter
         hourBookChildAdapter.notifyDataSetChanged()
     }
@@ -100,14 +94,14 @@ class HourBookDetailFragment : Fragment(R.layout.fragment_hour_book_detail) {
         var url = hourBookDetailViewModel.hourBookTopic.value!!.action?.url!!
         url = hourBookDetailViewModel.getProperlyFormattedUrl(url)
 
-        CustomTabsHelper.launchUrl(activityContext, url)
+        CustomTabsHelper.launchUrl(requireActivity(), url)
     }
 
     /**
      * Opens up a pop-up with details included about the clicked topic.
      */
     private fun hourBookChildClicked(hourBookChild: HourBookChild) {
-        val dialogBuilder = AlertDialog.Builder(activityContext)
+        val dialogBuilder = AlertDialog.Builder(requireActivity())
 
         dialogBuilder.setMessage(
             HtmlCompat.fromHtml(

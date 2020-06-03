@@ -1,11 +1,8 @@
 package com.wearetriple.tripleonboarding.ui.more
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -20,32 +17,29 @@ import kotlinx.android.synthetic.main.fragment_more.*
 
 class MoreFragment : Fragment(R.layout.fragment_more) {
 
-    private lateinit var activityContext: AppCompatActivity
     private val itemsAdapter =
         MoreAdapter { item ->
             menuItemClicked(item)
         }
     private lateinit var moreViewModel: MoreViewModel
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        activityContext = (activity as AppCompatActivity)
-        activityContext.supportActionBar?.show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initViews()
         initViewModel()
+        requireActivity().actionBar?.show()
     }
 
     /**
      * Prepares the views inside this fragment.
      */
     private fun initViews() {
-        rvItems.layoutManager = LinearLayoutManager(activityContext, RecyclerView.VERTICAL, false)
+        rvItems.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
         rvItems.adapter = itemsAdapter
         rvItems.addItemDecoration(
             DividerItemDecoration(
-                activityContext,
+                requireActivity(),
                 DividerItemDecoration.VERTICAL
             )
         )
@@ -55,7 +49,7 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
      * Prepares the data needed for this fragment.
      */
     private fun initViewModel() {
-        moreViewModel = ViewModelProvider(activityContext).get(MoreViewModel::class.java)
+        moreViewModel = ViewModelProvider(requireActivity()).get(MoreViewModel::class.java)
 
         moreViewModel.items.observeNonNull(viewLifecycleOwner, this::initRecyclerView)
 

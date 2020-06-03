@@ -3,7 +3,6 @@ package com.wearetriple.tripleonboarding.ui.fact
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,30 +14,27 @@ import kotlinx.android.synthetic.main.fragment_facts.*
 
 class FactFragment : Fragment(R.layout.fragment_facts) {
 
-    private lateinit var activityContext: AppCompatActivity
     private val factAdapter =
-        FactAdapter() { fact: Fact ->
+        FactAdapter { fact: Fact ->
             factClicked(
                 fact
             )
         }
     private lateinit var factViewModel: FactViewModel
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        activityContext = (activity as AppCompatActivity)
-        activityContext.supportActionBar?.show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initViews()
         initViewModel()
+        requireActivity().actionBar?.show()
     }
 
     /**
      * Prepares the views inside this fragment.
      */
     private fun initViews() {
-        rvFacts.layoutManager = LinearLayoutManager(activityContext, RecyclerView.VERTICAL, false)
+        rvFacts.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
         rvFacts.adapter = factAdapter
     }
 
@@ -46,7 +42,7 @@ class FactFragment : Fragment(R.layout.fragment_facts) {
      * Prepares the data needed for this fragment.
      */
     private fun initViewModel() {
-        factViewModel = ViewModelProvider(activityContext).get(FactViewModel::class.java)
+        factViewModel = ViewModelProvider(requireActivity()).get(FactViewModel::class.java)
 
         factViewModel.facts.observeNonNull(viewLifecycleOwner, this::initRecyclerView)
     }
@@ -64,7 +60,7 @@ class FactFragment : Fragment(R.layout.fragment_facts) {
      * Opens up a pop-up with details included about the clicked fact.
      */
     private fun factClicked(fact: Fact) {
-        val dialogBuilder = AlertDialog.Builder(activityContext)
+        val dialogBuilder = AlertDialog.Builder(requireActivity())
 
         dialogBuilder.setMessage(fact.content)
             .setCancelable(false)

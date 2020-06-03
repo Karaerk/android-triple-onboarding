@@ -1,10 +1,7 @@
 package com.wearetriple.tripleonboarding.ui.games
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.wearetriple.tripleonboarding.R
@@ -12,15 +9,11 @@ import kotlinx.android.synthetic.main.fragment_games.*
 
 class GamesFragment : Fragment(R.layout.fragment_games) {
 
-    private lateinit var activityContext: AppCompatActivity
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        activityContext = (activity as AppCompatActivity)
-        activityContext.supportActionBar?.show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initViews()
+        requireActivity().actionBar?.show()
     }
 
     /**

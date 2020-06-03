@@ -1,10 +1,7 @@
 package com.wearetriple.tripleonboarding.ui.hourbook.overview
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,23 +14,20 @@ import kotlinx.android.synthetic.main.fragment_hour_book_overview.*
 
 class HourBookOverviewFragment : Fragment(R.layout.fragment_hour_book_overview) {
 
-    private lateinit var activityContext: AppCompatActivity
     private val hourBookTopicAdapter =
-        HourBookOverviewAdapter{ infoTopic: HourBookTopic ->
+        HourBookOverviewAdapter { infoTopic: HourBookTopic ->
             hourBookTopicClicked(
                 infoTopic
             )
         }
     private lateinit var hourBookOverviewViewModel: HourBookOverviewViewModel
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        activityContext = (activity as AppCompatActivity)
-        activityContext.supportActionBar?.show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initViews()
         initViewModel()
+        requireActivity().actionBar?.show()
     }
 
     /**
@@ -41,7 +35,7 @@ class HourBookOverviewFragment : Fragment(R.layout.fragment_hour_book_overview) 
      */
     private fun initViews() {
         rvHourTopics.layoutManager =
-            LinearLayoutManager(activityContext, RecyclerView.VERTICAL, false)
+            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
         rvHourTopics.adapter = hourBookTopicAdapter
     }
 
@@ -50,7 +44,7 @@ class HourBookOverviewFragment : Fragment(R.layout.fragment_hour_book_overview) 
      */
     private fun initViewModel() {
         hourBookOverviewViewModel =
-            ViewModelProvider(activityContext).get(HourBookOverviewViewModel::class.java)
+            ViewModelProvider(requireActivity()).get(HourBookOverviewViewModel::class.java)
 
         hourBookOverviewViewModel.hourBookTopics.observeNonNull(
             viewLifecycleOwner,

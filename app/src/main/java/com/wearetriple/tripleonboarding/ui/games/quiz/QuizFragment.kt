@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -23,24 +21,22 @@ import kotlinx.android.synthetic.main.item_game_dialog.view.*
 
 class QuizFragment : Fragment(R.layout.fragment_quiz) {
 
-    private lateinit var activityContext: AppCompatActivity
     private lateinit var quizViewModel: QuizViewModel
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        activityContext = (activity as AppCompatActivity)
-        activityContext.supportActionBar?.show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initViews()
         initViewModel()
+        requireActivity().actionBar?.show()
     }
 
     /**
      * Prepares the views inside this fragment.
      */
     private fun initViews() {
-        rvAnswers.layoutManager = LinearLayoutManager(activityContext, RecyclerView.VERTICAL, true)
+        rvAnswers.layoutManager =
+            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, true)
     }
 
     /**
@@ -48,7 +44,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
      */
     private fun initViewModel() {
         quizViewModel =
-            ViewModelProvider(activityContext).get(QuizViewModel::class.java)
+            ViewModelProvider(requireActivity()).get(QuizViewModel::class.java)
 
         quizViewModel.questions.observeNonNull(viewLifecycleOwner, this::initGame)
     }
@@ -109,29 +105,28 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
      * Shows a new message to the user through a [Toast].
      */
     private fun showMessageToUser(message: String) {
-        Toast.makeText(activityContext, message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
     }
 
     /**
      * Shows the game over screen whenever the game is done.
      */
     private fun observeGameOver(boolean: Boolean) {
-        if (boolean) {
+        if (boolean)
             showGameOverDialog()
-        }
     }
 
     /**
      * Shows a dialog to the user with the options to leave the game or to restart the game.
      */
     private fun showGameOverDialog() {
-        val viewInflated = LayoutInflater.from(activityContext)
+        val viewInflated = LayoutInflater.from(requireActivity())
             .inflate(R.layout.item_game_dialog, view as ViewGroup?, false)
 
         viewInflated.tvEndResult.text = quizViewModel.getEndResult()
         viewInflated.tvHighscore.text = quizViewModel.getHighscore()
 
-        val dialogBuilder = AlertDialog.Builder(activityContext)
+        val dialogBuilder = AlertDialog.Builder(requireActivity())
 
         dialogBuilder.setView(viewInflated)
             .setCancelable(false)

@@ -25,8 +25,6 @@ class VideoDetailActivity : AppCompatActivity(R.layout.activity_full_screen_vide
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         supportActionBar?.hide()
-        videoDetailViewModel =
-            ViewModelProvider(this@VideoDetailActivity).get(VideoDetailViewModel::class.java)
 
         initViewModel()
     }
@@ -51,6 +49,9 @@ class VideoDetailActivity : AppCompatActivity(R.layout.activity_full_screen_vide
      * Prepares the data needed for this activity.
      */
     private fun initViewModel() {
+        videoDetailViewModel =
+            ViewModelProvider(this@VideoDetailActivity).get(VideoDetailViewModel::class.java)
+
         videoDetailViewModel.initVideo(intent.getParcelableExtra(CLICKED_VIDEO)!!)
 
         videoDetailViewModel.video.observeNonNull(this, this::initViews)

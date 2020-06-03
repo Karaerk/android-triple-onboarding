@@ -2,10 +2,7 @@ package com.wearetriple.tripleonboarding.ui.video.overview
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,28 +17,25 @@ import kotlinx.android.synthetic.main.fragment_video.*
 
 class VideoFragment : Fragment(R.layout.fragment_video) {
 
-    private lateinit var activityContext: AppCompatActivity
     private val videoAdapter =
-        VideoAdapter{ video: Video ->
+        VideoAdapter { video: Video ->
             videoClicked(video)
         }
     private lateinit var videoViewModel: VideoViewModel
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        activityContext = (activity as AppCompatActivity)
-        activityContext.supportActionBar?.show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initViews()
         initViewModel()
+        requireActivity().actionBar?.show()
     }
 
     /**
      * Prepares the views inside this fragment.
      */
     private fun initViews() {
-        rvVideo.layoutManager = LinearLayoutManager(activityContext, RecyclerView.VERTICAL, false)
+        rvVideo.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
         rvVideo.adapter = videoAdapter
     }
 
@@ -49,7 +43,7 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
      * Prepares the data needed for this fragment.
      */
     private fun initViewModel() {
-        videoViewModel = ViewModelProvider(activityContext).get(VideoViewModel::class.java)
+        videoViewModel = ViewModelProvider(requireActivity()).get(VideoViewModel::class.java)
 
         videoViewModel.video.observeNonNull(viewLifecycleOwner, this::initRecyclerView)
     }
@@ -64,7 +58,7 @@ class VideoFragment : Fragment(R.layout.fragment_video) {
     }
 
     private fun videoClicked(video: Video) {
-        val intent = Intent(activityContext, VideoDetailActivity::class.java)
+        val intent = Intent(requireActivity(), VideoDetailActivity::class.java)
         intent.putExtra(CLICKED_VIDEO, video)
         startActivity(intent)
     }

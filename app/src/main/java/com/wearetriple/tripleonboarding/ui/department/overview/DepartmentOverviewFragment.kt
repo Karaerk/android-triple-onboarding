@@ -1,10 +1,7 @@
 package com.wearetriple.tripleonboarding.ui.department.overview
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,19 +14,16 @@ import kotlinx.android.synthetic.main.fragment_department_overview.*
 
 class DepartmentOverviewFragment : Fragment(R.layout.fragment_department_overview) {
 
-    private lateinit var activityContext: AppCompatActivity
     private val departmentAdapter =
         DepartmentOverviewAdapter { department -> onDepartmentClick(department) }
     private lateinit var departmentOverviewViewModel: DepartmentOverviewViewModel
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        activityContext = (activity as AppCompatActivity)
-        activityContext.supportActionBar?.show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initViews()
         initViewModel()
+        requireActivity().actionBar?.show()
     }
 
     /**
@@ -37,7 +31,7 @@ class DepartmentOverviewFragment : Fragment(R.layout.fragment_department_overvie
      */
     private fun initViews() {
         rvDepartments.layoutManager =
-            LinearLayoutManager(activityContext, RecyclerView.VERTICAL, false)
+            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
         rvDepartments.adapter = departmentAdapter
     }
 
@@ -46,7 +40,7 @@ class DepartmentOverviewFragment : Fragment(R.layout.fragment_department_overvie
      */
     private fun initViewModel() {
         departmentOverviewViewModel =
-            ViewModelProvider(activityContext).get(DepartmentOverviewViewModel::class.java)
+            ViewModelProvider(requireActivity()).get(DepartmentOverviewViewModel::class.java)
 
         departmentOverviewViewModel.departments.observeNonNull(
             viewLifecycleOwner,
