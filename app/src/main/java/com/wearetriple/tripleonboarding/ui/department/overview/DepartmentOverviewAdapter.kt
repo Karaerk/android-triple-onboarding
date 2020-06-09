@@ -1,7 +1,6 @@
 package com.wearetriple.tripleonboarding.ui.department.overview
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import com.wearetriple.tripleonboarding.R
 import com.wearetriple.tripleonboarding.model.Department
 import com.wearetriple.tripleonboarding.ui.helper.AbstractAdapter
 import kotlinx.android.synthetic.main.item_department_overview.view.*
+
 
 /**
  * Used to prepare recyclerview's items.
@@ -46,8 +46,9 @@ class DepartmentOverviewAdapter(
                 .load(item.thumbnail)
                 .thumbnail(thumbnailSize)
                 .apply(reqOpt)
-                .placeholder(ColorDrawable(Color.WHITE))
+                .placeholder(R.drawable.triple_icon)
                 .into(itemView.ivDepartmentThumbnail)
+
         }
     }
 

@@ -58,7 +58,7 @@ class VideoAdapter(
                     .load(item.thumbnail)
                     .thumbnail(thumbnailSize)
                     .apply(requestOptions)
-                    .placeholder(ColorDrawable(Color.WHITE))
+                    .placeholder(R.drawable.triple_icon)
                     .into(itemView.ivVideoThumbnail)
             } else {
                 generateThumbnail(item)
@@ -75,7 +75,7 @@ class VideoAdapter(
                 .load(item.url)
                 .thumbnail(thumbnailSize)
                 .apply(requestOptions)
-                .placeholder(ColorDrawable(Color.WHITE))
+                .placeholder(R.drawable.triple_icon)
                 .into(itemView.ivVideoThumbnail)
         }
     }

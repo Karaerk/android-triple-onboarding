@@ -49,7 +49,7 @@ class DepartmentDetailFragment : Fragment(R.layout.fragment_department_detail) {
             .load(department.image)
             .thumbnail(thumbnailSize)
             .apply(reqOpt)
-            .placeholder(ColorDrawable(Color.WHITE))
+            .placeholder(R.drawable.triple_icon)
             .into(ivDepartment)
 
         tvContent.text = HtmlCompat.fromHtml(department.content, HtmlCompat.FROM_HTML_MODE_LEGACY)
