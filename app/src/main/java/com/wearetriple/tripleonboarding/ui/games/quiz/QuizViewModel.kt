@@ -198,14 +198,11 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     private fun updateGameStatusAfterAnswer(correctAnswer: Boolean) {
         if (correctAnswer) {
             val status = gameStatus.value!!
-            status.currentCorrectAnswers++
 
-            if (isAllCorrectAnswersFound()) {
                 val earnedPoints = MAX_POINTS_PER_QUESTION.minus(status.currentWrongAnswers)
                 status.totalScore += if (earnedPoints > 0) earnedPoints else 0
                 leftoverQuestions.value!!.remove(currentQuestion.value)
                 prepareNextQuestion()
-            }
         } else {
             val status = gameStatus.value!!
             status.currentWrongAnswers++
@@ -223,16 +220,5 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
             numberOfQuestions -> numberOfQuestions
             else -> difference + 1
         }
-    }
-
-    /**
-     * Checks if all possible answers from a question is found.
-     */
-    private fun isAllCorrectAnswersFound(): Boolean {
-        val numberOfCorrectAnswers =
-            currentQuestion.value!!.answer.filter { answer -> answer.correct == CORRECT_ANSWER }
-                .size
-
-        return (gameStatus.value!!.currentCorrectAnswers == numberOfCorrectAnswers)
     }
 }
